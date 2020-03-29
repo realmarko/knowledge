@@ -1,0 +1,74 @@
+SiteCore 
+We can create templates to put the fields inside 
+Also we can create a _Base templates to apply inheritence
+in this way we set inheritence
+	GenericPage - inherits from _Base Page, _Base Description						
+	
+Data Template Inheritance
+	 important to note that data templates can only inherit one set of presentation details
+	 If a template inherits from two templates, and both have presentation details, only the first template’s presentation details in the inheritance list will be used
+	Helix, a set of Sitecore architecture principles and guidelines authored and championed by Sitecore architects
+Working with Standard Values
+	values can have the following types of defaults, among others:
+		Default field values
+		Insert options
+		Presentation details
+		Workflow
+	Tokens are replaced during item creation with dynamic values
+	to create Custom Standard Value Tokens we need to inherit from ExpandInitialFieldValueProcessor
+CONFIGURING INSERT OPTIONS
+	Only administrators can add content or folders in the content tree, unless you specify insert options that allow non-admins the ability to create content specifically permitted within that folder
+CREATING OUR BRANCH TEMPLATES
+	create a branch template will automatically add the Components folder below the page so we don’t have to configure it manually
+MANAGING RICH MEDIA
+4. Back-End Dev Architectures
+	3 layers
+		Project Layer
+		Feature Layer
+		Foundation Layer
+		
+		
+/********************************************************************************************************/		
+SiteCore has three main content databases
+	Core: UI definitions and membership tables
+	Master: the content you edit through the content editor or experience editor
+	Web: content used for the live website
+	
+	We always work in Master Database and after we publish to Web Database
+/********************************************************************************************************/
+to create publish restrictions
+menu publish=> change
+	there we have the options version, Item, Target
+/********************************************************************************************************/
+Questions
+1. Why you should not add items in Context Database
+	You should never update Items directly to the web database as the Item may be overridden with the next publishing. 
+	Rather, select the correct content database; then update the Item and, finally, programmatically publish the Item.
+	
+3. Why do you need Insert Options?
+	Insert Options restrict what type of items that you can add as the child of an another item.
+/********************************************************************************************************/
+xConnect and the xDB
+	xConnect is the service layer that sits in between the xDB Collection database and xDB index, and any trusted client or device that wants to read, write, or search contact and interaction data. 
+	No other system has direct access to the xDB Collection database or the xDB index.
+	xConnect only supports the oData JSON format.
+/********************************************************************************************************/
+Get Item by path
+	Sitecore.Context.Database.GetItem(homePath)
+To render a view(partial view) in other view
+	@Html.Sitecore().Rendering("{764C9697-EA31-4409-8208-0CAECBD76500}") //statically
+To render a view(partial view) in other view dynamically
+	@Html.Sitecore().Placeholder("breadcrumb") //dynamically
+To return MultilistField
+	MultilistField multilistField = Sitecore.Context.Item.Fields["Carousel Slides"];
+Placeholder setting is in 
+	/sitecore/layout/Placeholder Settings
+There are two types of placeholder settings: 
+	global placeholder settings 
+	data template specific placeholder settings.
+To restrict controls on placeholders
+	We need to add the allowed controls in Allowed Controls field
+No presentation details = no layout error
+Best practice => set pre3sentation details on Standard Values
+
+Sitecore Layouts are .cshtml files sitecore/layout/layout 
