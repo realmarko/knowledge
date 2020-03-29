@@ -1,0 +1,189 @@
+/************************************************************************************************************************/
+Benefits
+	cross platform
+	One programming model for MVC and Web API
+	Dependency Injection
+	Testability
+	Open-source
+	Modular
+	
+can be hosted on
+	IIS
+	Apache
+	DOcker
+	Self-host in your own process
+	
+	csproject
+		InProcess or OutOfProcess
+		InProcess host the app inside of the IIS worker process w3wp.exe
+			
+		OutOfProcess hosting model forward web request to a backend ASP.NET Core app running the kestrel server
+			2 Web Servers (Internal and external)
+			Internal server is Kestrel(server embed that run our .netcore app)
+				process name is w3wp.exe or iisexpress.exe
+				only one server
+				better performance
+			External Server  can be IIS, Nginx or Apache
+				kestrel can be used with a "Reverse proxy server"(IIS, Nginx or Apache)
+				process name is dotnet.exe
+				two webservers
+				more time in request between internal and external web server
+				
+		The default is OutOfProcess hosting
+	Metapackage
+	contains a list of dependencies
+
+Launchsetting.json
+	this file is only needed in the local deployment
+	the appsetting file is for the deployment to publish
+	
+Middleware
+	Has access to both Request and Response
+	example: Logging,Static files,MVC
+	
+To have images inside the app 
+	We need to add the folder wwwroot
+/************************************************************************************************************************/
+COURSE NETCORE
+dot net new console
+dotnet restore
+dotnet run
+code. //open the app in vscode
+
+
+to create a new web app
+dotnet new web -o mywebapp
+
+
+appsettings.json //
+services.AddMvc();
+ 
+/************************************************************************************************************************/
+Static Files
+Are located in the wwwroot Folder
+
+to enable see the static files we call the method
+app.UseStaticFiles(); inside the method Configure();of the class Startup.cs
+Inside the wwwroot folder 
+	we create the folders images,js,css and we can add defualt.html
+	
+	
+to enable use the default files we call the method
+app.UseDefaultFiles();inside the method Configure();of the class Startup.cs and this call must be above of app.UseStaticFiles();
+/************************************************************************************************************************/
+Developer Exception Page
+To show errors
+we use 
+if (env.IsDevelopment())
+            {
+                DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions
+                {
+                    SourceCodeLineCount=1//This line shows how many lines after and before I will show since the error line
+                };
+                app.UseDeveloperExceptionPage();
+            }
+			
+On development machinewe set it in launchsettings.json file
+On staging or production server we set in the OPERATING SYSTEM
+
+	
+/************************************************************************************************************************/
+Enviroment variables
+inside lauchSettings.json
+	we have "ASPNETCORE_ENVIROMENT":"Development"
+	
+	and we can access to this variable 
+	in the method Configure with the variable IHostingEnvironment
+	public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+	{
+	
+	}
+/************************************************************************************************************************/
+Set up MVC in netcore
+add in the method ConfigureServices
+services.AddMvc();
+
+we will add in the method Configure
+app.UseMvcWithDefaultRoute();
+then we can add a folder with the name Controllers
+create a controller called Home
+and as we are using UseMvcWithDefaultRoute then we are going to use the HomeController
+/************************************************************************************************************************/
+MOdel
+	set of clases that represent 
+		data + managed data
+	
+AddMvc() calls service of MVC and internally calls to MVCCore
+AddMvcCore() call services of MVCCore
+/************************************************************************************************************************/
+/************************************************************************************************************************/
+to create a webapi in the shell of azure	(Azure cloud shell)
+dotnet new webapi -o contoso-pets/src/ContosoPets.Api
+cd ./contoso-pets/src/ContosoPets.Api
+code .
+Compile
+dotnet run > ContosoPets.Api.log &
+Envíe una solicitud HTTP GET a la API web:
+curl -k -s https://localhost:5001/api/values | jq
+Detenga todos los procesos que ha producido la aplicación .NET Core:
+kill $(pidof dotnet)
+
+si se desconecta la sesion 
+cd ~/contoso-pets/src/ContosoPets.Api && code .
+
+to create models 
+mkdir Models && touch $_/Product.cs
+
+Se crea un directorio Data en la raíz del proyecto con los archivos ContosoPetsContext.cs y SeedData.cs vacíos.
+mkdir Data && touch $_/ContosoPetsContext.cs $_/SeedData.cs
+
+to compile 
+dotnet build
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/************************************************************************************************************************/
+gitlens
+dotnetfoundation.org
+microsoft academy
+dotnetconf
+/************************************************************************************************************************/
+Now we dont have nugets we have bower
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

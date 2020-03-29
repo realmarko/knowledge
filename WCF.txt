@@ -1,0 +1,76 @@
+WCF
+	is creted for building distribuited and interoperable applications.
+What is a distribuited application?
+	is an application where parts of it run in 2 o more computer nodes also knowned as connected systems.
+1 service can have mora than one endpoint
+
+to consume a web service
+we create a proxy class using "Add Service Reference"
+/************************************************************************************************************************/
+Consuming
+It depends of the hosting type
+	Consuming WCF Service hosted in IIS 5/6
+	Consuming WCF Service that is self-hosted
+	Consuming WCF Service hosted in Windows Activation Service
+	Consuming WCF Service hosted in Windows Service
+
+	Consuming WCF Service hosted in IIS 5/6
+		we need to create a proxy for the service (used for the client to interact with the service)
+		1. run command prompt developer
+		2. and execute svcutil http://localhost/iishostedservice1/service.svcutil
+			this will generate Service.cs and output.config
+		3. create the proxy class 
+			Class Program {
+			  Static void Main(string[] args) {
+				 // Creating Proxy for the MyService
+				 ServiceClient Client = newServiceClient();
+				 Console.WriteLine("Client calling the service...");
+				 Console.WriteLine("Hello Ram");
+				 Console.Read();
+			  }
+		   }
+		   
+	Consuming WCF Service that is self-hosted
+		we need to create the proxy(are differents ways to create the proxy)
+		1. using Svcutil.exe
+		2. adding service reference to the client application
+		3. implementing ClientBase<T> class (this is the best because if the implementation of the service change it will create the proxy in runtime)
+			create one proxy class, which includes the references of System.ServiceModel and MyCalculatorService.
+			// WCF create proxy for ISimpleCalculator using ClientBase
+		   Public class MyCalculatorServiceProxy : 
+		   ClientBase<ISimpleCalculator>,
+		   
+		   ISimpleCalculator {
+			  Public int Add(int num1, int num2) {
+				 //Call base to do funtion
+				 returnbase.Channel.Add(num1, num2);
+			  }
+		   }
+		 4. Now, create one console application, which includes the references of System.ServiceModel and MyCalculatorServiceProxy.
+			classProgram {
+			  Static void Main(string[] args) {
+				 MyCalculatorServiceProxy.MyCalculatorServiceProxy proxy = newMyCalculatorServiceProxy.MyCalculatorServiceProxy();
+				 
+				 Console.WriteLine("Client is running at " + DateTime.Now.ToString());
+				 Console.WriteLine("Sum of two numbers. 5 + 5 =" + proxy.Add(5,5));
+				 Console.ReadLine();
+			  }
+		   }
+		 5. Create the endpoint in the config of the client
+			<?xmlversion = "1.0"encoding = "utf-8" ?>
+			<configuration>
+			   <system.serviceModel>
+				  <client>
+					 <endpoint address 
+						="http://localhost:8090/MyCalculatorServiceProxy/ISimpleCalculator"
+						binding = "wsHttpBinding" contract "MyCalculatorServiceProxy.ISimpleCalculator">
+						</endpoint>
+				  </client>
+			   </system.serviceModel>
+			</configuration>
+		
+		
+		
+	
+/************************************************************************************************************************/
+/************************************************************************************************************************/

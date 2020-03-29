@@ -1,0 +1,66 @@
+SiteCore
+Building a view rendering
+	we nee to create a Layout (controls how the page looks like)
+		inside we will put a Placeholder
+				inside we put a component
+	we need to go to Layouts/Layout inside sitecore right click in layout item and create a layout folder
+		clic in insert mvc layout (we put the path of our website is pointing in iis)
+		we need to create the files inside the project in vs of the route that we put and we put the sitecore code in the view
+	we need to create a template
+		inside /sitecore/templates
+		create the folder and insert mvc page
+		the layout is assigned to the template
+	now we will ad the layout to the template
+		On the Shared Layout tab, to the right of the Default device profile, click on
+		the Edit link. This will open the Device Editor dialog. On the Layout tab of
+		the Device Editor dialog , click on the drop-down arrow to the right and select
+		the DefaultMVCLayout layout
+		
+	The last step is to add a Placeholder item for the main placeholder in our DefaultMVCLayout
+		Navigate to /sitecore/Layouts/Placeholder Settings. Right-click on
+		Placeholder Settings and select Insert ➤ Placeholder Settings Folder. Name it
+		Sitecore8Dev and click OK. Right-click on the new Sitecore8Dev folder and
+		select Insert ➤ Placeholder. Name it main
+	Creating a Component
+		 In the SitecoreDev.Web project, right-click on the Views folder and select Add ➤ New
+		 Folder. Name this new folder Components.
+		 Right-click on the new Components folder and select Add ➤ View. Name this view AdditionalTextView
+when I create a view then I need to create a new rendering inside /sitecore/layouts
+	In the Data section, type the following into the Path field: /Views/Components/AdditionalTextView.cshtml
+	
+/************************************************************************************************************************/
+How does Sitecore support each of the CMS pillars:
+Data definition, Content, and Presentation?
+R: Data definition: data templates
+Content:items,
+Presentation:layouts and components
+
+Describe some xWeb Content Management System features that separate 
+Sitecore from other systems
+R: AIDA(Analytics, insights, Decisions, Automation)
+also accept: goal tracking, testing, reporting, personalization
+
+What is Sitecore's easy-to-use authoring tool and what functionality does it provide?
+R: The Experience Editor provides editing and designing functionality
+(Also accept: marketing)
+
+Wich interface would an author use to see and edit items im a tree structure?
+R: Content Editor	
+
+What should you define in a template?
+R: Fields, Field sections, Icon and parent templates
+
+What field type would you use to store formatted HTML?
+R: Rich Text Field
+
+What happens if you use the same field name in a template that is 
+already used in parent template?
+R: You will get teo fields with the same name,
+wich leads to confusion both to users and developers. It should be avoided.
+
+What is the name of the template all templates should inherit from?
+R: Standard template
+
+Why should you avoid defining the same field multiple 
+times in more than one template?
+R: It makes it much harder to manage later on

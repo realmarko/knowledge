@@ -1,0 +1,157 @@
+Ecmascript is the standard
+Javascript is the implementation
+ES6 2015
+
+
+ESC5 is supported for all browsers
+ECS6 needs pollyfills, transpilers
+
+we need a compiler to convert the behaviour of ECS6 to ECS5
+we need module maintain all the js files
+we need server to serve the modules
+
+https://kangax.github.io/compat-table/es6/
+
+
+/**********************************************************************************************/
+//let and const
+var name = 'Marco';
+console.log(name);
+
+let name1 = 'Marco';
+console.log(name1);
+
+//in javascript we have local scope and global scope
+
+if(true)
+  {
+    var age= 34;
+  }
+console.log(age);
+
+//
+if(true)
+  {
+    let age1 = 34;
+
+  }
+//console.log(age1);
+//then we can check that let allow to use block scope
+let age2 = 30;
+if(true)
+  {
+    let age2 = 34;
+  console.log(age2);
+  }
+console.log(age2);
+/**********************************************************************************************/
+const AGE = 29;
+//AGE = 27;
+console.log(AGE);
+//
+const AGES = [27,29,31];
+console.log(AGES);
+
+
+AGES.push(25);
+console.log(AGES);
+//array is reference value and the const is the pointer
+//then we are no changing the pointer
+//we are changing the values that the pointer is pointing
+
+//also object is a reference type
+const OBJ = {
+  age:27
+};
+console.log(OBJ);
+OBJ.age = 30;
+console.log(OBJ);
+
+/**********************************************************************************************/
+
+HOisting with let and const
+//here works
+age = 27;
+console.log(age);
+var age;
+
+//and now we change to let
+//here doesnt work
+//age1 = 27;
+//console.log(age1);
+//let age1;
+
+//is good declare fisrt the variable because there wasnt a rrelly advantage with the 
+//previous behaviour
+let age1;
+age1 = 27;
+console.log(age1);
+
+//here works becase we declare and after we call the function
+//then we need to remember we must declare things for actually using them
+function doSomething()
+{
+  age = 27;
+}
+let age;
+doSomething();
+console.log(age);
+/**********************************************************************************************/
+Fat arrow functions
+ 
+
+ function myFunction()
+{
+  console.log("Hello!");
+}
+
+myFunction();
+
+//and now we can set the same like this
+//parentesis is for arguments
+//fat arrow
+//curly braces for the body
+var fn = ()=>{
+  console.log("Kitty");
+};
+fn();
+
+//also we can use like this
+var fn1 = () => console.log("Hey");
+fn1();
+
+//we can return the value
+var fn2= ()=> "You";
+console.log(fn2());
+
+//other example
+var fn3 = ()=>{
+  let a = 2;
+  let b = 3;
+  return a+b;
+}
+console.log(fn3());
+
+//and now passing argument
+
+var fn = (a,b)=>{
+  return a+b;
+};
+
+console.log(fn(3,8));
+
+
+//and if we use in only one line
+var fn1 = (a,b)=>a+b;
+
+console.log(fn1(3,8));
+
+//when we have only one argument we dont need parentesis
+var fn2 =a=>a+5;
+console.log(fn2(3));
+
+//if we use the function in settime
+setTimeout(()=>console.log("Hello"),1000);
+/**********************************************************************************************/
+
+ 

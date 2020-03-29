@@ -1,0 +1,10 @@
+Azure devops
+Create an app 
+in the advanced option I have 
+	Version control: git
+	Work item process: Agile
+	
+	the next step when we created the project in azure devops
+	we going to to the code 
+	Repod->file
+	(.gitignore ignores the files to upload for example the nugets)

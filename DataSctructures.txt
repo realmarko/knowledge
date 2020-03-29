@@ -1,0 +1,76 @@
+Data Scctructures
+/************************************************************************************************************************/
+Pages to code
+https://repl.it/@MarkoAntonio/SelfreliantHandmadeNet
+
+Big-O is a notation used to classify how scaable an algorithm or function is or time to execute based on the input size.
+for example if we increase the input data check if the algorithm increase or maintein in the same or has another behaviour.
+
+if we increase the input is Linear runtime "O(n)" =>here we have one for
+Exponential runtime O(n^2) =>here we have two for
+	exponential time complexity becomes very ineficient and can slowdown the application
+logarithmic runtime and it is very performance 
+	example is binary search 
+	this is the better performance example when we divide the search in 2 if there are more elements increse logarithm no proporcionally and this is ok
+	
+	
+	//to convert an string in an array in javascript
+	var noteArray = noteText.split(' ');
+	//to convert an string in an array in c#
+	string[] noteArray = noteText.Split(null);
+	
+/************************************************************************************************************************/
+//Get the type
+int[] numbers = new int[]{0,1,2,3};
+Type type = numbers.GetType();
+
+if you create an array with two dimensions
+double[,,] sales = new double[4,5];
+
+int[,] grades = new int[,]{{1,82,74,89,100},
+						   {2,93,96,85,86}}
+
+to get the value
+grade = Grades[2,2];
+
+
+Jagged array 
+Is an array with arrays inside these arrays has differents lengths
+example
+int[] Jan = new int[31];
+int[] Feb = new int[29];
+int[][] sales = new int[][]{Jan,Feb};
+
+ArrayList
+ArrayList grades = new ArrayList();
+
+	Contains are object
+	We can increment the size
+	methods that we can use with arrayList
+	*Add()
+	*AddRange()// add the range at the final position
+	*Capacity:Stores the number of elements the ArrayList can hold
+	*Clear()
+	*Contains()//example: if(grades.Contains(54)) grades.Remove()
+	*CopyTo()
+	*Count
+	*GetEnumerator():Returns an enumerator to iterate over the ArrayList
+	*GetRange()//takes two parameters the index and the number of elements to retrieve
+	*IndexOf()
+	*Insert():Insert an element into the ArrayList at especified Index  //example: grades.Insert(1,"element"); (index, element)
+	*InsertRange()//add the range at a specified position in the arraylist
+	*Item(): Gets or sets an element at the specified index.
+	*Remove()
+	*RemoveAt()
+	*Reverse()
+	*Sort()
+	*ToArray()
+	*TrimToSize()Sets the capacity of the ArrayList to the number of elements
+	in the ArrayList
+	
+	
+	to order an array
+	int[] ints = { 10, 45, 15, 39, 21, 26 };
+	int[] ordered = inst.OrderBy(x=>x);
+	
+	

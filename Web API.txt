@@ -1,0 +1,241 @@
+WEB API
+Caching
+	no-cache
+	no-store
+	max-age
+	private
+	
+Authentication
+	when we create the project we have 
+	chage authentication 
+		=>No authentication
+		=>individual user accounts (use membership database)
+		=>work and school accounts
+		=>Windows authentication
+				
+		to protect a method we use [Authorize]
+		
+		to pass the token to a service in webapi
+		we use Authorization:Bearer access_token_value
+		
+		to get the token we have the function in the method 
+		inside Startup.Auth.cs
+		ConfigureAuth(IAppBuilder app)
+		{
+		//here is the get token
+		}
+		
+		to pass the token we need to pass it in the header of the request
+			
+	JSON Web token 
+		JSON Web Token (JWT) is the approach of securely transmitting data across 
+		communication channel. For authentication and authorization, it uses the technique of passing digitally signed tokens
+		is formed of three strings
+		-header
+		-payload
+		-signature
+		User sends this token with each request, normally in header or cookies and then received token is decrypted to validate claim.
+		there are libraries for the jwt=> System.IdentityModel.Tokens.Jwt library for generating and validating tokens
+		AuthenticationModule is where the downloaded library is used
+		to use jwt we can create an filter
+		public class JWTAuthenticationFilter : AuthorizationFilterAttribute
+		{
+			public override void OnAuthorization(HttpActionContext filterContext)
+			{
+				if (!IsUserAuthorized(filterContext))
+				{
+					ShowAuthenticationError(filterContext);
+					return;
+				}
+				base.OnAuthorization(filterContext);
+			}
+		}
+		The returned token is passed as header in each request and the actual verification is done through IsUserAuthorized method in our custom filter
+		IPrincipal should be populate by the authentiationfilter or message handler responsible for authentication, and if it's not there,
+		the user will be denied access
+REST is an "architectural style" that basically exploits the existing technology and protocols of the Web.
+RESTful is typically used to refer to web services implementing such an architecture
+		
+/************************************************************************************************************************/
+//If we want to return a type different of xml or json
+//we can use MediaTypeFormatter
+
+/************************************************************************************************************************/
+to use SSL we can 
+/************************************************************************************************************************/
+Message handlers
+	Is a class that receives an HTTP request and returns an  HTTP response
+	When we want to implement security in all the request
+	When we want to implement logging in all the request
+	
+/************************************************************************************************************************/
+DEPENDENCY INJECTION
+		The main idea with DI is develop a project with maintainable code
+		We can develop DI in three ways
+			Constructor Injection
+			Property Injection
+			Method Injection
+		public class SchoolBusinessLayer :ISchoolBusinessLayer
+		{
+			private ISchoolDataAccessLayer _objSchoolDal;
+			public SchoolBusinessLayer(ISchoolDataAccessLayer objSchoolDal)
+			{
+				_objSchoolDal = objSchoolDal;
+			}
+			public School GetSchoolinformation()
+			{
+				return _objSchoolDal.GetSchoolinformation();
+			}
+		}
+		
+	And we need to use simple Injector
+	Install-Package Simple Injector.Integration.WebApi -Version 3.1.5
+	
+	In Gloabal.asax.cs, make a container with the help of a Simple Injector, 
+	Container Register Interface and there is a respected class and at the end, verify all.
+		var container = new Container();
+		container.Register<ISchoolDataAccessLayer, SchooDataAcessLayer>();
+		container.Register<ISchoolBusinessLayer, SchoolBusinessLayer>();
+		container.Verify();
+		
+		DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
+		GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorDependencyResolver(container);
+	
+/************************************************************************************************************************/
+Pipeline
+	The chain of built-in and custom message handlers and filters that the HTTP request and response "flow" throughto reach and return from your controller
+	Action methods.
+The pipeline is where you extend the behaviour of your services
+	Custom http headers
+	Authentication and authorization tokens
+	Metrics, Logging
+	Content Negotiation
+	Basically outside of the Business logic os your Action Method
+	
+	The route tables is inside the method register in WebApiConfig.cs
+Also we can create an Api related to Azure in the option Azure Api
+	this provides swager
+		and application insights(Monitoring and analithics modulefor Azure services)
+/************************************************************************************************************************/
+Integration TEST
+	make the test in the pipeline
+	we send all the headers, all the verbs, all the tokens
+	
+	Tools to test
+		Fiddler
+		Postman
+		Swachbuckle
+		
+/************************************************************************************************************************/
+To validate Route attributes using constraints
+[HttpGet, Route("{id:int:range(1000,3000)}")]	
+	to create a new constraint we need inhereted from IHttpRouteConstraint
+	
+	example public class EnumerationConstraint:IHttpRouteConstraint
+	{
+	}
+	
+	and we need to add the constraint in WebApiConfig.cs
+	//Web API routes
+	//config.MapHttpAttributeRoutes();
+	var constraintResolver = new DefaultInlineConstraintResolver();
+	constraintResolver.ConstraintMap.Add("enum", typeof(EnumerationConstraint));
+	config.MapHttpAttributeRoutes(constraintResolver);
+	
+	//if I want override the prefix attribute 
+	we use "~"
+	[Route("~/prods")]
+	
+	//to get the value fromuri
+	string uri = Url.Link("GetById",new {id = prodId});
+	
+	//to add an default value we need to do the next
+	[HttpGet, Route("status/{status:alpha=pending}/{id:int=5}")]
+	or
+	[HttpGet,Route("status/{status:alpha}")]
+	public string GetProductsWithStatus(string status="pending")
+	{}
+	
+	//To bind parameters in Web Api, I need to create my own binder using IModelBinder
+	
+	
+
+	
+/************************************************************************************************************************/
+Basic Authentication
+	Request to API enpoints protected by Basic Authentication should contain an Authorization header and base 64 encoded username and password,
+	concatenated with a colon,  and preceded by a Basic keyword
+	Example:
+		Authorization: Basic ZmlsaXA6YWJj
+		
+	Thinktecture requires SSL 
+/************************************************************************************************************************/
+Delegating Handlers
+	This happends before routing thats occurs
+	
+To create a delegating handler we need to implement from DelegatingHandler
+	
+To register a delegatin handler
+	In the WebConfigApi.cs inside the Register method
+	config.MessageHandlers.Add(new DelegatingHandlerTemplate());
+	
+To get the value of apikey
+	we can use HttpRequestMessageApiKeyExtension
+	and inside the controller return the value with Request.GetApiKey();
+	
+	
+/************************************************************************************************************************/	
+The pipeline of the web api
+	Request
+		httprequestMessage
+		delegating handlers
+		routing logic => select controller, method
+		authentication filter
+		authorization filter
+		model binding(formatters)
+		actionfilter
+		controller / method
+	Response
+		actionfilter
+		result conversion(formatters)
+		ExceptionFilter
+		routing logic => select controller, method
+		delegating handlers
+		HttpResponseMessage
+Message handlers are usefull for
+	Check validations such as abscence or presence of headers
+	Direct manipulation for the request and the response
+	DON'T do authentication in the delegating handler
+/************************************************************************************************************************/	
+To check if the request contains a value
+	request.Headers.Contains(apiKeyHeader);
+To get some value from the request
+	request.Headers.GetValues(_apiKeyHeader).FirstOrDefault();
+	or
+	request.GetQueryNameValuePairs().FirstOrDefault(a=>a.Key.ToLowerInvariant().Equals(_apiQueryString));
+To save values from the request
+	request.Properties.Add(apiKeyheader,apiKey);
+/************************************************************************************************************************/
+ActionFilters
+	is executed after Authentication and Authorization Filters
+	dont use for authentication or authorization	
+	has two methods
+		OnActionExecutingAsync()
+		OnActionExecutedAsync()
+		
+	we can register globally
+		WebApiConfig.cs->inside the register method
+			config.Filters.Add(new ActionFilterTemplateAttribute());
+		if I only want register for a specific controller I nee put the attribute in the controller
+	to override filter I can use the attribite [OverrideActionFilters]
+		[OverrideActionFilters]
+		[ActionFilterTemplate]
+		public string Get(int id)
+		{
+			return "value";
+		}
+/************************************************************************************************************************/
+Caching
+	Public: The response could be cached by intermediate device between the clinet and the serverlike a proxy-server 
+	Private: Browser-only, no intermediate caching, typicatlly for per-user secure data
+	No cache

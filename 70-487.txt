@@ -1,0 +1,19 @@
+HttpContext.Cache
+	Is HttpContext because use the http protocol	
+	Cache class resides in System.Web and System.Web.Caching
+	
+PageObject 
+	Has a Page.Cache property
+	Page.Context.Cache property
+
+/************************************************************************************************************************/
+in ASP.NET we can use
+	Application State
+	Session state
+	View State
+	
+/************************************************************************************************************************/
+To work with windows forms applications
+	you should use the ObjectCache
+
+/************************************************************************************************************************/

@@ -1,0 +1,973 @@
+ANGULAR
+interpolation we use {{}} moustache sintax
+
+Form
+	Model Driven Form
+		we have the "novalidate" attribute inside the form
+		by default the browsers perform their own validation
+		
+		we create the instance of the form in the ts
+		myform: FormGroup;
+		
+		and for every control we use
+		email: new FormControl()
+		
+	To link the form template with the form model we use 
+		import { ReactiveFormsModule } from '@angular/forms';
+		and add inside the html formControlName="" or formGroupName="name" if si a Form group
+		
+		
+		to install bootstrap
+		npm install --save bootstrap@3
+		and we add the reference in styles inside angular.json
+		
+		.staging outs when you are installing
+		if this is permanent you need install the packages
+		npm install @angular7core@5.2.3 --save 
+		etc.
+		
+		interpolation use {{}}
+		one binding [property] = value
+		two binding use [(ngModel)] = "value" connect the html with the ts
+		
+		Directives are instructions in the DOM 
+		Estructurales
+			*ngIf, *ngFor,
+		Styles 
+			ngStyle,ngClass
+		Custom
+			
+		To create the app
+		we need to know the features(items to manages)
+		the components example 
+		1. Receip List
+		2. Receip Item
+		3. Receip Detail
+		and create the models
+		
+		
+		when we create a component we can add --spec false
+		example: ng g c newcomponent --spec false 
+		to debug we intall the extension angular augury
+/************************************************************************************************************************/
+BINDING
+TO PASS data between components we use @Input()
+ng g c cockpit --spec false
+ng g c server-element --spec false
+
+Para el ouput 
+inside the child
+@Output() serverCreated = new EventEmitter<{ serverName: string, serverContent: string }>();
+and we create the event to emit
+  onAddServer() {
+    this.serverCreated.emit({serverName:this.newServerName,serverContent:this.newServerContent});
+  }
+in the father we call the child
+  <app-cockpit 
+  (serverCreated) = "onServerAdded($event)"
+></app-cockpit>
+
+and we receive the information
+  onServerAdded(serverData: { serverName: string, serverContent: string }) {
+    this.serverElements.push({
+      type: 'server',
+      name: serverData.serverName,
+      content: serverData.serverContent
+    });
+  }
+/************************************************************************************************************************/
+viewencaptulation 
+works to envolve the children inside a component
+and for use we add the attribute decorator 
+viewencaptulation:emulated/none/native
+/************************************************************************************************************************/
+local references with this we can use binding
+with localReferences #serverName
+and we get the value with serverName.value
+
+other way of use localreference 
+is use with @ViewChild decorator example
+@ViewChild() serverContentInput:elementRef; //ElementRef beacuse pass all the html element
+and to get the value 
+this.serverContentInput.nativeElement.value;
+
+also exits @ViewChild() serverContentInput:elementRef;
+/************************************************************************************************************************/
+lifeCycle
+ngOnChanges()
+ngOnInit()
+ngDoCheck()
+ngAfterContentInit()
+ngAfterContentChecked()
+ngAfterViewInit()
+ngAfterViewChecked()
+ngDestroy()
+
+/************************************************************************************************************************/
+Oberver has 
+next()
+error()
+complete()
+
+/************************************************************************************************************************/
+Directives
+	Attributes change properties of the elements
+		[ngClass]
+		[ngStyle]
+		the brackets tell me that I'am binding some property
+	Attributes and Structurals affect the DOM
+		*ngFor
+		*ngIf
+/************************************************************************************************************************/
+To create our own directive
+we use @Directive({
+selector:'appBasicHightlight'
+})
+in the constructor we inject
+constructor(private elementRef:ElementRef)
+{}
+and we implements onInit to can use NgInit()
+and here inside ngInit()
+
+we put the value 
+this.elementRef.nativeElement.style.background= 'green;'
+
+and we call this directive in the app.module.ts inside the imports
+and we use 
+<p appBasicHightlight></p>
+
+exits a better way to do this beacause is not a good practice access directly to this.elementRef.nativeElement.style.background
+so in the constructor 
+constructor(private elRef:ElementRef,private render:Renderer2){}
+
+and in 
+ngOnInit(){
+	this.renderer.setStyle(this.elRef.nativeElement,'background-color','blue');
+}
+Reactive diretive is when we aplied the events for example mouseenter or mouseleave
+then we use @HostListener
+@HostListener('mouseenter') mouseover(eventData:Event)
+{
+	this.renderer.setStyle(this.elRef.nativeElement,'background-color,blue,false,false');
+}
+
+or we can made the same using @HostBinding()
+
+/************************************************************************************************************************/
+	For athentication 
+		we made the authentication in the rest api and we return a token JWT
+		and send it to angular without any confidential information
+		and the request must send that token in the header of the request
+		we can create two components one for sign up and one for sign in
+		
+		we create the authservices with the next code 
+		import * s firebase from 'firebase';
+		signupUser(email:string, password:string){
+			firebase.auth().createUserWithEmailAndPassword(email,password)
+			.catch(
+			error => console.log(error)
+			)
+		}
+		
+		inside the app.component.ts
+		we add 
+		import * s firebase from 'firebase';
+		and we add
+		ngonInit(){
+		firebase.initializeApp({
+			apikey:,
+			authDomain:
+		})
+		}
+		
+		and we need to add the service in the providers section inside the app.module
+		
+		//to hide items we can create a methos IsAuthenticated
+		//and with this we can use ngif 
+		example:
+		<ng-template [ngIf]="!authService.isAuthenticated()">
+		/ng-template>
+		
+		
+		//to protect the webpages we will use AuthGuard
+		import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapShot } from '@angular/router';
+		import { Injectable } from '@angular/core';
+		
+		import { AuthService } from './auth.service';
+		@Injectable()
+		export class AuthGuard implements CanActivate{
+			constructor(private authService:AuthService){}
+			
+			canActivate(route:ActivatedRouteSnapshot,state:RouterStateSnapshot){
+				return this.authService.isAuthenticated();
+			}
+		}
+		
+		//and inside appRoutes
+		{path:'',component:RecipeEditComponent, canActivate:[AuthGuard]}
+/************************************************************************************************************************/
+
+for validation
+inside the form-group we add the class has-error
+and we add the class hel-block showing the message error
+<div class="form-group has-error"> <!-- Last Name -->
+		<label for="last_name" class="control-label">Last Name</label>
+		<input type="text" class="form-control" id="last_name" name="last_name" placeholder="Toha">
+		<p id="last_name_error" class="help-block">Invalid last name.</p>
+</div>
+/************************************************************************************************************************/
+Using services Dependency Injection
+with this way we say to angular that we need that dependency
+1 We inject the service in the contructor of the component that depends of the service
+2.We add the service in the providers sections inside app.module.ts
+metadata are @Injectable(service), @Component, @Directive
+
+for the next exmple are three parts
+1. with services we can emit an element 
+	statusUpdated = new EventEmmiter<string>();
+2. and inside the component emit the method
+	onSetTo(status:string)
+	{
+		this.accountService.statusUpdated.emit(status);
+	}
+
+3. and the childs only need to suscribe for example
+	constructor(private accountService:AccountService)
+	{
+		this.accountService.statusUpdated.subscribe(
+		(status:string)=>alert('New status ' + status);
+		)
+	}
+/************************************************************************************************************************/
+array.slice() return a new array 
+
+
+/************************************************************************************************************************/
+Routing
+In the app.module.ts
+we add
+
+import {Routes, RouterModule} from '@angular/router';
+const appRoutes:Routes = [
+	{path:'',component:HomeComponent},
+	{path:'users',component:UsersComponent},
+	{path:'users/:id/:name',component:UsersComponent},
+	{path:'servers',component:Servers}
+];
+
+and we add in the imports
+imports[RouterModule.forRoot(appRoutes)]
+
+and we add inside the app.component.html
+<router-outlet></router-outlet> 
+
+and insted use <a href=""></a> we will use <a routerLink="servers"></a> 
+this prevents reload all the page because href is looking for pages and angular works only with one page
+
+
+to show when a link is active we add routerLinkActive="active"
+<li routerLinkActive = "active"
+[routerActiveLinkOptions]="{exact:true}"><a routerlink = "/"></li> //exact:true check the whole link
+<li routerLinkActive = "active"><a routerlink = "servers"></li>}
+<li routerLinkActive = "active"><a routerlink = "users"></li>
+
+
+if we want the link works in the code
+we inject the route
+constructor(private router:Router){} 
+this.router.navigate(['/server']);
+
+
+when we call an url with parameters we need to inject ActivatedRoute
+constructor(private route:ActivatedRoute){}
+and in the ngOnInit(){
+	this.user = {
+		id:this.route.snapshot.params['id'],
+		name:this.route.snapshot.params['name']
+	}
+}
+
+//to apply Lazy loading we need to use loadChildren
+{ path: 'recipe', loadChildren: './recipe/recipe.module#RecipesModule' },
+
+//if we want to use security in Lazy loading
+{ path: 'recipes', loadChildren: './recipes/recipes.module#RecipesModule', canLoad: {AuthGuard} }
+
+
+/************************************************************************************************************************/
+OnDestroy(){}
+
+when we leave a component the ondestory is called
+but the subscriptions continue live so we need to cal the 
+OnInit(){
+ this.paramSubscription = this.route.params
+ .suscribe(){
+	 (params:Params) =>{
+		 this.user.id = params['id'];
+		 this.user.name = params['name'];
+	 }
+ }
+}
+OnDestroy(){
+this.paramSubscription.unsuscribe();
+}
+/************************************************************************************************************************/
+if I want the url
+servers/edit?allowEdit=1#Loading
+
+in the code we should have 
+<a
+	[routerLink]="['/servers',5,'edit']"
+	[queryparams] = "{allowEdit:'1'}"
+	fragment="loading"
+>
+</a>
+/************************************************************************************************************************/
+when we use router :children 
+then in the html we need to use <router-outlet></router-outlet>
+
+if we want preserve information in the url we can use queryParamsHandling
+example
+onEdit(){
+	this.router.navigate(['edit'],{relativeTo:this.route,queryParamsHandling:'Preserve'});
+}
+/************************************************************************************************************************/
+To handling pages that doesn't exists 
+we create a component for example page-not-found
+and in the app.module.ts we add
+inside Routes
+const appRoutes: Routes= [
+	{path: 'not-found',component:PageNotFoundComponent },
+	{path:'**',redirectTo:'/not-found', pathMatch: 'full'}//this always at the end
+];
+
+To get a better practice we can create our app module
+To protect the routes we use canactivate(is a service)(video 137)
+
+/************************************************************************************************************************/
+To manage Errors(static data)
+create the component
+	export class ErrorPageComponent implements OnInit{
+		errorMessage:string;
+		constructor(private route:ActivatedRoute){}
+		
+		ngOnInit(){
+			this.errorMessage = this.route.snapshot.data['message'];
+			this.route.data.suscribe({
+				(data:Data)=>{
+					this.errorMessage = data['message'];
+				}
+			});
+		}
+	}
+ 
+and in the routes send the message
+const appRoutes: Routes= [
+	{path: 'not-found',component:PageNotFoundComponent },
+	{path: 'not-found',component:ErrorPageComponent,data:{message:'Page not found'} },//we send the message error
+	{path:'**',redirectTo:'/not-found', pathMatch: 'full'}//this always at the end
+];
+To the anchor control
+we use 
+<li routerLinkActive="active"><a routerLink="/recipes"></a></li>
+we deleted href="" inside the anchor html control to delete the reload of the page
+
+
+with our custom observables we need to clean them
+and we can unsubscribe in 
+ngDestroy()
+{
+this.myObservable.unsubscribe();
+}
+
+Subject
+we have subject that works like observer and observable at the same time 
+so we can replace the event emitter for subject
+
+we have observable operators like .map
+
+const myNumbers = Observable.interval(1000)
+.map(
+(data:number)=>{
+return data *2;
+});//and we this the data that we will have is multiplied by 2
+
+USAR SUBJECT with observables 
+insted of use eventemitter
+we will use subject so we will replace the emiter that is inside the service
+in the shopping-list.service.ts
+	import{subject} from 'rxjs/Subject';
+	export class ShoppingListService{
+		ingredientsChange= new Subject<ingredient[]>();
+
+		//and inside the method we change the emit for the subject
+		addIngredient(ingredient:Ingredient)
+		{
+			this.ingredients.push(ingredient);
+			//this.ingredientsChanged.emit(this.ingredients.slice());
+			this.ingredientsChange.next(this.ingredients.slice());
+		}
+	}
+in the shopping-list.component.ts
+we need to add the subscription and unsubscribe that subscription
+
+ngOnInit()
+{
+	this.subscription= this.slService.ingredientsChanged
+	.subscribe(
+	(ingredients:Ingredient[])=>{
+		this.ingredients = ingredients;
+	}
+)
+}
+/************************************************************************************************************************/
+FORMS
+have two approaches
+	Template-Driven => Angular infers the Form Object from the DOM
+	Reactive => Form is created programmaticallyand synchronized with the DOM
+	
+	to send the information of the elements
+	<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+	and in the ts file
+	onSubmit(form:NgForm)
+	{
+		console.log(form.value);
+	}
+	
+	//o si utilizamos @ViewCHild
+	@ViewChild('f') signupForm:NgForm;
+	
+	onSubmit()
+	{
+		console.log(this.signupForm);
+	}
+Validations
+	we add required and email in the controls 
+	and check this.signupForm.valid
+	
+	//to show el message of invalid data
+	<span class="help-block" *ngIf="!email.valid && email.touched">
+	Please enter a valid email!</span>
+	
+	//to set value in the control
+	<select [ngModel]="defaultValue">
+	<option value="pet">Your first pet?</option>
+	</select>
+	//in the ts file
+	defaultValue = "pet"
+
+//one way binding give the value to the control [ngModel]
+//two way binding to out the value whatever i want for example to the ts and to the html
+
+//to create a radiobutton with values in ts
+//inside ts we have 
+valuesInRadio = ['Si','No'];
+//and in the html
+<div class="radio" *ngFor="let val of valuesInRadio">
+	<label>
+		<input 
+		type="radio"
+		name="val"
+		ngModel
+		[value]="val"
+		>
+		{{val}}
+	</label>
+</div>
+
+//to override a value in a textbox
+          <button 
+          class="btn btn-default" 
+          type="button"
+          (click)="suggestUserName()">
+	//and in the ts
+	  suggestUserName()
+  {
+    const suggestedName = 'Superuser';
+    this.signupForm.form.patchValue({
+      userData:{
+        username:suggestedName
+      }
+    });
+  }
+  
+  //To reset a form
+  this.signupForm.reset();
+/************************************************************************************************************************/
+Using FormGroup
+signupForm:FormGroup;
+	 ngOnInit() {
+    this.signupForm = new FormGroup({
+      'username': new FormControl(null, Validators.required),
+      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'gender':new FormControl('male')
+
+    });
+	onSubmit()
+	{
+		console.log(this.signupForm);
+	}
+//Add to imports in app.module.ts
+	ReactiveFormsModule
+	
+//And in the html
+<form [formGroup]="signupForm" (NgSubmit)="onsubmit()">
+//and inside the inputs we add formControlName
+<input type="text"
+formControlName = "username"
+/>
+
+//To valid an input
+<span *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched" 
+class="help-block">
+Please enter a valid username! 
+</span>
+
+
+/************************************************************************************************************************/
+LOGIN 
+/************************************************************************************************************************/
+inside the observer
+we handle the data, the error and the completition	
+/************************************************************************************************************************/
+In angular we have 2 models of compilation
+- JIT Just In Time Compilation
+- AOT Ahead of Time Compilation
+
+JIT compilation(Compiles the application JUst in Time in the browser at runtime)
+AOT compilation compiles the application at build time
+-For JIT compilation the browser needs to download the angular compiler,
+where as with AOT compilation it does not have to
+-While the application is being JIT compiled inthe browser, users have to wait, where as with AOT, the application is pre-compiled so there no such wait.
+-With JIT compilation, the template binding errors are only know at runtime, 
+where as with aot compilation we will come to now about them at build time.
+
+
+By default, the following 2 commands use KIT compilation
+ ng build
+ ng server
+With either of these command we can use --aot option to turn on AOT
+ ng build --aot
+ ng serve --aot
+To turn off AOT for the production build, set --aot option to false
+	ng build --prod --aot false
+	
+BENEFITS
+	Faster start up (sind parser and compilation doen't happend in the browser)
+	Templates get checked during development
+	Faster rendering
+	Smaller Angular framework download size
+	Detect template errors earlier
+	Smaller file size
+	
+Specifying Angular metadata
+	Angular metadata tells Angular how to construct instances of your application classes and interact with them at runtime. 
+	The Angular AOT compiler extracts metadata to interpret the parts of the application that Angular is supposed to manage.
+/************************************************************************************************************************/
+Preload Lazy loading
+We can use preloading strategy
+inside the app-routing.module.ts
+
+imports:[
+	RouterModule.forRoot(appRoutes,{preloadingStartegy: PreloadingAllModules})
+]
+/************************************************************************************************************************/
+Promise
+	place holder for a feature value based on an asynchronous computation
+	states
+		Pending unresolved
+		Fulfilled resolved
+		Rejected on error thrown
+		
+	Then 
+		setup the callback
+
+/************************************************************************************************************************/
+Deploy the app in AWS
+1. Create a bucket
+	in Static web hosting
+	Select "Enable website hosting"
+	in the options:
+		Index Document: index.html
+		Error Document: index.html
+		Save
+	change bucket policy because the buckets by default are private
+		grant read only permission for anonimous user
+		search the permision on internet and paste it
+		change the name of the bucket in the permission area
+2. upload the file
+	in Actions select upload
+3. in vs code 
+	run the code
+		ng build --prod --aot --base-href /my-app/
+		all the content is in the dist(distribution) folder
+		
+	
+/************************************************************************************************************************/
+Angular 6 
+change internal package structure in rxjs
+changed imports
+changes operator usage (we can use map in observables,catcherror)
+<template> is deprecated used <ng-template>
+@angular/htttp is deprecated use @angular/common/http
+in angular 6 we can add services in two ways apart from providers inside app.module.ts
+	inside the service we will add
+	@Injectable({provideIn:'root'})
+Introduce a new renderer (not stable)
+	Ive:Reduce bundle size
+	
+/************************************************************************************************************************/
+FormsModule
+We add FormsModule in imports inside app.module.ts
+in the HTML we will add
+	<form [formGroup]="recipeForm" (ngSubmit) = "onSubmit()">
+	in th controls
+	<input type="text" formControlName="name"/>
+in the ts we will add
+the var
+	recipeForm:new FormGroup;
+	and we can create a method
+	private initForm()
+	{
+		let recipeName:'';
+		if(this.editMode)
+		{
+			const recipe = this.recipeService.getRecipe(this.id);
+			recipeName = recipe.name;
+		}
+		this.recipeForm=new FormGroup(
+		{
+			'name':new FormControl(recipeName);
+		});
+	}
+/************************************************************************************************************************/
+formArray
+we can create a var 
+let recipeIngredients = new FormArray([]);
+
+the inside another method check if we have the array information
+      if (recipe['ingredients']) {
+        for (let ingredient of recipe.ingredients) {
+          recipeIngredients.push(new FormGroup({
+            'name': new FormControl(ingredient.name),
+            'amount': new FormControl(ingredient.amount)
+          }))
+        }
+      } 
+and after 
+we send the information 
+this.recipeForm = new FormGroup({
+      'name': new FormControl(recipeName),
+      'imagePath': new FormControl(recipeImagePath),
+      'description': new FormControl(recipeDescription),
+      'ingredients': recipeIngredients //Aqui
+    });
+	
+and in the html
+      <div class="row">
+        <div class="col-xs-12" formArrayName = "ingredients">
+          <div class="row"
+          *ngFor ="let ingredientCtrl of recipeForm.get('ingredients').controls; let i=index"
+          [formGroupName]="i"
+          >
+            <div class="col-xs-8">
+              <input type="text" class="form-control"
+              formControlName="name">
+            </div>
+            <div class="col-xs-2">
+              <input type="number" class="form-control"
+              formControlName="amount">
+            </div>
+            <div class="col-xs-2">
+              <button class="btn btn-danger">X</button>
+            </div>
+          </div>
+        </div>
+      </div>
+	  
+	  
+	  
+	  //To add new items in the array
+	    onAddIngredient() {
+    (<FormArray>this.recipeForm.get('ingredients')).push(
+      new FormGroup({
+      'name': new FormControl(),
+      'amount': new FormControl()
+    }));
+  }
+  and in the html
+  we create a button to call the method
+          <div class="row">
+          <div class="col-xs-12">
+            <button class="btn btn-success" 
+            type="button"
+            (click) = "onAddIngredient()">Add Ingredient</button>
+          </div>
+        </div>
+/************************************************************************************************************************/
+PIPES
+	Transform outputs
+	to show information in mayus
+		{{ username | uppercase }}
+	also we can use date
+		{{ serverdate | date }}
+	we can add parameters using :''
+		{{ serverdate | date:'fullName' }}
+	to use more pipes
+		{{ serverDate | date:'fullName' | uppercase}}
+		
+		
+To create a PIPE
+	 Create a new file, example:
+	 shorten.pipe.ts
+	 
+	 //The code
+	 import {Pipe,PipeTransform} from '@angular/core';
+	 
+	 @Pipe({
+		name:'shorten'
+	 })
+	 export class ShortenPipe implements PipeTransform{
+		transform(value:any){
+			return value.substr(0,10);
+		}
+	 }
+	 
+	 //and we need to add the custom pipe in the declarations part inside app.module.ts
+	 
+	 //to send more parameters we will modify the transform method
+	 transform(value:any,limit:number)
+	 {
+		return value.substr(1,limit);
+	 }
+	 //and in the use of the pipe
+	 {{ servername.name | shorten:5 }}
+	 
+	 //we can use a pipe with a promise
+	 in the ts file
+	 appStatus = new Promise((resolved,reject)=>{
+		setTimeout(()=>{
+			resolve('stable');
+		},2000);
+	 })
+	 in the html
+	 <h2>App status: {{ appStatus | async }}</h2>
+/************************************************************************************************************************/
+Http Request
+	create a new service emaple:
+	server.service.ts
+	
+	import { Injectable } from '@angular/core';
+	import { Http } from '@angular/http';
+	
+	@Injectable
+	export class ServerService{
+		constructor(private http:Http){}
+		storeServers(servers:any[])
+		{
+			return this.http.post('http://...',servers);// this return an observable
+		}
+	}
+	
+	//to use we should use in the method that call the service
+	onSave(){
+		this.ServerService.storeServers(this.servers)
+		.subscribe{
+			(response) => console.log(response)
+			(error) => console.log(error)
+		}
+	}
+	//If we use observables we need to subscribe
+	
+	//to use http
+	we need to add  HttpModule in the section Imports inside app.module.ts
+/************************************************************************************************************************/
+//to use headers
+	@Injectable
+	export class ServerService{
+		constructor(private http:Http){}
+		storeServers(servers:any[])
+		{
+			const headers = new Headers({'Content-Type':'application/json'}); 
+			return this.http.post('http://...',servers,{headers:headers});// this return an observable
+		}
+	}
+/************************************************************************************************************************/
+//to get data
+getServers(){
+	return this.http.get('http://.../data.json');
+}
+and in the file that is using it
+
+	onGet()
+	{
+		thi.ServerService.getServers()
+		.susbscribe(response:Response)=>{
+			const data = response.json();	
+			console.log(data);
+		},
+		(error) =>console.log(error)
+	}
+	
+	
+	//we can use the operator map
+	this operator wraps the result content and transform the data and return this transform data in an observable
+	
+//to use the catch operator we add the in the server.service.ts
+getServer()
+{
+	return this.http.get('https://')
+	.map(
+		(response:Response) =>{
+			const data = response.json();
+			for(const server of data)
+			{
+				server.name = 'FETCHED_'+server.name;
+			}
+			return data;
+		}
+	)
+	.catch((error:Response) =>{
+		return Observable.throw('Something went wrong');
+	})
+}
+
+and in the subscription
+onGet()
+{
+	this.serverService.getServers()
+	.subscribe(
+		(servers:any[])=>this.servers = servers,
+		(error) =>console.log(error)
+	);
+}
+
+
+/************************************************************************************************************************/
+//to use put we will use the same call as we used in post
+		storeServers(servers:any[])
+		{
+			return this.http.put('http://...',servers);// this return an observable
+		}
+//the difference is that this method override the content
+/************************************************************************************************************************/
+Modules
+We can improve our app using multiples modules
+Modules containt components, directives, services,
+
+for example if I have many compnents  with the name of 'recipes'
+I could create a module 
+	recipes.module.ts
+//we can't declare the sam component in different modules
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+import { RecipeListComponent } from "./recipe-list/recipe-list.component";
+import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
+import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
+import { RecipeItemComponent } from './recipe-list/recipe-item/recipe-item.component';
+import { RecipesComponent } from './recipes.component';
+import { RecipeStartComponent } from './recipe-start/recipe-start.component';
+
+@NgModule({
+    declarations: [
+        RecipesComponent,
+        RecipeStartComponent,
+        RecipeListComponent,
+        RecipeEditComponent,
+        RecipeDetailComponent,
+        RecipeItemComponent
+    ],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule
+    ]
+})
+export class RecipesModule { }	
+
+//and add this RecipesModule inside the imports[] in app.modules.ts
+
+//we need and new routermodule because in this moment doesnt work the 
+import { NgModule } from '@angular/core';
+import { Routes,RouterModule } from '@angular/router';
+
+import{AuthGuard} from '../auth/auth-guard.service'
+import { RecipesComponent } from './recipes.component';
+import { RecipeStartComponent } from './recipe-start/recipe-start.component';
+import { RecipeDetailComponent } from './recipe-detail/recipe-detail.component';
+import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
+
+const recipesRoutes:Routes = [
+    {path:'recipes',component:RecipesComponent,children:[
+        {path:'',component:RecipeStartComponent},
+        {path:'new', component:RecipeEditComponent,canActivate:[AuthGuard]},
+        {path:':id', component:RecipeDetailComponent},
+        {path:':id/edit',component.RecipeEditComponent,canActivate:[AuthGuard]},
+    ]},
+];
+
+@NgModule({
+    imports:[
+        RouterModule.forChild()
+    ],
+    exports:[RouterModule]
+})
+export class RecipesRoutingModule{}
+
+//in the app.module.ts we add the RecipesRoutingModule
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        RecipesRoutingModule
+    ]
+	
+	
+	
+//to directives we need to create one sharedmodule to share the directives
+//NEVER PROVIDE SERVICES IN SHARED Modules
+if we provie the service inside appmodule and also we provide the service in the featuremodule it doesnt error because is the same root injector
+I mean it only is created one instance
+
+
+with a lazyloaded feature module angular creates an child injector so this would be another instance
+
+	
+/************************************************************************************************************************/
+Webpack to use webpack we use nodejs
+
+npm init//initialize the project 
+npm install webpack --save-dev//this creates a new folder webpackage and add the package.json
+//inside package.json we add
+"scripts":{"build":"webpack src/js/app.js dist/bundle.js"}
+/************************************************************************************************************************/
+HttpClient new version
+	int this new version we have the interceptors 
+	we use to apply something to all the requests
+	Example:
+	import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+	import { Observable } from 'rxjs';
+	export class AuthInterceptor implements HttpInterceptor {
+		intercept(req: HttpRequest<any>, next: HttpHandler):Observable<HttpEvent<any>>{//the interceptor return an observable
+			console.log('Intercepted!',req);
+			return next.handle(req);//and we need to call the next.handle to success
+		}
+	}
+	
+	//in the core module we are adding in the providers section
+	{provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor,multi:true}
+	
+//request are inmutable this means that we need to clone the request
+//if we want to modify the params
+         const copiedRequest =req.clone({params:req.params.set('auth',this.authService.getToken())});
+        return next.handle(copiedRequest);
+/************************************************************************************************************************/	
+
+
+
+	
+	
+
+
+
+

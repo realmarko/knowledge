@@ -1,0 +1,68 @@
+AWS
+What is S3?
+	is a safe place to store your files
+	it is Object-based storage
+	the data is spread across multiple devices and facilities 
+The basics
+	S3 is Object-based -i.e. allows you to upload files
+	Files can be from 0 Bytes to 5 TB.
+	There is unlimited storage.
+	Files are stored in Buckets (similar to folder)
+	S3 is a universal namespace. That is, names must be unique globally.
+	When you upload a file to S3, you will recieve a HTTP 200 code if the upload was successfull.
+	
+Data Consistency Model For S3
+	Read after Write consistency for PUTS of new Objects.
+	Eventual Consistency for overwrite PUTS and DELETES(can take some time to propagate)
+
+S3 is a Simple Key-value store
+	S3 is Object based. Objects consist of the following:
+	key(This is simple the nae of the object)
+	Value(This is simply the data, wich is made up of a sequence of bytes)
+	Version ID(Important for versioning)
+	Metadata(Data about data you are storing)
+	Subresources bucket-specific configuration:
+		Bucket policies, Access Control Lists,
+		Cross Origin Resource Sharing(CORS)
+	Transfer acceleration:is a service that allows accelerate transfer when you are uploading lots
+	of files into s3
+	
+	Built for 99.99% availability for the S3 platform
+	Amazon Guarantee 99.9% availabilityAmazon guarantees 99.999999999 durability for S3 information
+	Tiered Storage Available
+	LifeCycle Management
+	Versioning
+	Encryptation
+	Secure your data Access
+		Control Lists and Bucket Policies
+		
+S3 Storage Tiers/Classes
+	S3: 			99.99% availability, 99.999999999% durability, stored redundantly across multiple devices in multiple facilities,
+					and is designed to sustain the loss of 2 facilities concurrently.
+	S3-IA:			(infrequently Accessed): For data that is accessed less frequently, but requieres rapid access when needed.
+					Lower fee than S3, but you are charged a retrieval fee.
+	S3-One Zone IA: Samw as IA however data is stored in a single Availability Zone only, still 99.999999999% durability.
+					Cost is 20% less than regular S3-IA.
+	Reduce Redundancy Storage: Designed to provide 99.99% durability and 99.99% availability of objects over a given year.
+					Used for data that can be recreated if lost, e.g. thumbnails.
+	Glacier:		Very cheap, but used for archival only. Optimised for data that is infrequently accessed and it takes
+					3-5 hours to restore from Glacier.
+					
+S3 Charges
+	Storage per GB
+	Requests(Get, Put, Copy, etc.)
+	Storage Management Pricing
+		Inventory, Analytics, and Object Tags
+	Data Management Pricing
+		Data Transferred out of S3
+	Transfer Acceleration
+		Use of CloudFront to optimize transfers
+/************************************************************************************************************************/
+Securing your buckets
+By default, all newly create buckets are PRIVATE
+You can set up access control to your buckets using:
+	Bucket policies:Applied at a bucket level.
+	Access control lists: Applied ta an object level.
+S3 buckets can be configured to create access logs, wich log all requests made to the S3 bucket.
+These logs can be written to anotther bucket.
+/************************************************************************************************************************/

@@ -1,0 +1,54 @@
+Azure
+DataServices
+	Sql Server
+	Tables(No SQL)
+	Blob up to 200 tb
+	HDInsight
+	SQL Reporting
+	Recovery Manager
+	
+AppServices 
+	Service Bus
+		Relay
+		Notification Hub
+	Media Services(Youtube stream)
+	Biztalk Services
+	Active Directory and Identity
+	Caching
+/************************************************************************************************************************/
+App service
+	is the quikest path to publish your web-based projects.
+	has been designed with devops in mind
+	it support tool for CI/CD including github webhooks,Jenkins, Azure DveOps, TeamCity and others.
+	
+	When to use
+		 when you are migrating existing web applictions to Azure.
+		 when you need fully managed hosting platform for your web apps
+		 to support mobile clients
+		 expose REST API
+Azure Virtual Machines
+	Infraestructure as a Service
+	Deploy or Migrate your application in Winows or Linux
+	
+	When to use 
+	When you want full control in your application structure
+	or to migrate on-premises appliation workloads to azure without having to make changes
+	
+Azure Functions(Serverless)
+	Code executions is triggered by HTTP requests, webhooks, cloud service events, or on a schedule.
+	You pay only for the time that your code executes.
+
+Azure Service Fabric
+	is a distributed systems platform that makes it easy to build, package, deploy, and manage scalable and reliable microservices. 
+	It also provides comprehensive application management capabilities for provisioning, deploying, monitoring, upgrading/patching, 
+	and deleting deployed applications. 
+	Apps, which run on a shared pool of machines, can start small and scale to hundreds or thousands of machines as needed.
+
+	Service Fabric supports WebAPI with Open Web Interface for .NET (OWIN) and ASP.NET Core. It provides SDKs for building services on Linux in both .NET Core and Java
+	
+
+	
+	
+	
+	
+

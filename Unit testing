@@ -1,0 +1,36 @@
+UNit testing
+	Unit Test
+	Integration Test
+		test the application with its externaldependencies
+	End to end test
+		Drives an application throughtits UI(selinium)
+	
+	Tools
+		NUnit
+		MSTest
+		xUnit
+		Resharper
+		Rider
+		
+		
+		
+		to create a project
+		create unit test project
+		[TestClass]
+		[TestMethod]
+	To use NUnit 
+		You need to install the nuget package and the package NUnit3Adapter
+		insted of TestClass is TextFixture
+		insted of TesMethod is Test
+
+	Authomatic is Test Driven Development(TDD)
+		Benefits
+			Testeable Source Code
+			Full coverage by test
+			Simpler Implementation
+		
+	Integration test = component +template
+	test=component
+	end to end test=the entere app as a whole
+/************************************************************************************************************************/
+

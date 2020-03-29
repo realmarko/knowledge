@@ -1,0 +1,46 @@
+AngularJS
+/************************************************************************************************************************/
+Benefits
+	DependencyInjection
+	Two way data-binding
+	Testing
+	Movel View Controller
+	Directives, Filters
+	
+ng-app is a directive that indicates that here is angular code
+
+/************************************************************************************************************************/
+Module and controller
+	a module is a container for differents parts of your application i.e. controllers, services, directives, filters, etc.
+How to create a module
+	var myApp=angular.module("myModule",[]);
+	the second paramter are the dependencies
+Controller
+	In angular a controller is a Javascript function. The job of the controller is to build a model for the view to display.
+How to create a controller
+	var myController= function($scope){
+		$scope.message = "AngularJS Tutorial";
+		
+	}
+	$scope is used like the viewbag in MVC
+to add this controller to the module
+	myApp.controller("myController",myController);
+
+in the html
+<body ng-app = "myApp">
+	<div ng-controller="myController">
+	{{message}}
+	</div>
+	</body>
+	
+	
+to load images
+	ng-src="{{contry.image}}"
+	
+ng-model updates the model when the view changes
+	can be used in textarea,select, input 
+	
+	
+	video5
+/************************************************************************************************************************/
+/************************************************************************************************************************/
