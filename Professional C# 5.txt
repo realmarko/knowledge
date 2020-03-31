@@ -1,0 +1,122 @@
+c#
+Common Language
+	Runtime (CLR) or the .NET runtime. Code running under the control of the CLR is often termed managed code.
+	However, before it can be executed by the CLR, any source code that you develop (in C# or some other
+	language) needs to be compiled. Compilation occurs in two steps in .NET:
+	1. Compilation of source code to Microsoft Intermediate Language (IL)
+JIT
+	Instead of compiling the entire application at one time (which could lead to a slow startup time), the JIT
+	compiler simply compiles each portion of code as it is called (just in time)
+F#
+	Is a functional language.
+Distinct Value and Reference Types
+	Value types - variable directly stores its data
+		value types are normally stored on the stack
+	Reference types - variable stores the address at which the corresponding data can be found
+		Instances of reference types are always stored in an area of memory known as the managed heap
+Common Type System (CTS)
+	defines the predefined data types available in IL so that all languages that target the .NET Framework can produce compiled code ultimately based on these types.
+Garbage Collection
+	The garbage collector is .NET’s answer to memory management
+	Sometimes, when .NET detects that the managed heap for a given process is becoming full and therefore needs tidying up, it calls the garbage collector.
+	It will be called when the CLR decides that it is needed
+	Calling the garbage collector in your code is good for testing purposes, but you shouldn’t do this in a normal program
+Application domains 
+	are designed as a way to separate components without resulting in the performance problems associated with passing data between processes
+	If a running application does need to communicate or share data with other applications running in different application domains, 
+		it must do so by calling on .NET’s remoting services.
+Use of attributes
+	The initial idea of an attribute was that it provided extra information concerning some item in the program that could be used by the compiler.
+AssEmbLiEs
+	An assembly is the logical unit that contains compiled code targeted at the .NET Framework
+	Assemblies come in two types: private and shared assemblies
+	Private assemblies
+		They normally ship with software and are intended to be used only with that software
+	shared Assemblies
+		Shared assemblies are intended to be common libraries that any other application can use
+Reflection
+	is access to metadata programatically
+nAmEsPACEs
+	Namespaces are the way that .NET avoids name clashes between classes
+	 is a way to group together associated classes
+Windows Presentation Foundation (WPF) 
+	is the newer technology based on vector graphics.
+	WPF makes use of XAML in building applications. XAML stands for eXtensible Application Markup Language.
+windows services
+	A Windows Service (originally called an NT Service) is a program designed to run in the background in Windows NT kernel based operating systems
+/****************************************************************************************************************************************/
+With static you dont create an object
+Variable scope
+	The scope of a variable is the region of code from which the variable can be accessed
+Constants
+	Should be initialized
+	you can not initializa a constant using a variable if you want to do that you need to use a field read only insted
+Value Types and Reference Types
+	Value types are stored in an area known as the stack (bool, long)
+	Reference types are stored in an area known as the managed heap (classes, objects, strings)
+	If you want to define your own type as a value type, you should declare it as a struct.
+Float
+	to use a float we need the f letter 
+	float f = 12.3F;
+Decimal
+	decimal d = 12.30M
+continue Statement
+	The continue statement is similar to break, and must also be used within a for, foreach, while, or do..
+	while loop. However, it exits only from the current iteration of the loop, meaning that execution will restart
+	at the beginning of the next iteration of the loop, rather than outside the loop altogether.	
+Namespaces	
+	Namespaces are not related to assemblies. It is perfectly acceptable to have different namespaces in the same
+	assembly or to define types in the same namespace in different assemblies.
+	Defining the namespace hierarchy should be planned out prior to the start of a project. Generally the accepted
+	format is CompanyName.ProjectName.SystemSection
+	namespace Aliases
+		using alias = NamespaceName;
+/****************************************************************************************************************************************/
+ClAssEs ANd sTRuCTs
+	Classes and structs are essentially templates from which you can create objects
+	classes are reference types stored in the heap; structs are value types stored on the stack	
+	structs don’t support inheritance
+	Classes
+		Accessibility to the members can be public, protected,internal protected, private, or internal
+		data Members(fields, constants, and events)
+		Fields are any variables associated with the clas
+		Function Members
+			are those members that provide some functionality for manipulating the data in the class. 
+			They include methods, properties, constructors, finalizers, operators, and indexers.
+		Indexers allow your objects to be indexed in the same way as an array or collection
+		Constructors are special functions that are called automatically when an object is instantiated.
+			They must have the same name as the class to which they belong and cannot have a return type.
+			Constructors are useful for initialization.
+		Finalizers are similar to constructors but are called when the CLR detects that an object is no
+			longer needed. They have the same name as the class, preceded by a tilde (~)
+	To make a property read only we only will use the get
+		private string name;
+		public string Name
+		{
+			get
+			{
+				return name;
+			}
+		}
+	Constructors
+		By default if doesnt exists any constructor 1 is created
+		If at least one constructor exists then the default constructor is not created
+		Static Constructors
+			One novel feature of C# is that it is also possible to write a static no-parameter constructor for a class. Such
+			a constructor is executed only once
+			One reason for writing a static constructor is if your class has some static fields or properties that need to be
+				initialized from an external source before the class is first used
+	Read only
+		Modified in compilation time
+		public class DocumentEditor
+		{
+			public static readonly uint MaxDocuments;
+			static DocumentEditor()
+			{
+				MaxDocuments = DoSomethingToFindOutMaxNumber();
+			}
+		}
+		
+	ANoNyMous TyPEs
+		is when we use the 'var' keyword
+/****************************************************************************************************************************************/
