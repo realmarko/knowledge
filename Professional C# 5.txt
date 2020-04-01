@@ -119,4 +119,38 @@ ClAssEs ANd sTRuCTs
 		
 	ANoNyMous TyPEs
 		is when we use the 'var' keyword
+		
+	Struct
+		we use when we have a few properties
+		Defining functions for structs is also exactly the same as defining them for classes
+		Structs do not support inheritance.
+		example 
+		class Dimensions
+		{
+			public double Length;
+			public double Width;
+		}
+		
+	Weak reference
+		A weak reference allows the object to be created and used, but if the garbage collector happens to run, 
+		it will collect the object and free up the memory
+			to do this we need the weakreference class
+			example 
+				WeakReference mathReference = new WeakReference(new MathTest());
+	THE objECT ClAss
+		all .NET classes are ultimately derived from System.Object
+	Extension methods
+		 If the source code isn’t available, extension methods can help by enabling you to change a class without requiring the source code for the class
+		 example
+			public static class MoneyExtension
+			{
+				public static void AddToAmount(this Money money, decimal amountToAdd)
+				{
+					money.Amount += amountToAdd;
+				}
+			}
+			For an extension method, the first parameter is the type that is being extended preceded by the this keyword
+			to call this method we create an object of the main class(Monkey) and call in the next way
+				cash1.AddToAmount(10M);
+			
 /****************************************************************************************************************************************/
