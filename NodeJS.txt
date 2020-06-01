@@ -1,22 +1,26 @@
 NodeJS
-nodejs use V8 that is the engine created by google
-to check the version node -v
+//nodejs use V8 that is the engine created by google
+//to check the version 
+node -v
+
+//All the configuration is in the file Package.json
 
 /************************************************************************************************************************/
-we create the folder where we want the nodejs app
+/*we create the folder where we want the nodejs app
 install the stable version of nodejs
 	after npm init
 
 despues entramos a vs code
 	and execute npm install --save express (framework for nodejs)
 	create a new file called server.js
-	and we add the next code
+	and we add the next code*/
 		const http = require('http');
 		const port = process.env.PORT || 3000;
 		const server = http.createServer();
 		server.listen(port);
 
-	after that we add app.js and we put this code
+	//after that we add app.js and we put this code
+	npm install --save express
 		const express = require('express');
 		const app = express();
 
@@ -27,24 +31,37 @@ despues entramos a vs code
 		});
 		module.exports = app;
 	
-	
-	we can isntall nodemon 
-	this is going to help for we dont need to restart the server
-	npm install --save-dev nodemon
+	/******************************************************************/
+	/*we can install nodemon 
+	this is going to help for we dont need to restart the server*/
+	npm install nodemon --save-dev 
 	//if the command nodemon is not recognized then we need to install globaly
-	npm install -g nodemon
+	npm install nodemon -g 
 	
-	and add the next lin in package.json inside script area
-	"start":"nodemon server.js"
+	//and add the next line in package.json inside script area
+	"scripts" : {
+		"start":"nodemon server.js"
+	}
+	/******************************************************************/
+	/*Error types
+		-Syntaxis errors
+		-Runtime errors
+		-Logical errors*/
+	/******************************************************************/
+	/*Express.js alternatives
+	Vanilla nodejs
+	Adonis.js
+	Koa
+	Sails.js*/
+	/******************************************************************/
+	//For logging
 	const morgan = require('morgan');
 	
-	
-	for logging
 	npm install --save morgan
-	adn we add in app.js
-	
-	handling errors in nodejs
-		app.use((req, res, next) => {
+	//and we add in app.js
+	/******************************************************************/
+	//handling errors in nodejs
+	app.use((req, res, next) => {
 		const error = new Error('Not found');
 		error.status=404;
 		next(error);
@@ -56,21 +73,21 @@ despues entramos a vs code
 			error: { message: error.message }
 		});
 	});
-	
-	CORS and Parsing the body
+	/******************************************************************/
+	//CORS and Parsing the body
 	npm install --save body-parser
 	const bodyParser = require('body-parser');
-/************************************************************************************************************************/
-Spread operator
-	create a copy of the element + new elements
+/**********************************************************************/
+//Spread operator
+//	create a copy of the element + new elements
 	const hobbies = ['Sports','Cooking'];
 	const copiedArray = [...hobbies];
 	
-	if I want to copy an object
+//	if I want to copy an object
 	const copiedObject = {...person};
-	
-Rest operator
-merge multiple arguments into an array
+	/**********************************************************************/
+//Rest operator
+//merge multiple arguments into an array
 
 const f = toArray(...args)=>{
 	return args;
@@ -79,7 +96,7 @@ const f = toArray(...args)=>{
 /************************************************************************************************************************/
 
 //DEstructuring(get the values that we need of the object)
-example:
+//example:
 const person ={
 	name:'Max',
 	age:29
@@ -101,15 +118,15 @@ printName(person);
 	trotling
 	let and var
 /************************************************************************************************************************/
-template literals
+/*TEMPLATE LITERALS
 It's a different way of writing strings.
 you can dynamically add data into a string like this:
-example:
+example:*/
 const name = "Max";
 const age = 29;
-console.log(`My name is ${name} and I am ${age} years old.`);	
+//console.log(`My name is ${name} and I am ${age} years old.`);	
 /************************************************************************************************************************/
-Core modules
+/*Core modules
 	http	:Launch server / send request
 	htpps	:Launch a SSL server
 	fs		:
@@ -117,9 +134,9 @@ Core modules
 	os
 	
 when we add "./" we are refering to a local file
-example:
+example:*/
 const http = require('./http');
-without that we are not refering to a local file
+//without that we are not refering to a local file
 const http = require('http');
 /************************************************************************************************************************/
 //to create a server
@@ -137,9 +154,9 @@ const server = http.createServer((req,res)=>{
 //and after listen for incoming request
 server.listen();
 /************************************************************************************************************************/
-npm = node package manager
-the command to initialize the code is in
-package.json in the scripts "section" y luego en "start"
+//npm = node package manager
+//the command to initialize the code is in
+//package.json in the scripts "section" y luego en "start"
 	 "scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "node app.js",
@@ -162,14 +179,9 @@ npm install nodemon --save-dev
 npm install nodemon -g
 nodemon restart the server when find some changes
 /************************************************************************************************************************/
-Types of errors
-	Syntax errors
-	Runtime Errors
-	Logical Errors
-/************************************************************************************************************************/
-to debug
-We need to go to the menu Debug-> start debugging
-we can add a configuration
+//to debug
+//We need to go to the menu Debug-> start debugging
+//we can add a configuration
    "configurations": [
         {
             "type": "node",
@@ -180,10 +192,8 @@ we can add a configuration
             "console": "integratedTerminal"
         }
     ]
-
-	
 /************************************************************************************************************************/
-pasos para hacer las pruebas con nodejs
+/*CREAR UN NUEVO PROJECTO
 crear la carpeta
 	mkdir ejemplo
 ir a la carpeta
@@ -199,10 +209,30 @@ utilizamos
 node app.js
 utilizar nodemon para reiniciar el server automatically
 npm install nodemon --save
-nodemon server.js
+nodemon server.js*/
 /************************************************************************************************************************/
+//LIMITING THE MIDDLEWARE TO GET OR POST
+app.get('/product',(req,res,next)=>{
+	res.redirect('/');
+});
+/**********************************************************************/
+//USING EXPRESS ROUTER
+//create a folder Routes and inside the Files.js
+//example admin.js
+const express = require('express');
+const router = express.Router();
+router.use('/add-product',(req,res,next) =>{
+	res.send('');
+})
 
-	
+//and inside app.js
+const adminRoutes = require('./routes/admin');
+app.use(adminRoutes);
+/**********************************************************************/
+//Adding a 404 Error Page
+app.use(req,res,next)=>{
+	res.status(404).send('<h1>Page not found</h1>');
+}
 
 	
 	
