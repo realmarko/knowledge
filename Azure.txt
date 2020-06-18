@@ -28,7 +28,7 @@ App service
 		 expose REST API
 Azure Virtual Machines
 	Infraestructure as a Service
-	Deploy or Migrate your application in Winows or Linux
+	Deploy or Migrate your application in Windows or Linux
 	
 	When to use 
 	When you want full control in your application structure
@@ -46,6 +46,61 @@ Azure Service Fabric
 
 	Service Fabric supports WebAPI with Open Web Interface for .NET (OWIN) and ASP.NET Core. It provides SDKs for building services on Linux in both .NET Core and Java
 	
+/************************************************************************************************************************/
+What is Azure App Service
+	A cloud-based web hosting service
+Tradicional hosting scenario
+	FTP->Web Server(VM) ->Infraestructure =>Internet
+						->Database Server
+Integrated App service
+	Deploy for desktop IDE -> Azure cloud(App services, Database, Dock container)Continuos deployment
+App service Features
+	Authentication an Authorization
+	Application Insights = metris about your app's usage
+	Configure backups of your app and its Database
+	Set up a custom domain 
+	Toggle TLS/SSL settings and use security certifications
+	Network configuration to restrict access to your app
+	Scale resourse
+	Webjobs allows you to run background jobs
+	Push notifications to modile clients
+	Set up alerts
+/************************************************************************************************************************/
+Azure includes four different technologies that you can use to build and implement workflows that integrate multiple systems:
+    Logic Apps
+    Microsoft Power Automate
+    WebJobs
+    Azure Functions
+
+Logic Apps
+	Logic Apps is a service within Azure that you can use to automate, orchestrate, 
+	and integrate disparate components of a distributed application. 
+	By using the design-first approach in Logic Apps, 
+	you can draw out complex workflows that model complex business processes
+
+Microsoft Power Automate
+	Microsoft Power Automate is a service that you can use to create workflows even when you have no development or IT Pro experience.
+WebJobs and the WebJobs SDK
+	The Azure App Service is a cloud-based hosting service for web applications, 
+	mobile back-ends, and RESTful APIs. 
+	These applications often need to perform some kind of background task.
+	There are two kinds of WebJob:
+    	Continuous. These WebJobs run in a continuous loop. 
+			For example, you could use a continuous WebJob to check a shared folder for a new photo.
+    	Triggered. These WebJobs run when you manually start them or on a schedule.
+Azure Functions
+	An Azure Function is a simple way for you to run small pieces of code in the cloud, 
+	without having to worry about the infrastructure required to host that code
+
+In most cases, the simple administration and more flexible coding model provided by Azure Functions 
+may lead you to choose them in preference to WebJobs. However, you may choose WebJobs for the following reasons:
+    You want the code to be a part of an existing App Service application and to be managed as part of that application, 
+	for example in the same Azure DevOps environment.
+    You need close control over the object that listens for events that trigger the code. 
+	This object in question is the JobHost class, and you have more flexibility to modify its behavior in WebJobs.
+
+
+
 
 	
 	

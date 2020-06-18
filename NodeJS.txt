@@ -255,6 +255,38 @@ Dynamic routes
 				cb(product);
 			})
 		}
+	video 116
+/**********************************************************************/
+query parameters
+	when we receive values from URL
+	example 
+	local.com/page/123?edit=true&title=new
 	
+	inside the controller 
+	exports.getEditProduct = (req,res,next) =>{
+		const editMode = req.query.edit; 
+	}
+/**********************************************************************/
+FILTERING PATHS
+we can add a prefix in app.js
+	app.use('/admin',adminRoutes);
+/**********************************************************************/
+To show a file inside the directory
+	const path = require('path');
 	
-
+	route.get('/',(req,res,next)=>{
+		res.sendFile(path.join(__dirname,'../','views',
+		'shop.html'));
+	});
+/**********************************************************************/
+HELPERS
+	Create util folder
+	path.js
+		const path = require('path');
+		module.exports = path.dirname(process.main.Module);
+	and in shop.js
+		const rootDir = require('../util/path');
+		and change 
+			router.get('/add-product',(req,res,next)=>{
+			res.sendFile(path.join(rootDir,'views','add-product'));
+			})
