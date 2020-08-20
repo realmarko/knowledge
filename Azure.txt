@@ -19,7 +19,7 @@ AppServices
 App service
 	is the quikest path to publish your web-based projects.
 	has been designed with devops in mind
-	it support tool for CI/CD including github webhooks,Jenkins, Azure DveOps, TeamCity and others.
+	it support tool for CI/CD including github webhooks,Jenkins, Azure DevOps, TeamCity and others.
 	
 	When to use
 		 when you are migrating existing web applictions to Azure.
@@ -99,11 +99,122 @@ may lead you to choose them in preference to WebJobs. However, you may choose We
     You need close control over the object that listens for events that trigger the code. 
 	This object in question is the JobHost class, and you have more flexibility to modify its behavior in WebJobs.
 
+https://docs.microsoft.com/en-us/learn/certifications/exams/az-203
+/************************************************************************************************************************/
+https://docs.microsoft.com/en-us/learn/modules/create-serverless-logic-with-azure-functions/1-introduction
+Azure Functions
+allow developers to host business logic that can be executed without managing or provisioning infrastructure.
+What is a function app?
 
+Functions are hosted in an execution context called a function app. 
+You define function apps to logically group and structure your functions and a compute resource in Azure
+Bindings
 
+Bindings are a declarative way to connect data and services to your function.
+https://docs.microsoft.com/en-us/learn/modules/create-serverless-logic-with-azure-functions/5-add-logic-to-the-function-app?pivots=javascript
 
+	a5zHakjEhpgBsMtp4
+	CPE#FEFF8A
+	omnitracs
+	OMN-2213-AUHF
+/************************************************************************************************************************/
+webjobs
+	common tasks
+		Image processing
+		Queue processes
+		file maintaince
+		RSS agregation
+		
+	run programs or scripts
+		On demand(triggered)
+		Continuosly
+		On a schedule
 	
+	Supported FileTypes
+	.cmd	.bat
+	.ps1	.exe	
+	.sh		.js
+	.php	.jar
+	.py
 	
+	In the case of triggers
+	Manual (we need to call a webhook) or schedules
 	
+Scaling out instance options
+	Manual
+		specify the number of instances to scale to
+	Autoscaling
+		Based on a metric 
+		CPU percentage > 70(increase count by 2)
+		CPU percentage < 30(decrease count by 2)
+	On a schedule
+	
+SQL database Scale 
+	Change the tier of the database
+		Basic, standard, premium, and premium rs
+	DTUs
+	Storage
+SQL Database Replication
+/************************************************************************************************************************/
+Azure storage services
+	Network security 
+		types of connections
+			Public endpoint 
+			Service endpoint ->V NET
+			Internal VNET inside the VNET
+	Resources names
+	service names
+		Storage account https://***.core.windows.net
+		SQL				TCP:***.database.windows.net, PORT 1433
+		Redis Cache		TCP:***.rediscache.windows.net, PORT 6320
+		
+	Authentication and Authorization
+		Credentials
+			Azure active directory account
+			SQL database username and password
+			Keys and tokens
+	Azure Storage Services
+		Tables	https://***.table.core.windows.net
+		Queues	https://***.queue.core.windows.net
+		Files	https://***.file.core.windows.net
+		Blobs	https://***.blob.core.windows.net
+	Authorization access
+		Azure Active Directory
+			Role based access control
+			User, group or Application
+			High Security with case of use
+		Shared Keys
+			root password of the storage account 
+			There are always two active keys
+			No identity authentication
+		Shared Access Signature(SAS) Token
+			Does not authenticate an identity
+			Granular control over the access granted
+			Configurable parameters
+			Can be revoked
+		Anonymous access
+			is read only
+			Network security is still verified
+			No identity or authorization check
+	Avalable Permissions
+		Fine grained Access
+		Azure Active Directory
+		Shared Access Signature (SAS) Token
+	Permissions
+		Read, write,delete, list, etc.
+	Scope
+		Service, Container, Objects
+	
+	Azure AD Built-in Roles
+		blob data Contributor
+		blob data reader
+		Queue Data Contribuitor
+		Queue Data reader
+		Create custom role
+		
+	You should us e Azure AD over SAS
+
+		
+		
 	
 

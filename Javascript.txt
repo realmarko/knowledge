@@ -1,0 +1,234 @@
+Pluralsight questions
+1. Which code snippet is equivalent to the following for loop?
+for (let i = 0; i < 10; i++) {
+  ...
+}
+
+Res
+let i = 0;
+do {
+  i++;
+  ...
+} while (i < 10)
+
+2. After the following code is executed, what is printed to the console?
+let iterable = [10];for (let value of iterable) {  console.log(value);}
+Res
+10
+
+3. After the following code executes, what prints to the console?
+<div id="foo" class="bar">Hello World</div>
+<script>
+var myDiv = document.getElementById("foo");
+var myDivAttribute = myDiv.getAttribute("class");
+console.log(myDivAttribute)
+</script>
+Res
+bar
+
+4. What is the correct escape notation for a new line in a string?
+Res
+\n
+
+5. Given a string 2, what is one way you can convert it to a number?
+Res
+parseInt('2');
+
+6. Which snippet will print foo to the console only if x is of the same value and type as the string "42"?
+Res
+if (x === "42") { console.log("foo") }
+
+7. In the statement: let x = a ? b : c, if a is false, what value is assigned to x?
+Res
+c
+
+8. Given a class Sheep inheriting from a class Animal, what must you do before using this in Sheep's constructor?
+Res
+Use the super keyword to call the constructor of the parent class
+
+9. What is the correct function that encodes a Uniform Resource Identifier (URI)?
+Res
+encodeURI()
+
+10. What is the array prototype method that changes the contents of an array by removing existing elements and/or adding new elements?
+Res
+[].splice()
+
+11. How should i be declared (replacing the ???) to make this code function as expected?
+// search array, arr, for presence of "sought"
+// return true if present, false if not
+function isPresent(arr, sought) {
+  for (??? i = 0; i < arr.length; i++) {
+    if (arr[i] === sought) {
+      break;
+    }
+  }
+  return i !== arr.length;
+}
+Res
+var
+
+12. How can you define a class that inherits from another class Foo, as follows, and uses the parent class's constructor?
+Res
+class Bar extends Foo {
+  constructor(x, y){
+    super(x);
+    this.y = y;
+  }
+}
+
+13. How many times is a while loop guaranteed to run for?
+Res
+There is no guarantee the while condition will ever be met to run
+
+14. Given the following string and function:
+var str = ‘Hello my name is ’;
+function addName() {
+  return ‘User1’;
+}
+Res
+`${str}${addName()}`
+
+15. How would you insert a comment in the middle of a statement to describe a function parameter's expected type?
+Use a multi-line comment (/* ... */) in the middle of the statement
+
+16. Which answer correctly shows a function being invoked with the value of another function used as an argument?
+Res
+getScore(latestScore())
+
+17. How many times will this loop execute?
+for (let i = 0; i < 20; i++) {
+  if (i == 10) {
+    continue;
+  }
+  if (i == 15) {
+    break;
+  }
+}
+Res
+16
+
+18. Which keyword can you use to declare a block-scoped, mutable variable?
+Res
+let
+/************************************************************************************************************************/
+1. Given the following browser script, how can the first "foo" instance be accessed within the function "bar"?
+Res
+window.foo
+
+2. What does this code snippet print to the console?
+let FIRST = 'User';
+let LAST = 'One';
+let FIRST&LAST = FIRST + LAST;
+console.log(FIRST&LAST);
+Res
+It throws a SyntaxError
+
+3. How can you create a function that will invoke immediately?
+Res
+(function() {
+    statements
+})();
+
+4. You are writing an algorithm to process audio that runs 44,100 times a second. 
+There is a single section of code you only need to execute if either a variable, foo, 
+is assigned a value of true or a performance-heavy function, bar(), 
+returns a value of true. How can you optimize the following conditional?
+Res
+Simply switch foo and bar() to take advantage of JavaScript short-circuiting:
+if(foo || bar())
+
+5. Given the following function calls:
+Res
+function sum(...theArgs) {
+  return theArgs.reduce((previous, current) => {
+    return previous + current;
+  });
+}
+
+6. The following snippet of code produces an error. Why?
+Res
+b does not have a property forEach. 
+
+7. A script tag is present on a web page at the top of the <body> tag and it contains a src attribute. An async is not present. What happens?
+Res
+Page parsing is paused while the resource specified by src is loaded and executed.
+
+8. There is a variable-size, dynamic array, numbers, 
+that contains a series of integers. Using Math.max(), which code snippet will find the largest number in the array?
+Res
+Math.max(...numbers);
+
+9. After the following code is executed, what is printed to the console?
+Res
+[37]
+
+10. What configuration can you change in the following public property definition to make it not visible to enumeration, 
+not writable, protected from deletion, and, effectively, a constant?
+Res
+Object.defineProperty(foo, 'bar', {
+    value: 'bar',
+    writable: false,
+    enumerable: false,
+});
+
+11. Given the following:
+var bar = foo(10);
+bar(2); // 12
+Res
+function foo(x) {  return function(y) {    return x + y;  };}
+
+
+12. Which is the correct way to declare a generator function?
+Res
+function* foo() { ... }
+
+13. How can data be provided to a running generator?
+Res
+Pass it as a parameter to the next method call.
+
+14. Given the following:
+console.log(iterator1.next().value); //42
+Res
+let set1 = new Set();set1.add(42);const iterator1 = set1.values();
+
+15. How can you recreate the following string with a line break into a template literal?console.log('string text line 1\n' + 'string text line 2');
+Res
+console.log(`string text line 1
+string text line 2`);
+
+16. Which code snippet correctly shows unpacking the arguments object into an array?
+Res
+Array.from(arguments)
+
+17. What is printed to the console when a web page loads the following scripts?
+Res
+42
+
+18. What is the correct syntax for using the Function.prototype.call method with a string parameter?
+function func(phrase) {
+  console.log("%s, how are you?", phrase);
+}
+Res
+func.call(this, "hello");
+/************************************************************************************************************************/
+JavaScript arrays and collections
+	Methods for working with arrays
+		chart.js
+			.getContext('2d');
+	let a = Array.of(12,9,3);
+	Spread operators 
+		...arrayValues
+	
+	to find an element inside the arrays
+		let firstThousand = monthlySales.find(element => element >1000);
+	to find the index
+		monthlySales.findIndex(element => element>1000);
+		
+	.fill reset the values 
+		monthlySales.fill(0);
+/************************************************************************************************************************/
+Working with sets
+
+
+

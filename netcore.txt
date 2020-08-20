@@ -165,6 +165,10 @@ microsoft academy
 dotnetconf
 /************************************************************************************************************************/
 Now we dont have nugets we have bower
+/************************************************************************************************************************/
+Program.cs 	Contains a Main method—the app's managed entry point.
+csproj 	Contains configuration metadata for the project.
+Startup.cs 	Configures services and the app's HTTP request pipeline.
 
 
 

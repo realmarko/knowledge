@@ -1,0 +1,179 @@
+Questions Pluralsight
+1. What value will the following code display on the console?
+int i;
+for (i = 0; i < 10; i++)
+{
+}
+Console.WriteLine(i);
+Response
+9
+
+2. What does the following code illustrate?
+public class Selector
+{
+    public static T ChooseSecond<T>(T[] items)
+    { return items[1]; }
+}
+Response
+A generic method
+
+3. Consider the following array, Language Integrated Query (LINQ) query, and result:
+// Array
+List<int> ages = new List<int> { 21, 46, 46, 55, 17, 21, 55, 55 };
+
+// LINQ Query
+IEnumerable<int> distinctAges = ages.Distinct();
+
+// query result
+distinctAges = {21, 46, 55, 17};
+What change must you make to the LINQ query to return the average of the distinct values? 
+Response
+Add the Average() extension method after Distinct()
+
+4. Consider the following XML snippet:
+<!-- CustomersOrders.xml -->
+<Customers>
+    <Customer CustomerID="GREAL">
+        <CompanyName>Great Lakes Food Market</CompanyName> 
+        <ContactName>Howard Snyder</ContactName>
+    </Customer>  
+<Customers>  
+Which LINQ query would project an anonymous type?
+Response
+XElement custOrd = XElement.Load("CustomersOrders.xml");
+var custList =
+    from el in custOrd.Element("Customers").Elements("Customer")
+    select new
+    {
+        CustomerID = (string)el.Attribute("CustomerID"),
+        CompanyName = (string)el.Element("CompanyName")
+    };   
+	
+5. What does the following statement do?using System;
+Response
+Allows types in the System namespace to be referenced without specifying the namespace explicitly
+
+6. Consider the following variable declaration:
+var quote = "If we knew what it was we were doing, it would not be called research-Albert Einstein";
+Which choice will correctly split quote to produce these values?"If we knew what it was we were doing, it would not be called research" and"Albert Einstein" 
+Response
+var quoteSplit = quote.Split('-');
+
+7. Given the following:
+string greeting = "Hello, World!";Strings in C# are immutable. What does that fact mean for the above variable declaration?
+Response
+The string that greeting points to can never be modified, but greeting can be modified to point to a different string
+
+8. Language Integrated Query's (LINQ) ability to delay the retrieval of data until it is actually needed is called what? 
+Response
+Deferred execution
+
+
+9. Consider the following two arrays and Language Integrated Query (LINQ):
+Book[] bookArray = { 
+    new Book() { Id = 1, Category = "Fiction", PubYear = 1997 } ,
+    new Book() { Id = 2, Category = "Bios & Memoirs",  PubYear = 2015 } ,
+    new Book() { Id = 3, Category = "Business",  PubYear = 2015 } ,
+    new Book() { Id = 4, Category = "Classics" , PubYear = 1962 } ,
+    new Book() { Id = 5, Category = "History" , PubYear = 2000 } ,
+    new Book() { Id = 6, Category = "Fiction",  PubYear = 2001 } ,
+    new Book() { Id = 7, Category = "Bios & Memoris",PubYear = 1997  } 
+};
+Book[] bookAuthorsArray = { 
+     new Book() { Id = 1, Author = "Smith" } ,
+     new Book() { Id = 2, Author = "Johnson"} ,
+     new Book() { Id = 3, Author = "Wells"} ,
+     new Book() { Id = 4, Author = "Rice" } 
+};
+var join = from b in bookArray
+     join b2 in bookAuthorsArray on b.Id equals b2.Id
+     select new { 
+         Id = b.Id, 
+         Category = b.Category, 
+         PubYear = b.PubYear, 
+         Author = b2.Author };
+What will the final result set of this LINQ query be?
+Response
+Only records from bookArray and bookAuthorsArray where Id are in both arrays match
+
+10. What best describes the selectMany() Language Integrated Query (LINQ) extension method?
+Response
+It projects each element of a sequence to an IEnumerable<T> and flattens the resulting sequences into one sequence
+
+11. Consider the following array:
+Book[] bookArray =
+{
+    new Book() { Id = 1, Category = "Fiction", PubYear = 1997 },
+    new Book() { Id = 2, Category = "Bios & Memoirs",  PubYear = 2015 },
+    new Book() { Id = 3, Category = "Business",  PubYear = 2015 },
+    new Book() { Id = 4, Category = "Classics" , PubYear = 1962 },
+    new Book() { Id = 5, Category = "History" , PubYear = 2000 },
+    new Book() { Id = 6, Category = "Fiction",  PubYear = 2001 },
+    new Book() { Id = 7, Category = "Bios & Memoris",PubYear = 1997 }
+};
+Which LINQ query will project data into anonymous objects using LINQ query extension methods? 
+Response
+var results = bookArray
+    .Select(
+        x => new { BookId = x.Id, YearPublished = x.PubYear })
+            .ToList();
+			
+12. Which of the following is a true statement regarding the using directive?
+Response
+The using directive can save programmers from having to fully qualify every individual reference to members contained in another namespace.
+
+13. Which statement is true in regards to inheritance?
+Response
+Private members are visible only in a derived classes if the derived classes are nested inside their base class.
+
+14. You wrote a class MyClass that overrides a base class method void DoSomething(). 
+How can you prevent the MyClass override of DoSomething from being further overridden?
+Response
+You can declare the method DoSomething as sealed override.
+
+15. How would you use XML documentation for the following attributes?
+parameter: named intX with description of "number to be squared"
+summary: Returns the squared value of an integer value
+Response
+/// <summary>
+///  Returns the squared value of an integer value
+/// </summary>
+/// <param name="intX">number to be squared</param>
+
+16. Consider the following array and LINQ statement:
+Book[] bookArray = {  
+    new Book() { Id = 1, Category = "Fiction", PubYear = 1997 } , 
+    new Book() { Id = 2, Category = "Bios & Memoirs",  PubYear = 2015 } , 
+    new Book() { Id = 3, Category = "Business",  PubYear = 2015 } , 
+    new Book() { Id = 4, Category = "Classics" , PubYear = 1962 } , 
+    new Book() { Id = 5, Category = "History" , PubYear = 2000 } , 
+    new Book() { Id = 6, Category = "Fiction",  PubYear = 2001 } , 
+    new Book() { Id = 7, Category = "Bios & Memoirs",PubYear = 1997  }
+}; 
+var filteredBookList = bookArray.ToList();
+You must sort the result set in the following manner:
+By Id in ascending order 
+By Category in descending order
+Which LINQ method(s) must you add to the LINQ query to accomplish this task?
+Response
+.OrderBy(x => x.Id).ThenByDescending(x => x.Category)
+
+17. What type of key is being used in this Language Integrated Query (LINQ) to join the data from three tables?
+var query = from o in db.Orders
+    from p in db.Products
+ join d in db.OrderDetails
+        on new {o.OrderID, p.ProductID} equals new {d.OrderID, d.ProductID} into details
+        from d in details
+        select new {o.OrderID, p.ProductID, d.UnitPrice}; 
+Response
+Composite key
+
+18. Which is the correct syntax for iterating through a Dictionary<TKey, TValue> instance that contains a key and value of type string, using a foreach loop?
+foreach (KeyValuePair<string, string> kvp in dictionary)
+{
+    Console.WriteLine("Key = {0}, Value = {1}", 
+        kvp.Key, kvp.Value);
+} 
+/************************************************************************************************************************/
+
+

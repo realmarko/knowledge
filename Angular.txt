@@ -134,6 +134,7 @@ this.elementRef.nativeElement.style.background= 'green;'
 
 and we call this directive in the app.module.ts inside the imports
 and we use 
+
 <p appBasicHightlight></p>
 
 exits a better way to do this beacause is not a good practice access directly to this.elementRef.nativeElement.style.background
@@ -298,7 +299,7 @@ and in the ngOnInit(){
 OnDestroy(){}
 
 when we leave a component the ondestory is called
-but the subscriptions continue live so we need to cal the 
+but the subscriptions continue live so we need to call the 
 OnInit(){
  this.paramSubscription = this.route.params
  .suscribe(){
@@ -534,11 +535,11 @@ In angular we have 2 models of compilation
 - JIT Just In Time Compilation
 - AOT Ahead of Time Compilation
 
-JIT compilation(Compiles the application JUst in Time in the browser at runtime)
+JIT compilation(Compiles the application Just in Time in the browser at runtime)
 AOT compilation compiles the application at build time
 -For JIT compilation the browser needs to download the angular compiler,
 where as with AOT compilation it does not have to
--While the application is being JIT compiled inthe browser, users have to wait, where as with AOT, the application is pre-compiled so there no such wait.
+-While the application is being JIT compiled in the browser, users have to wait, where as with AOT, the application is pre-compiled so there no such wait.
 -With JIT compilation, the template binding errors are only know at runtime, 
 where as with aot compilation we will come to now about them at build time.
 
@@ -569,7 +570,7 @@ We can use preloading strategy
 inside the app-routing.module.ts
 
 imports:[
-	RouterModule.forRoot(appRoutes,{preloadingStartegy: PreloadingAllModules})
+	RouterModule.forRoot(appRoutes,{preloadingStrategy: PreloadingAllModules})
 ]
 /************************************************************************************************************************/
 Promise
@@ -962,7 +963,258 @@ HttpClient new version
          const copiedRequest =req.clone({params:req.params.set('auth',this.authService.getToken())});
         return next.handle(copiedRequest);
 /************************************************************************************************************************/	
+HttpParams
+	example:
+	storeRecipes()
+	{
+		const token = this.authService.getToken();
+		return this.httpClient.put('url',
+			this.recipeService.getRecipes(),{
+				observe: 'body',
+				params:new HttpParams().set('auth',token)	
+		});
+	}
+Progress //useful when we upload files
+storeRecipes(){
+	const token = this.authService.getToken();
+	const req = new HttpRequest('PUT','url',
+	this.recipeService.getRecipes(),
+	{reportProgress:true, params: new HttpParams().set('auth',token)})
+	return this.httpClient.request(req);
+}
+/************************************************************************************************************************/	
+INTERCEPTORS
+	Create it in Shared folder
+	auth.interceptor.ts
+	import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
+import { AuthenticationService } from '../_services/authentication.service';
+import { Observable } from 'rxjs';
 
+export class Authinterceptor implements HttpInterceptor
+{
+    constructor(private authService:AuthenticationService){}
+
+    intercept(req:HttpRequest<any>,next:HttpHandler):Observable<HttpEvent<any>>{
+        console.log('Intercepted!',req);
+
+        const copiedReq = req.clone({params:req.params.set('auth',this.authService.getToken())});
+        return next.handle(copiedReq);
+    }
+}
+
+then we need to put it in Providers inside NgModule
+providers:[
+	{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor, multi:true}
+]
+LOGGING INTERCEPTOR 
+import 'rxjs/add/operator/do';
+export class Authinterceptor implements HttpInterceptor
+{
+    constructor(private authService:AuthenticationService){}
+
+    intercept(req:HttpRequest<any>,next:HttpHandler):Observable<HttpEvent<any>>{
+        console.log('Intercepted!',req);
+
+
+        return next.handle(req).do{
+			event => {
+				console.log('Logging interceptor',event);
+			}
+		};
+    }
+}
+/************************************************************************************************************************/
+UNIT Test
+//W use beforeEach to initialize the unit test
+describe('AppComponent', () => {
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        AppComponent
+      ],
+    }).compileComponents();
+  }));
+//we have it methods to validate 
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
+  });
+  
+  //to run the tests
+  ng test
+/************************************************************************************************************************/	
+Questions Pluralsight
+1. An Angular module provides a "template resolution environment." Given this information, which of the following is true?
+Response
+Any nested component, directive, or pipe used in a component's template must be declared or imported in the same module as the component.
+
+2. When using the @ViewChildren decorator, in which event is the associated value first correctly set?
+Response
+ngAfterViewInit
+
+3. According to the Angular Style Guide, why is it important to use a prefix when naming component selectors?
+Response
+Prevents element name collisions with components in other apps and with native HTML elements
+
+4. When, if ever, is a component selector NOT required to be specified on the @Component decorator?
+Response
+When the component is not intended to be used as a child component, rather it is only navigated to
+
+5. What is the correct syntax for using FormBuilder?
+Response
+constructor(private fb: FormBuilder)
+this.heroForm = this.fb.group({
+      heroName: [''],
+      identityName: ['']
+});
+
+6. What must your code avoid, when using the AOT compiler to build the app?
+response
+Providing a function that cannot be determined at compile time
+
+7. All of the following are valid ways for a parent component to communicate with a child component except what?
+response
+@Inject variables
+
+8. Which utility allows you to configure a testing module for unit tests?
+response
+TestBed
+
+9. Which directive allows you to include only 1 of several optional pieces of content?
+response
+[ngSwitch]
+
+10. Which interface is used when creating a custom pipe?
+response
+PipeTransform
+
+11. What is the purpose of FormBuilder?
+response
+To create the form data structure from a specified configuration when building reactive forms
+
+12. In which section of the @NgModule config must you place any custom pipes?
+response
+declarations	
+
+13. How could you set an element's background color based on a property color of the Component class?
+response
+[style.background-color]="color"
+
+14. How do you load an NgModule into its own bundle?
+response
+Use lazy loading with the route that leads to the NgModule
+
+15. Which of the following is correct when using a pipe with parameters to format a value?
+response
+value | pipe:parameter1
+
+16. Given the following code
+@Output() selected = new EventEmitter()
+How can you listen to this event in a parent component?
+response
+(selected)="handleSelected()"
+
+17. This syntax is a shortcut for which of the following: routerLink="/crisis-center"
+response
+[routerLink]="['/crisis-center']"
+
+18. How would you debug and evaluate the response of the http.get function (using HttpClient) using a debugger?
+response
+Place a breakpoint inside one of the functions inside the pipe call
+
+19. Given the following code, how do you associate the form element with the form data structure?
+this.heroForm = new FormGroup({
+      heroName: new FormControl(),
+      identityName: new FormControl()
+});
+response
+In the HTML on the form element: [formGroup]="heroForm"
+
+/************************************************************************************************************************/
+Questions Pluralsight
+1. What is the recommended way to import the RxJS v6+ operators for optimal performance?
+Response
+Import only the operators you need: import { map } from 'rxjs/operators';
+
+2. What is the purpose of the observable map operator?
+Response
+Applies a defined function to each item emitted by an Observable
+
+3. What is a router outlet?
+Response
+A directive defined in the HTML indicating where a route's view should display
+
+4. What pseudo-selector or selector helps apply a style to the element that hosts the component?
+Response
+:host
+
+5. When using reactive forms, how do you create the form model without using FormBuilder?
+Response
+this.heroForm = new FormGroup({
+      heroName: new FormControl(),
+      identityName: new FormControl()
+});
+
+6. Which Angular CLI flag will NOT generate unit tests for a component?
+Response
+--skipTests=true
+
+7. When using FormBuilder, how are validation rules specified?
+Response
+As part of the FormControl configuration: heroName: ['', Validators.required]
+
+8. You apply a style selector in a component's CSS file using the default view encapsulation. Which matching elements will be affected?
+Response
+All matching elements in the component only
+
+9. What type of module is defined by the following code?
+Response
+Feature module
+
+10. Which Angular CLI command executes all unit tests in your project?
+Response
+ng test
+
+11. When providing a service to a module, the following code is a shorter version of which answer?
+Providers: [UserService]
+Response
+Providers: [ { provide: UserService, useClass: UserService } ]
+
+12. Which decorator allows you to create an attribute that gives new functionality to a DOM node?
+Response
+@Directive
+
+13. What is the purpose of the bootstrap array of an Angular module?
+Response
+To define the set of components that should be launched when the application is started.
+
+14. Given the following constructor for a component:
+constructor(private myService: MyService)
+Which of the following is equivalent for the purposes of dependency injection?
+Response
+constructor(@Inject(MyService) private myService)
+
+15. According to the Angular Style Guide, where should you create a component when it also has a spec file, external template file, and external styles?
+Response
+In its own folder, named after the component
+
+16. What is the purpose of a route resolver?
+Response
+Prefetch data for a route before navigating to that route, preventing partial display of pages
+
+17. Which lines of code shows the correct type annotations when using the @ViewChildren decorator?
+Response
+@ViewChildren(Pane) panes: QueryList<Pane>;
+
+18. Which component lifecycle hook is the most appropriate place to unsubscribe from custom RxJS observables?
+Response
+ngOnDestroy
+
+19. Which decorator lets a child component expose an event to a parent component?
+Response
+@Output
+	
 
 
 	
