@@ -73,4 +73,23 @@ It depends of the hosting type
 		
 	
 /************************************************************************************************************************/
+to host a service
+	we need to create a new wcf service 
+	and in the code inside the svc file we call the service 
+	<%@ ServiceHost Service = "TestService.MyService" %>
+	after that clic in the svc file and select view in browser
+	and then we could see the wsdl
+	
 /************************************************************************************************************************/
+what is SOA
+	Service Oriented Architecture
+	its a collection of services on the network that communicate with another
+how to reach SOA
+	MSMQ
+	NamedPipes
+		when one app is exchanging frequent short text messages with another
+		located on the same machine or within the same LAN, You can use NamedPipes
+	Remoting
+	Web service
+	
+	

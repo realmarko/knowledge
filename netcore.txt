@@ -170,6 +170,82 @@ Program.cs 	Contains a Main method—the app's managed entry point.
 csproj 	Contains configuration metadata for the project.
 Startup.cs 	Configures services and the app's HTTP request pipeline.
 
+/************************************************************************************************************************/
+to install AutoMapper
+dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection
+
+to install EntityFramework
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet tool install --global dotnet-ef
+dotnet add package Microsoft.EntityFrameworkCore.Design
+/************************************************************************************************************************/
+to add a table 
+first we need to create the model example user
+after that we need to add in datacontext
+	public class DataContext: DbContext
+	{	 
+		public dbset<User> User{get; set;}
+	}
+	in the terminal
+		dotnet ef migrations add User
+		dotnet ef database update
+/************************************************************************************************************************/
+AUTHENTICATION
+	1. Create User Model
+	2. In the DataContext class
+		public class DataContext: DbContext
+		{	 
+			public dbset<Character> Characters{get; set;}
+			public dbset<User> User{get; set;}
+		}
+	3. to add a relation
+	in the User model
+	we add 
+		public List<Character> Characters{get;set;}
+		and in the Charac} model
+		public User User {get; set;}
+		at in the end
+		dotnet ef migrations add UserCharacterRealation
+		dotnet ef database update
+/************************************************************************************************************************/
+UNIT Test
+	to create a unit test project 
+		search .net core test
+	
+	unit test usually includes three distinct steps: Arrange, Act and Assert.
+		Arrange: Set up the any variables and objects necessary.
+		Act: Call the method being tested, passing any parameters needed
+		Assert: Verify expected results
+	The unit test project should have a dependency for the app project that it’s testing
+	
+/************************************************************************************************************************/
+JWT
+	we need to add in appsettings.json
+		"AppSettings":{
+			"Token":"my top secret"
+		}
+	add three packages 
+		1 dotnet add package Microsoft.IdentityModel.Tokens
+		2 dotnet add package Microsoft.IdentityModel.Tokens.Jwt
+		3 Microsoft.AspNetCore.Authentication.JwtBearer // middleware allows the app receive bearer tokens
+/************************************************************************************************************************/		
+when we modified a model
+	in the console we need to put
+		add-migration Description
+/************************************************************************************************************************/	
+Repository pattern
+	Methods:
+	Get(id)
+	GetAll()
+	Add(obj)
+	Remove(obj)
+	
+		
+		
+	
+
+
+
 
 
 

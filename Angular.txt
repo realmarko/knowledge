@@ -27,8 +27,9 @@ Form
 		etc.
 		
 		interpolation use {{}}
-		one binding [property] = value
-		two binding use [(ngModel)] = "value" connect the html with the ts
+		property binding [property] = value
+		event binding
+		two way binding use [(ngModel)] = "value" connect the html with the ts
 		
 		Directives are instructions in the DOM 
 		Estructurales
@@ -49,6 +50,13 @@ Form
 		when we create a component we can add --spec false
 		example: ng g c newcomponent --spec false 
 		to debug we intall the extension angular augury
+		
+		to degub in chrome we can go to Sources and ther put a breakpoint 
+		Angular has a Sourcemap so when the app reach the breakpoint in that moment we migth see 
+		typescript code
+		but is better access to the components exploring webpack also is inside Sources
+		
+		
 /************************************************************************************************************************/
 BINDING
 TO PASS data between components we use @Input()
@@ -77,9 +85,9 @@ and we receive the information
   }
 /************************************************************************************************************************/
 viewencaptulation 
-works to envolve the children inside a component
-and for use we add the attribute decorator 
-viewencaptulation:emulated/none/native
+	works to envolve the children inside a component
+	and for use we add the attribute decorator 
+	viewencaptulation:emulated/none/native
 /************************************************************************************************************************/
 local references with this we can use binding
 with localReferences #serverName
@@ -91,7 +99,7 @@ is use with @ViewChild decorator example
 and to get the value 
 this.serverContentInput.nativeElement.value;
 
-also exits @ViewChild() serverContentInput:elementRef;
+
 /************************************************************************************************************************/
 lifeCycle
 ngOnChanges()
@@ -983,31 +991,32 @@ storeRecipes(){
 	return this.httpClient.request(req);
 }
 /************************************************************************************************************************/	
+
 INTERCEPTORS
 	Create it in Shared folder
 	auth.interceptor.ts
 	import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
-import { AuthenticationService } from '../_services/authentication.service';
-import { Observable } from 'rxjs';
+	import { AuthenticationService } from '../_services/authentication.service';
+	import { Observable } from 'rxjs';
 
-export class Authinterceptor implements HttpInterceptor
-{
-    constructor(private authService:AuthenticationService){}
+	export class Authinterceptor implements HttpInterceptor
+	{
+		constructor(private authService:AuthenticationService){}
 
-    intercept(req:HttpRequest<any>,next:HttpHandler):Observable<HttpEvent<any>>{
-        console.log('Intercepted!',req);
+		intercept(req:HttpRequest<any>,next:HttpHandler):Observable<HttpEvent<any>{
+			console.log('Intercepted!',req);
 
-        const copiedReq = req.clone({params:req.params.set('auth',this.authService.getToken())});
-        return next.handle(copiedReq);
-    }
-}
+			const copiedReq = req.clone({params:req.params.set('auth',this.authService.getToken())});
+			return next.handle(copiedReq);
+		}
+	}
 
-then we need to put it in Providers inside NgModule
-providers:[
-	{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor, multi:true}
-]
+	then we need to put it in Providers inside NgModule
+		// multi indicates we will be using differents interceptors and we don't replace the existing interceptors
+		providers:[{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor, multi:true}] 
+		
 LOGGING INTERCEPTOR 
-import 'rxjs/add/operator/do';
+	import 'rxjs/add/operator/do';
 export class Authinterceptor implements HttpInterceptor
 {
     constructor(private authService:AuthenticationService){}
@@ -1215,8 +1224,107 @@ ngOnDestroy
 Response
 @Output
 	
+********************************************************************************************
+get data	
+	private fecthPosts(){
+		this.htpp
+		.get('URL')
+		.subscribe(posts =>{
+			console.log(posts);
+		})
+	}
+Using RxJS Operators to Transform Response Data
+	Is a good practice use observable operators 
+	for example
+	private fetchPosts()
+	{
+		this.http
+		.get('URL')
+		//with the pipe I will return an array of posts instead of an object
+		.pipe(
+			map(responseData =>{
+				const postsArray = [];
+				for(const key in responseData)
+				{
+					if(responseData.hasOwnProperty(key))
+					{
+						postsArray.push({ ...responseData[key],id:key})
+					}
+				}
+				return postsArray;
+			})
+		)
+		.subscribe(posts =>{
+			console.log(posts);
+		})
+		
+	}
+********************************************************************************************
+we can use Subject to handling error 
+example in the service 
+import {subject} from 'rxjs';
+export class PostsService{
+	error  = new Subject<string>(); 
+	constructor(private http:HttpClient){}
+	createAndStorePosts()
+	{
+		this.http.post<>('url',postData)
+		.suscribe(response=>{
+			
+		},error =>{
+				this.error.next(error.message);
+		})
+	}
+}
 
+//and now inside the component 
+import {subscription} from 'rxjs';
+export class AppComponent implements OnInit{
+	private errorSub:Subscription; 
+	error = null;
+	ngOnInit(){
+		this.errorSub = this.postsService.error.subscribe(errorMessage=>{
+			this.error = errorMessage
+		})
+	}
+	ngOnDestroy()
+	{
+		this.errorSub.unsubscribe();
+	}
+}
+********************************************************************************************
+catchError operator
 
+.pipe(
+	map(responseData ={
+		
+	}),
+	catchError(errorRes=>{
+		return throwErr(errorRes);
+	})
+)
+********************************************************************************************
+Setting headers
+fetchPosts()
+{
+	return this.http.get<{}>('URL',
+		{
+			headers: new HttpHeaders({'Custom-header':'Hello'})
+		})
+}
+********************************************************************************************
+Setting parameters
+fetchPosts()
+{
+	let searchparams = new HttpParams();
+	searchparams = searchparams.append('print','pretty');
+	searchparams = searchparams.append('custom','key');
+	return this.http.get<{}>('URL',
+		{
+			headers: new HttpHeaders({'Custom-header':'Hello'})
+			params:searchparams
+		})
+}	
 	
 	
 

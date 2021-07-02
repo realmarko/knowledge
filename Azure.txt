@@ -157,6 +157,23 @@ SQL database Scale
 SQL Database Replication
 /************************************************************************************************************************/
 Azure storage services
+	Container (Blob) storage
+		The azure storage account
+		General Purpose v2 (gpv2) is the most common type
+		Blobs, Tables *, Queues * Files
+		Azure Data Lake Storage Gen2
+		Cheapest type of storage
+		Pay Per GB (1.8 cents per GB )
+	Disk storage
+		Azure Virtual Machine Disks
+		Managed Disks
+		Reserve capacity in advance
+		Optimized to virtual hard disks
+	File storage
+	Storage tiers
+	
+	
+/************************************************************************************************************************/
 	Network security 
 		types of connections
 			Public endpoint 
@@ -213,8 +230,397 @@ Azure storage services
 		Create custom role
 		
 	You should us e Azure AD over SAS
+	
+/************************************************************************************************************************/
+paths
+Learning paths on MS Learn:
+https://docs.microsoft.com/en-us/learn/certifications/exams/az-204#two-ways-to-prepare
+Azure Code Samples:
+https://azure.microsoft.com/en-us/resources/samples/?sort=0
+Official Azure Documentation:
+https://docs.microsoft.com/en-us/azure/
+Official Microsoft Azure YouTube Channel
+https://www.youtube.com/user/windowsazure
+Official Microsoft Developer YouTube Channel
+https://www.youtube.com/channel/UCsMica-v34Irf9KVTh6xx-g
+Azure REST API Browser
+https://docs.microsoft.com/en-us/rest/api/?view=Azure
 
+labs for AZ-204:
+https://github.com/MicrosoftLearning/AZ-204-DevelopingSolutionsforMicrosoftAzure
+
+
+Microsoft Labs and Workshops - Practice is the key to success
+
+Azure Citadel - Labs and Workshops
+
+https://azurecitadel.com/
+
+
+
+Microsoft Cloud Workshop - More labs and workshops
+
+https://microsoftcloudworkshop.com/
+
+
+
+Github AZ-104 from Microsoft Training
+
+https://microsoftlearning.github.io/AZ-104-MicrosoftAzureAdministrator/
+
+/************************************************************************************************************************/		
+//to see the powershell version
+$PSVersionTable.PSVersion
+
+Get-Module -Name AzureRM -ListAvailable
+Get-Module -Name Az -ListAvailable
+/************************************************************************************************************************/
+availability zones
+	gives to the consumer the ability to deploy the resources into those availability zones
+Resources Groups
+	is a way to organize the resources
+Azure resources manager (ARM)
+	Tools 
+		portal
+		command line
+		VS
+	Resources
+		instance of services that you create, that are yours to use
 		
+/************************************************************************************************************************/
+Categories of core services
+	1. Compute
+		Executing code in the cloud
+		Virtual Machines -> 200 types
+			Infrastructure as a services
+		App services (Platform as a Service)
+			running code in the cloud 
+		Functions	
+			small bits of code that run nativly in the cloud
+		Containers 
+			Azure Container Instances ACI
+			Azure Kubernets Services AKS	
+		Windows Virtual Network
+	2. Networking
+		Types of Networking Services
+			Connectivity services
+				Virtual Network - emulating a physical network
+				Virtual Private Network (VPN) - connecting two networks as if they were on the same network
+				ExpressRoute - high-speed private connection to Azure
+			Protection services
+				DDos Protection - Distribuited Denial of Service attack protection
+				Azure Firewall
+				Network Security Groups
+				Private Link
+			Delivery services
+				Load balancer - distribute traffic evenly between multiple backend servers
+				Application Gateway - a higher-level of load balancer with an optional firewall
+				Content Delivery Network (CDN) - stores common static files on the edge, closer to the users for improved performance
+				Azure Front Door Service - a load balancer, CDN and firewall all-in-one 
+			Monitoring Services
+				Network watcher
+				ExpressRoute Monitoring
+				Azure Monitor
+	3. Storage
+		Unmanaged Storage
+			General Purpuse gpv2
+				BLobs, Tables, Queues, Files
+			Azure data lake Stoarge Gen2
+				Cheapest type of storage
+					Pay per GB(1.8 cents per GB)
+		Managed storage
+			Azure virtual machines disks
+			Managed disks
+			Reserve capacity in advanced
+			Optimized to virtual hard disks
+
+	4. Databases Services 
+		Cosmos Db
+			Designed for modern applications such as mobile video games, social networks
+			NoSQL Storage
+		Azure Sql Database
+		Azure Database for MySQL
+		Azure Database for PostgreSQL
+		Azure Database Migration Service
+		Azure Synapse Analytics (SQL DW)
+***********************************************************************
+Internet of things
+	Azure Synapse Analytics (SQL DW)
+	HDInsight
+	Azure Databricks
+	
+	Artificial Intelligence
+		Azure machine learning
+		Cognitive services
+		Azure bot service 
+	Serverless
+		Azure functions
+			are small pieces of code that are hosted in Azure and run after some trigger
+		Logic apps
+		Event grid
+	Big Data and Analytics
+		Azure Synapse Analytics
+		HDInsight
+		Azure Databricks
+***********************************************************************
+Azure management tools
+	Azure CLI
+	PowerShell
+	Azure Portal
+	Azure Cloud Shell
+	Azure advisor
+***********************************************************************
+Questions
+	Question 1:
+	Azure claims there are 54 regions. But when I create my account, 
+	I can only see 30 or so. What happened to the other regions?
+		Azure goverment, Azure Germany and Azure China require separate accounts to access
+	Question 2:
+	Which of Azure's architectural components allows you to specify 
+	exactly which data center in a region a virtual machine resides?
+		Availavility zones
+	Question 3:
+	Which of the following Azure services is NOT part of the 
+	compute services?
+		Virtual networks
+	Question 4:
+	What is the function of a load balancer?
+		it diverts traffic between two or more servers to evently distribute
+		the load among several servers, it allows you to add aditional servers to increase capacity
+		without downtime
+	Question 5:
+	Where do you find virtual machine images provided by third 
+	party companies within the Azure Portal?
+		in the azure marketplace
+***********************************************************************		
+Security Network
+	Azure Firewall
+	Azure DDoS Protection
+	Network Security Group
+	User Defined Routes(UDR)
+	All virtual networksubnets should use NSG(Network security groups)	
+	
+	Azure Identity Service
+		Azure Active Directory
+		Identity as a service (IDaaS)
+		Single-sign on
+		Azure Multifactor authentication (user password phone)
+	Security tools and features
+		Security Layers
+			Data example virtual network endpoint
+			Application ex. APIManagement
+			Compute ex. Limit Remote Desktop Access
+			Network ex. NGS, use of subnets, deny by default
+			Perimeter ex. DDoS, firewall
+			Identity and access ex. Azure AD
+			Physical ex. Door locks and key cards
+			
+	Key Vault
+	Azure Information Protection (AIP)
+		Apply labels to emails and documents
+	Azure Advanced Threat Protection (ATP)
+***********************************************************************	
+Identity
+	is a representation of a person, application or device
+	
+Azure governance 
+	Create rules across all of your Azure resources
+	Can create custom policies using json definition
+	Policy initiativies 
+		A set of policies grouped together
+	Roled-Based Access Control (RBAC)
+	The most common roles are:
+		Reader
+		Contributor
+		Owner
+	Locks
+		Read only
+		Can not delete
+	 Using RBAC, you can restrict who has access to locks
+	
+	Azure Advisor security assistance(feature for recommendations)
+	Azure BluePrints (predefined Roles, policies and so on)
+		
+***********************************************************************	
+Monitor and reporting 
+	Azure monitor 
+		logs
+		metrics
+***********************************************************************	
+Privacy, compliance and data protection standards 
+	Compliance are rules that you need to follow
+
+	Standards 
+		General data protection regulation
+		ISO:9001:2015 for quality management Systems (OMS)
+		ISO/IEC 20000-1:2011 is for Service Management Systems 
+		NIST CyberSecurity Framework(CSF)
+			National Institute of Standards and Technology (NIST)
+			Audited  for compliance to security and privcy processes
+			
+			
+			
+Questions
+	Question 1:
+	What types of attacks can a Web Application Firewall (WAF) protect from?
+		Cross Site Scripting (XSS) attacks
+	Question 2:
+	What is Microsoft's preferred solution for identity management in the cloud for application users?
+		Azure Active Directory
+	Question 3:
+	What benefit does Multi-Factor Authentication give to enhance user security?
+		It requires you to have your mobile phone with you to get the code, making it way more difficult for someone to impersonate you. 
+	Question 4:
+	How does Azure Advisor enhance security of your account?
+		Azure Advisor makes specific recommendations unique to you, based on their analysis of your account
+	Question 5:
+	What Azure service is specifically designed for you to keep your application secrets such as API keys, signed certificates, and security keys.
+		Azure key vault
+***********************************************************************++
+Azure subscriptions
+	Subscription is a billing unit 
+	Purchase  from Microsoft 
+		Pay as you go
+		Enterprise Agreement
+	Pay per use
+		Functions
+		Logic apps
+		Storage
+		Outbound bandwidth
+		Cognitive Services API
+	Pay for time(per second)
+***********************************************************************++
+Questions
+	Question 2:
+		Scenario: You have an application in the cloud that has 10 servers with various roles. 
+		Six servers are D2S machines, two servers are D4S, and two are D8S instance types. 
+		This application is expected to run for years, but the business has concerns about the cost. 
+		What is the one thing you can do almost immediately to reduce the cost of this solution by at least 50%?
+			Use Azure Reserved Instances with Hybrid Benefit
+	Question 3:
+		What is the concept of Total Cost of Ownership?
+			It's the total cost of owning and operating a machine including up-front hardware costs, labor, electricity, 
+			Internet access, real estate, security, cooling, etc.
+	Question 4:
+		What is Microsoft's Service Level Agreement for single instance Virtual Machines running with premium OS disks and data disks?
+			99.9%
+	Question 5:
+		Is it wise to use Azure "Preview Features" in Production?
+			No
+*****************************************************
+Azure management tools
+	Azure CLI
+	PowerShell
+	Azure portal
+	Azure Cloud Shell
+	Azure Mobile App
+	Azure Resource Manager (ARM)
+	
+Security features
+	Azure Security Center
+	Azure Sentinel
+		Centralizes all the log files from various resources
+		Analize them and detect threats
+		Allows you to run queries on those logsyourself
+	Azure dedicated hosts
+		Hardware that is dedicated to you and only you		
+		
+Network Security
+	Security Layers
+		Data
+		Application
+		Compute
+		Network
+		Perimeter
+		Identity and access
+		Physical
+		
+Identity Services
+	Conditional Access
+		Azure Multifactor Authentication
+		Single Sign On
+Governance 
+	Cloud Adoption Framework for Azure(check the page)
+	
+	
+	
+****************************************************************************
+What Is CapEx?
+	CapEx is the spending of money on physical infrastructure upfront and then deducting that expense from your tax bill over time. 
+	CapEx is an upfront cost, which has a value that reduces over time and usually has no recurring cost.
+****************************************************************************
+Cloud types 
+	Public 
+	Private
+	Hybrid
+*************************************************************************+
+Compute services
+	Virtual Machines (VM)
+	App services (Web apps)
+	Azure Container INstances (ACI)
+	Azure Kubernetes Services (AKS)
+	Windows Virtual Desktop 
+	
+	Compute 
+		Execute code in the cloud
+		
+*************************************************************************+
+Devops Solutions
+	Azure DevOps
+	Github
+	GitHub Actions
+	Azure DevTest Labs
+*************************************************************************+
+Core Tenets of security, privacy and compliance
+	5 tenets of security
+	Security 
+	Privacy
+	Compliance
+	Protecting IP
+Microsoft Privacy Statement
+	Privacy.microsoft.com
+	Online Service Terms
+	Data Protection Addemdum
+Trust Center
+	is a place where a lot of documentation lives
+		contains compliance terms as GDPR,ISO and NIST
+Azure Sovereings Regions
+*************************************************************************+
+Azure Pricing
+	Free resources
+		Resources groups
+		Virtual network
+		Load balancer (basis)
+		Azure active directory (basis)
+		Network security groups
+		Free tier web apps (up to ten)
+	Opportunity for cost savings
+		Azure functions 1 million executions free per month
+	Pay per Use services
+		Functions
+		Logic apps
+		Storage(pay per GB)
+		outbound bandwith
+		Cognitive Services API
+	Pay for time
+	Pay for bandwith
+		first 5 gb is free
+Savings
+	turn off
+	Reserved instances
+	Configure billing alerts
+	Downsize when resources are over-provisioned
+	
+	
+	
+	
+	
+	
+		
+		
+
+
+
 		
 	
 

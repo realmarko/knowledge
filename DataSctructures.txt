@@ -1,4 +1,4 @@
-Data Scctructures
+Data Structures
 /************************************************************************************************************************/
 Pages to code
 https://repl.it/@MarkoAntonio/SelfreliantHandmadeNet

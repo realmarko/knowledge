@@ -1,0 +1,39 @@
+Exercise 
+Time Complexity
+One for sentence = O(n) Linear
+two for sentences  = O(n2)quadratic
+
+ 
+
+Arrays
+	Access by index
+	Search in unsorted array
+	Add element
+	Update by index
+	remove an element
+	
+	//to copy an array	
+	var bigArray = int[lenght*2]
+	Array.Copy(originalArray,bigArray,length);
+	
+	
+	Convert 
+	//convert array of characters to string in c#
+	char[] characters;
+	...
+	string s = new string(characters);
+	
+	//convert string to array of words
+	string[] arrayText = text.Split(' ');
+	
+	//loop every letter of a word
+	for (int i = word.Length-1; i >=0 ; i--)
+                {
+                    reverseWord += word[i];
+                }
+				
+	//create string from arrayStrings with C#
+	return string.Join(" ",reverseWords.ToArray());
+	
+	//create string from arrayStrings with Javascript
+	arrayReverseWords.join(' ');

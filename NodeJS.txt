@@ -24,7 +24,7 @@ despues entramos a vs code
 		const express = require('express');
 		const app = express();
 
-		app.use((req, res,next)=>{
+		app.use((req, res, next)=>{
 			res.status(200).json({
 				message:'It works!'
 			})
@@ -128,7 +128,7 @@ const age = 29;
 /************************************************************************************************************************/
 /*Core modules
 	http	:Launch server / send request
-	htpps	:Launch a SSL server
+	https	:Launch a SSL server
 	fs		:
 	path
 	os
@@ -290,3 +290,35 @@ HELPERS
 			router.get('/add-product',(req,res,next)=>{
 			res.sendFile(path.join(rootDir,'views','add-product'));
 			})
+			
+/**********************************************************************/
+Section 9: Dynamic routes & Advanced models
+	Extracting Dynamic Params
+		to create the route 
+			inside the routes folder routes/shop.js
+				add router.get('/products/:productId', shopController.getProduct);
+			inside the controller
+				exports.getProduct(req,res,next) =>{
+					const prodId =  req.params.productId;
+					console.log(prodId);
+					res.redirect('/');
+				}
+/**********************************************************************/
+Passing data with POST Requests
+	example: I am in product-detail.ejs
+	I want to send productId but this is a post and I dont want to send it in the url
+	so I will use the hidden input
+	<form action="/cart" method="post">
+		<button class = "btn" type = "submit">Add to cart</button>
+		<input type="hidden" name="productId" value = "<%= product.Id%>">
+	</form>
+	
+	
+	in the controller(shop.js)
+		exports.postCart = (req, res, next) =>{
+			const prodId = req.body.productId;
+			console.log(prodId);
+			}
+	in routes/shop.js
+		router.post('/cart', shopController.postCart);
+		

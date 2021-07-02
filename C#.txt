@@ -175,5 +175,17 @@ foreach (KeyValuePair<string, string> kvp in dictionary)
         kvp.Key, kvp.Value);
 } 
 /************************************************************************************************************************/
+GENERERICS
+
+With generics, you can create classes and methods that are
+independent of contained types. Instead of writing a number of
+methods or classes with the same functionality for different types, you
+can create just one method or class.
+
+Value types are stored on the stack, whereas reference types are stored
+on the heap. C# classes are reference types; structs are value types.
+
+The conversion from a value type to a reference type is known as boxing.
+
 
 

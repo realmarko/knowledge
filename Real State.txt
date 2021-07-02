@@ -1,0 +1,15 @@
+azure devops
+	https://dev.azure.com/realmark2019/realmark2019/_git/backend/commits
+	user realmark2019@outlook.es
+	
+	to create the sprint we need create the user stories
+	I need to schedule the
+		sprint planning 
+		the groaming and 
+		the daily
+		the sprint retrospective
+		
+	An item is considered done when
+		Create unit test
+		
+	When we receive an empty alert we should check the implements HttpInterceptor {

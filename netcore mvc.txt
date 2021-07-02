@@ -1,0 +1,14 @@
+netcore mvc
+
+TagHelpers
+	enable server-side code to participate in creating and rendering HTml elements in razor files 
+	example asp-area, asp-page
+Html Helper
+ @html.label("","")
+ 
+To work with migrations 
+	1. Create the DbContext
+	2. add-migration AddToDB
+	3. to update the database
+		update-database
+	

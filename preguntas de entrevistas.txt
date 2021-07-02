@@ -1,0 +1,293 @@
+Preguntas de entrevistas
+SQL
+	si un store procedure esta muy lento que hago para mejorar su rendimiento
+		Use SET NOCOUNT ON
+			SQL Server returns informational messages when running select or DML operations. In case a procedure has many such 
+			statements a cursor or a while loop SQL Server will display lot of such messages increasing network traffic
+		Use fully qualified procedure name
+			SQL Server can swiftly find the compiled plan instead of looking for procedure in other schemas when schemaname is not specified
+		Use sp_executesql instead of Execute for dynamic queries
+			The sp_executesql allows for cache plan reuse and protects from SQL Injection.
+		Avoid naming user stored procedure as sp_procedurename.
+	cuantos tipos de join existen
+	WHAT IS CURSOR?
+		A SQL cursor is a database object which is used to retrieve data from a result set one row at a time. 
+		A SQL cursor is used when the data needs to be updated row by row.
+	in sql what is CTE
+		common table expression  is temporary result set that you can reference within another SELECT, INSERT, UPDATE, or DELETE statement. 
+	examples of cursor (when are needed)
+		A SQL cursor is used when the data needs to be updated row by row.
+	how to call an store procedure
+		sp_executesql or execute
+	difference between truncate and delete
+		TRUNCATE SQL query removes all rows from a table, without logging the individual row deletions.
+	
+	Difference between store procedure and function
+	Stored Procedure:
+		A Stored procedure is always used to perform a specific task.
+		It can return zero, one or more value.
+		It can have both Input and Output Parameters.
+		Exception handling can be done using a try-catch block.
+		A function can be called from a Procedure.
+	Functions:
+		Functions must return a single value.
+		It can only have the input parameter.
+		Exception handling cannot be done using a try-catch block.
+		A Stored procedure cannot be called from a function.
+	
+	DROP
+		DROP table query removes one or more table definitions and all data, indexes, triggers, constraints, and permission specifications for those tables.
+	what is a function
+		we cannot call a store procedure inside a function
+		functions have a more rigid structure and support less clauses and functionality.
+	what is a store procedure
+		we can call a function inside a store procedure
+	what is a trigger
+		 is a special type of stored procedures that is automatically executed when an event occurs in a specific database server. 
+		 SQL Server provides us with two main types of triggers: the DML Triggers and the DDL triggers.
+	que es el cluster index en sql
+	si la eliminacion de millones de registros es lenta como se debe eliminar en sql
+		we should delete by chunks
+	What is dml and ddl in sql
+		Data Manipulation Language
+		Data Definition Language
+	ques es la inyeccion en sql
+		is inject code to get information or alter some structure of the database
+		to avoid the sql injection we can use parameters
+	como hacer un select top in oracle
+		we can use rownum() or using limit keyword
+What are the locks
+Difference between primary key and Unique key
+	Primary key will not accept NULL values whereas Unique key can accept one NULL value.
+	A table can have only primary key whereas there can be multiple unique key on a table.
+	A Clustered index automatically created when a primary key is defined whereas Unique key generates the non-clustered index.
+/************************************************************************************************************************/
+Javascript 
+	What is a callback
+		is a function that is to be executed after another function has finished executing
+		JSON.stringify() method converts a JavaScript object or value to a JSON string
+	What is JSON
+		JavaScript Object Notation
+		
+/************************************************************************************************************************/
+ASP
+	manejo de stados en asp
+		Is a preserve state control and object in an application
+		We have two types of state management
+			Server side:Session, Application, Cache
+			Client side:Cookies, ViewState,Control state,Hidden field,Query string
+	que hace scripting in the server
+/************************************************************************************************************************/
+Angular 
+	como pasar los datos entre los componentes de angular
+		we have the input and output
+		also we can use services
+	single sign on
+	promises y observables
+		promises chaining
+		observables  are cancelable, and emit multiple values
+		Promises are most commonly used to handle HTTP requests
+/************************************************************************************************************************/
+
+
+/************************************************************************************************************************/
+Bootstrap
+cuantos cuadrantes tiene bootstrap
+/************************************************************************************************************************/
+formas de logueo with vs2017
+las opciones de autenticacion no existen en vs 2017
+
+difference between readonly and constants
+
+wcf differents contracts
+	Service Contract: 	Defines the operations wich are exposed by the service
+	Data Contract: 		Defines the datatype of information that will be exchange between the client and the service
+	Operation Contract: Are the methods
+	Message Contracts: 	When an operation contract required to pass a message as a parameter or return value as a message, 
+						the type of this message will be defined as message contract
+	Fault Contract: 	defined errors raised by the service, and how the service handle and propagate errors to its clients.
+	
+	
+What is throutling
+	Is a service behaviour and we control ConcurrentCalls, ConcurrentInstances and ConcurrentSessions.
+
+que es el WSDL file,
+	The Web Services Description Language is an XML-based interface description language that is used for describing the functionality offered by a web service.
+Instances modes
+	Per call: every request ia a new instance
+	Per session: a new instance will be created for a new client session
+	Single mode: 
+/************************************************************************************************************************/
+LINQ
+	What is LINQ: Language integrated Query
+	difference between select and where
+		Where Filters a sequence of values based on a predicate
+		Select Projects each element of a sequence into a new form
+		
+	//get an employee
+	listEmployees.Find(x=>x.Id == 102)
+	//using Count
+	listEmployees.Count(x=>x.Name.StartWidth("M"));
+/************************************************************************************************************************/
+Entity framework
+	
+	how execute a store procedure
+	ctx.Database.SqlQuery<Course>(
+            "exec GetCoursesByStudentId @StudentId ", idParam).ToList<Course>()
+/************************************************************************************************************************/
+en c# 
+what is the time complexity of your algortihm
+
+reflection: 
+	Ability of inspecting assemblies metadata at runtime
+	example of use is when we drag and drop a button in windows forms we can see the properties of that button (thats reflection)
+	
+	
+	what is late binding	
+		enables to use code that is not available at compiled time.
+	Serialization(como funciona internamente), 
+		Serialization is the process of converting an object into a stream of bytes to store the object or transmit it to memory, a database, or a file
+		Serialization can be performed in two ways, basic and custom
+		Basic serialization
+			The only requirement in basic serialization is that the object has the SerializableAttribute attribute applied.
+		Custom serialization
+			you can specify exactly which objects will be serialized and how it will be done. 
+			The class must be marked SerializableAttribute and implement the ISerializable interface.
+	How to read a file
+		System.IO.File.ReadAllText(@"C:\Users\Public\TestFolder\WriteText.txt");	
+	threads and task difference, 
+	stack, 
+	indexers
+		a feature that enables you to use an object just as an array. Indexers are also known as smart arrays
+	sealed class and example of use
+		improves performance
+		we can use the sealed class in connections to database
+	how to create an assembly
+	custom exceptions in c#
+		we can Inhereted from Exception
+	difference between method abstract and background
+	como proteger un metodo para que no sea sobreescrito =>To prevent being overridden, use the sealed in C#
+	CLR
+		Manages the execution of the program
+		
+	What are extension methods
+		Extension methods enable you to "add" methods to existing types without creating a new derived type, 
+		recompiling, or otherwise modifying the original type
+		The most common extension methods are the LINQ standard query operators that add query functionality to the existing 
+		System.Collections.IEnumerable and System.Collections.Generic.IEnumerable<T> types
+What is boxing and unboxing
+	Boxing:is the process of converting a value type to the type object
+	Unboxing: extracts the value type from the object.
+		
+What is Lazy loading
+
+What are the anonymous types	
+	allows you to create an object with the new keyword without defining its clas
+
+
+How is the comunication Between services
+	
+	Difference between IQueryable and IEnumerable
+		The main difference between “IEnumerable” and “IQueryable” is about where the filter logic is executed. 
+		One executes on the client side (in memory) and the other executes on the database.
+		IEnumerable:It is suitable just for iterate through collection and you can not modify (Add or Remove) data 
+			IEnumerable bring ALL data from server to client then filter them, 
+			assume that you have a lot of records so IEnumerable puts overhead on your memory.
+		IQuerable:Whenever we encounter to huge data with so many records so we have to reduce overhead from application. 
+			IQueryable prepares high performance in such situations (huge data) by filtering data firstly and then sending filtered data to client.
+				
+	Difference between hashtable and dictionary
+	Dictionary
+		Dictionary is generic type Dictionary<TKey,TValue>
+		Dictionary class is a strong type < TKey,TValue > Hence, you must specify the data types for key and value.
+		There is no need of boxing/unboxing.
+		When you try to access non existing key dictionary, it gives runtime error.
+		Dictionary maintains an order of the stored values.
+		There is no need of boxing/unboxing, so it is faster than Hashtable.
+	Hashtable
+		Hashtable is non-generic type.
+		Hashtable is a weakly typed data structure, so you can add keys and values of any object type.
+		Values need to have boxing/unboxing.
+		When you try to access non existing key Hashtable, it gives null values.
+		Hashtable never maintains an order of the stored values.
+		Hashtable needs boxing/unboxing, so it is slower than Dictionary.
+		
+que es una clase generica
+	Generic is a class which allows the user to define classes and methods with the placeholder
+	It helps you in code reuse
+	You can create your own generic classes, methods, interfaces and delegates.
+what is IOC
+	Normally, the flow of the program logic is determined by objects that are bound to one another. 
+	With the inversion of control, the flow depends on the defined abstractions to be implemented that is built up during program execution
+what is Dependency Injection
+	DI is a technique to create a dependency or dependencies outside the class that uses it. 
+	The dependencies are injected from the code that calls the class and any information about their creation are kept away from the inside of the class. 
+	This is also why DI is an implementation of the Inversion of control (IoC) principle.
+	this create an application loosly coupled and testeable components
+What is an assembly
+	Is a collection of DLL and Exe
+What is State Management in ASP.NET
+	means maintain the state of the object and we can maintain in Client side and Server side.
+	There are two types of assembly
+		Private:it is accecible only to the application
+		Shared:can be shared by multiple applications. it is install in the GAC
+What is Caching?
+	Caching means storing data temporarily in the memory so that the application can access the data from the cache 
+	instead of looking for its original location.
+DataReader vs Data Adapter
+	DataReader result in faster access times than a DataAdapter does.
+	DataReader provides asynchronous methods BeginexecuteNonQeury, BeginExecuteReader, BeginExecuteXmlReader
+	Datareader is not serializable	
+What is Dapper
+	Dapper is simple/ micro ORM for the .NET world. 
+	Dapper was created by StackOverflow team to address their issues and open source it. 
+	It's a NuGet library that can be added to any .NET project for database operations.
+/************************************************************************************************************************/
+WEBAPI
+	types of return 
+		void
+		HttpResponseMessage
+		IHttpActionResult
+		7035742565
+/************************************************************************************************************************/
+MVC
+Annotations in MVC
+	Required, Range, Date, REgEx
+what is unobstrusive
+What is “Unobtrusive Validation?
+	Unobtrusive javascript library allows to add validation to MVC views without any additional coding, 
+	only required to use attributes like RequiredAttribute, RangeAttribute and include the correct script files.
+	
+/************************************************************************************************************************/
+Async and threads
+thread safe
+	is a technique which manipulates shared data structure in a manner that guarantees the safe execution of a piece of code 
+	by the multiple threads at the same time.
+	removes the Race Condition and Deadlocks
+	Race condition 
+		occurs when two threads access a shared variable at the same time. 
+		The first thread reads the variable, and the second thread writes to the same variable at the same time.
+		Try to use locks to avoid race condition
+	Deadlock
+		It is kind of a situation in which two or more competing threads or tasks wait for the other task to finish and they never finish.
+
+
+
+cloud: load-balancers,autoscaling(types)
+
+difference between html and html5
+/************************************************************************************************************************/
+Difference between ADO.NET and Entity Framework
+/************************************************************************************************************************/
+Azure
+What is Traffic Manager
+What is an artifact
+	An artifact is a deployable component of your application
+/************************************************************************************************************************/
+.Netcore
+What is Kestrel?
+is a cross-platform web server built for ASP.NET core
+/************************************************************************************************************************/
+
+
+
