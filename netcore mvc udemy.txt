@@ -1,0 +1,116 @@
+net core mvc
+	net core is cross platform
+	built in dependency injection
+	
+Dependency injection
+	inject objects to classes 
+	DI contaier
+	
+create a new project 
+	install runtimecompilation
+	add in program.cs
+	builder.Services.AddRazorPages();
+	
+	we can see the pipeline in Program.cs
+	here we can see the middleware
+	
+MVC 
+	Model: represent the shape of the data
+	View: represents the user interface
+	Controller: handle the user request and acts as an interface between model and view
+	
+	Routing in MVC
+	the url for routing is considered the domain name 
+	port server controller action name id-resource 
+	
+	examples of taghelpers(works like angular directives)
+		enable server-side code to participate in creating and rendering HTML elements in razor files
+		asp-for 
+		asp-controller
+		asp-action
+	Action result in razor pages
+		ContentResult
+		FileCOntentResult
+		NotFoundResult
+		PageResult
+		PartialResult
+		RedirectToPageResult
+		ViewComponentResult
+	Action result in MVC
+		ViewResult
+		PartialViewResult
+		RedirectResult
+		RedirectToRouteResult
+		ContentResultJsonResult
+		JavascriptResult
+		FileResult
+		EmptyResult
+	Data Annotations
+		[Key] // we use this attribute in the model classes
+		[Required]
+	Using dbcontext we will be able to make connection to database
+	
+	to use code first approach
+		create the model
+		create the ApplicationDbContext class
+		add to Program.cs
+			builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+				builder.Configuration.GetConnectionString("DefaultConnection")
+			));
+			install MicrosoftEntityFrameworkCore.SqlServer
+			
+	to use code first
+		install the next package to work with migrations
+		Microsoft.EntityFrameworkCore.Tools
+		add migration AddCategoryToDatabase
+		update-database
+		
+		
+to use the dbcontext
+	inside the controller
+		private readonly ApplicationDbContext _db
+		public controller(ApplicationDbContext db)
+		{
+		_db = db;
+		}
+		
+		public IActionResult Index(){
+		var objCategoryList =_db.Categories.ToList()
+		return View();
+		}
+	//next line of code works as nodemon
+	builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+		
+	//to create a new category
+	<a asp-controller="Category" asp-action="Create" class="btn btn-primary">
+		Create new category 
+	</a>
+	
+create a new category 
+	         //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Category obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Categories.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(obj);
+            }
+        }
+		
+		in the view to handle validation
+		<span aps-validation-for="Name" class="text-danger"></span>
+		
+client validation
+in netcore we have the partial view _ValidationScripts_Partial.cshtml, to work with that file we need to add the next section in the page
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"></partial>
+    }
+}

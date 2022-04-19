@@ -229,6 +229,21 @@ JavaScript arrays and collections
 		monthlySales.fill(0);
 /************************************************************************************************************************/
 Working with sets
+/************************************************************************************************************************/
+spread operators
+	//with the spread operator we can send the content of an array as arguments
 
+	...array
+	copy array
+		var arr = [1,2,3];
+		var arr2 = [...arr];
+		
+	concat arrays
+		var arr1 = [1,2,3];
+		var arr2 = [4,5,6];
+		//arr1.concat(arr2); concat is the same thing
+		arr1 = [...arr1,...arr2]
+		
+	
 
 

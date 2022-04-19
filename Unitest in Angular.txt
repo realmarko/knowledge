@@ -1,0 +1,29 @@
+unit test
+example testing a method in angular
+	it('namemethod action',()=>{
+		//declare the parameters of the method
+		const action = 'plus';
+		const book = listBooks[0];
+		
+		//to use a service even though the service is prvate in the component
+		//to get access to the service should be in the testbed in providers section
+		const service = fixture.debuElement.injector.get(BookService);
+		
+		//now with the service created we need to create an spy
+		const spy1 = spyOn(service, 'UpdateAmountBook').and.callFake(()=>null);
+		component.onInputNumberChange(action,book);
+		expect(spy1).toHaveBeenCalled();
+	})
+	
+Metodos privados
+// we need to create a public methis to get access to a private methis
+it('onClearBooks works correctly', ()=>{
+	const spy1 = spyOn((component as any), '_clearListCartBook').and.callThrough;//private method
+	component.listCartBook = listBook;
+	component.onClearBooks();//public method
+	expect(component.listCartBook.length).toBe(0);
+	expect(spy1).toHaveBeenCalled();
+})
+
+to update the folder code coverage
+ng test --code-coverage

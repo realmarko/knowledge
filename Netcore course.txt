@@ -1,0 +1,31 @@
+netcore course
+	dotnet -h //help to see commands available to use
+	dotnet new sln
+	dotnet new webapi -o API
+	dotnet sln add API
+	
+	setting up ASP net core and angular from scratch
+	install the extension c#
+	install c# extensions	
+	excluse objs and bin folder
+		settings - exclude
+	
+Entity framework
+	dbcontext
+		bridge between entity class and database
+		install microsoftentityframeworkcore
+		install microsoftentityframeworkcore.sql selecting the checkbox api.csprj
+		
+	Create the dbContext Class
+		create the folder database
+		inside create the file DataContext
+		Inherate the behaviour from DBContext
+		create the constructor with the options
+		create the dbset<entity>
+		
+		Add services.SddDbContext<DataContext>(options=>
+		{
+			options.UseSqlite("Connection string")
+		});
+		in the file Startup.cs inside the method ConfigureServices
+		

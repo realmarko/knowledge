@@ -57,7 +57,7 @@ Integrated App service
 App service Features
 	Authentication an Authorization
 	Application Insights = metris about your app's usage
-	Configure backups of your app and its Database
+	Configure backups of your app and it's Database
 	Set up a custom domain 
 	Toggle TLS/SSL settings and use security certifications
 	Network configuration to restrict access to your app
@@ -610,8 +610,228 @@ Savings
 	Reserved instances
 	Configure billing alerts
 	Downsize when resources are over-provisioned
+*************************************************************************+
+Install powershell
+	we can go to github powershell and download the version 
+$PSVersionTable to describe the current version
+
+	Get the Az module
+		Get-Module -Name Az -ListAvailable
+	to update
+		Update-Module -Name Az
+*************************************************************************+
+ARM
+Azure Resource Manager Module 
+we can save the template downloading 
+and we can maintain the template clicking the button add to library
+	to see again the ARM look for template and there you can deploy edit or delete
 	
+questions
+	What is a Virtual Machine?
+	A service that cloud providers offer that falls under the category of Infrastructure as a Service (IaaS). It is a portion of a machine that is running in an Azure data center that you can control. You don't actually have control of the physical machine, but it looks and acts like a server that you can control. It supports Windows or Linux operating systems. You can remote into it, install any software you wish, and you only need to pay for it for the time that you use it. 
 	
+	What is a benefit of using ARM Templates?
+	You can create resources by using JSON templates and by passing parameters. In this way, you can automate resource creation and implement Desired State Configuration. This lets you control how your environment looks and prevents developers or ops from changing it accidentally.
+	
+	Which of the following Azure CLI commands includes the correct required parameters for the command that manages resource groups and template deployments?
+	az group create --location --name
+	
+	If you are unable to connect from your computer to a Windows VM by RDP, what is the first thing you should check?
+	Check to see if port 3389 is open on the Network Security Group.
+	
+	What is the default VM size that Azure wants to use when you create a VM?
+	Standard DS1
+	
+*************************************************************************+
+App Service 
+	Platform as a service
+	To create it we need to look for WebApp
+	
+	we can scale up and scale out(with this one we can put a minimum of instance maximun and default)
+
+	to create a Web app in Visual Studio
+	Create a new project and select ASP.NET Web Application\
+		we can select differents templates including single page application
+	to Deploy the web app
+		select the menu Build-> publish -> chose app service -> select existing (we need a subscription in azure and the webapp created in azure)
+		we have the opcion to create a new web app when we are publishing
+*************************************************************************+
+Web jobs
+	is a background task attached to a web app
+	to create it in Visual studio we search webjob 
+	the template contains 
+		Functions.cs
+			method ProcessQueueMessage
+		Program.cs
+	to publish 
+		build-> publish -> select webjob
+*************************************************************************+
+Deployment slots
+	Search the App service(web app in azure)
+	and in the Deployment option select Deployment slots (here we can create differents versions for example staging )	
+	to use this staging version in Visual studio when we are publishing we need to create a new profile 
+	
+	in the deployment slots we have the option SWAP (converts the staging slot in the main slot )
+*************************************************************************+
+Create a web app with PowerShell
+	get-command *AzWebApp*
+
+	//create a resource group
+	New-AzResourceGroup -Name "powershellwebapp" -Location "EastUS"
+	//create a service plan
+	New-AzAppServicePlan -ResourceGroupName "powershellwebapp" -Name "aznewasp123" -Location "EastUS" -Tier "Free"
+	//create a web app
+	New-AzwebApp -ResourceGroupName "powershellwebapp" -Name "azsjdwebapp121212" -Location "EastUS" -AppServicePlan "aznewwasp123"
+
+*************************************************************************+
+Create a web app with ClousShell (CLI)
+	az group create --name cliwebapp --location esatus
+	az appservice plan create -g cliwebapp -n mynewasp234
+	az webapp create -g cliwebapp -n mynewwebapp222212 -p mynewwesp234
+	
+	//to create the resource group, the service plan and the web app at the same time 
+	we can use az webapp up
+	
+*************************************************************************+
+kudu is the engine behind git deployments in AzureWebSites
+
+*************************************************************************+
+Quiz
+	Question 1:
+	Which of the following programming languages are NOT supported by the Azure App Service?
+		Compiled windows binaries, exe
+	Question 2:
+	What is the concept of Continuous Deployment?
+		Your code is deployed to the App Service as soon as it's saved to GitHub, Docker Hub, or Dropbox.
+	Question 3:
+	Does Azure App Service support Linux?
+		Yes
+	Question 4:
+	Which of the following are NOT considered part of Azure App Services?
+		Virtual Machines
+	Question 5:
+	How many applications can you deploy to a single App Service plan?
+		To the limit of the app service plan you've chosen, which is 10 for Free, 100 for Shared, and unlimited for Basic and up.
+	Question 6:
+	What does ACU stand for?
+		Azure Compute Unit
+	Question 7:
+	You start the process of creating a Windows Web App to deploy a Python application. The application works on your local machine, but you want to ensure all the Python dependencies on your Windows machine is also available for the Web App when deployed as an App Service. What is required to get the Python app to run inside a Windows Web App?	
+		You need to configure the Runtime stack of the Instance Details when creating a web app in the Azure Portal
+	Question 8:
+	How do you do background scripts in the Platform as a Service model?
+		Deploy it as a web job attached to a web app.
+		
+*************************************************************************+
+Containers
+	Docker is used to create images
+	to publish with VS 2019 buil->publish->coker container registry
+	but before that we need to add to the project right click-> add -> docker support 
+	
+	In azure portal we need to create a new Container registry
+	Container-> Container registry
+	
+		we have 3 types of images sources 
+			Quickstart images
+			Azure container registry
+			Docker hub or other registry
+		
+	Web App Containers
+	Container-> Web app container
+*************************************************************************+
+Funcions app
+	Function app
+	lets you create your code in a serverless environment without having to first create a VM or publish a web application
+	Languages
+		.NET Core
+		Node.js
+		Python
+		Java
+		Power Shell Core
+		Custom Handler
+		
+	PLan payment
+		Consumption (Serverless)
+		Premium
+		App service plan
+	
+	An azure function could be triggered by
+		Http
+		timer
+		Azure queue
+		Azure Service Bus Topic
+		Azure BlobStorage
+**********************************************************************************************************
+Create a Function app that writes to a blob 
+	go and create a new timer trigger
+	in integration tab -> in output (add the data related to the storage account)
+	put the code in the tab code + TEst
+		in the code 
+		//blobparametername is myOutputBlob
+			context.bindings.myOutputBlob = 'Hi my name is '
+
+**********************************************************************************************************
+Azure functions
+	Serverless-designSimple
+	Stateless
+	short-lived start, dowork , stop
+	Trggered bya a timer, http request, blob event, or message queue
+	Best designed to work asynchronously with other code
+	timeout 30 minutes
+	
+Azure Durable Functions
+	Stateful
+	Could be long-running
+	Or a multi-step process
+	Can be "suspend" while waiting for a long-running API to retunr -checkpoints
+	Supports complex design patterns
+	Functions can call other functions - chaining 
+	Made up of a client, orchestrator and activities
+	
+	we have the patterns
+		Function Chaining pattern
+		Fan out / fan in pattern (wait all)
+		Asynchronous API pattern
+		Monitor pattern
+		Human interation pattern
+	
+	Create durable functions
+		in a existing azure function
+		in development tools sction clic app service editor and clic in go
+			in the wwwroot folder create the file package.json
+			touch packgage.json
+			open package.json
+			in the file put:
+				{
+					"name" : "mydurablefunction",
+					"version": "1.0.0"
+				}
+		ctrl + s 
+		ctrl + q
+		
+		returning to the portal in development tools section
+		in the console
+			npm install durable-functions
+			after install restart
+			
+		in the section Function click in functions and add a template for durable functions
+		to use a delay inside the function 
+			 we need to intall moment and typescript
+			 and in the code 
+				const moment = require("moment")	
+**********************************************************************************************************
+Custom handlers
+	Custom handlers are best suited for situations where you want to:
+		Implement a function app in a language that's not currently offered out-of-the box, such as Go or Rust.
+		Implement a function app in a runtime that's not currently featured by default, such as Deno.
+**********************************************************************************************************
+Which of the following is NOT a valid trigger for a function?
+	Table storage
+Can a Function App bind to a Notification Hub to send mobile notifications as an output binding?
+	Yes -  only for output and limited to version 1 of the Azure Function runtime
+
+	
+		
 	
 	
 	

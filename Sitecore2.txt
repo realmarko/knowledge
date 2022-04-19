@@ -1,0 +1,30 @@
+Sitecore
+in the code views/layouts/sample.cshtml
+in sitecore create in sitecore/layout/layouts/Sample Layout and put in the field path => views/layouts/sample.cshtml
+
+with viewrendering 
+	I have the view file ex. PageHeader.cshtml
+	and in sitecore/layout/renderings I have the same rendering filename
+
+
+we can put the cshtml of the rendering (PageHeader.cshtml) in the sample.cshtml
+using @Html.Sitecore().ViewRendering("/Vies/PageHeader.cshtml")
+
+//dynamic way
+@Html.Sitecore().PlaceHolder("content")
+add in the sitecore/content/home the rendering 
+	PageHeader and set placeholderkey = content
+	
+ControllerRendering
+	We add the class controller in Controllers folder
+	and we add the view in views folder
+	then we have to create  the controller rendering in sitecore/layout/renderings ex "Page Content"
+	and we fill the information in the controller field, controller action
+	then we need to add the rendering in Sitecore/content/home in the presentation details section
+	
+Viewrendering
+in the cshtml we can use
+
+	@Model.Item.Name
+	@model.Rendering.Item.Name
+	@Model.Rendering.Paramaters["Coulor"]

@@ -1,0 +1,5 @@
+Parallel asyn programing
+Task.Delay
+Task.WhenAny<Task>(Task<TResult>,Task<TResult>) //return when the first task is completed useful when we need to see timeout, but is better to use CancellationToken
+Task.FromResult //usuful when we have an async method and we convert to a sync method, only work for success results
+

@@ -772,9 +772,10 @@ Http Request
 	@Injectable
 	export class ServerService{
 		constructor(private http:Http){}
+		//servers is the postData
 		storeServers(servers:any[])
 		{
-			return this.http.post('http://...',servers);// this return an observable
+			return this.http.post('http://...', servers);// this return an observable
 		}
 	}
 	
@@ -1325,9 +1326,71 @@ fetchPosts()
 			params:searchparams
 		})
 }	
+********************************************************************************************
+content projection
+@Component({
+	selector> 'app-root',
+	template:'<div>
+				<auth-form
+				(submitted) = "createUser()"
+				<h3>Create account</h3>
+				<button type = "submit">
+					Join us
+				</button>
+			</auth-form>
+			<auth-form
+				(submitted) = "loginUser()"
+				<h3>Login</h3>
+				<button type = "submit">
+					Login
+				</button>
+			</auth-form></div>'
+})
+in the component we send the id of the slector to use Login or Create account
+	@Component({
+	selector> 'auth form',
+	template:'<div>
+				<form (ngSubmit)="onSubmit(form.value) #form ="ngForm">
+					<ng-content select="h3"></ng-content>
+						<label>
+							Email address
+							<input type="email" name="email" ngModel>
+						</label>
+						<label>
+							Password
+							<input type="password" name="password" ngModel>
+						</label>
+					<ng-content select="button"></ng-content>
+				</form>
+				</div>'
+})
+*************************************************************************************
+Angular material
+	ng add @angular/material
+to install an specific version	
+	npm install --save @angular/material@8 --save-exact
 	
-	
-
+*************************************************************************************
+Get data and added in an array
+fetchPosts(){
+	return this.http
+		.get<[key:string]:Post>(
+			'URL'
+		)
+		.pipe(
+			map(responseData =>{
+			const postsArray:Post[] = [] ;
+			for(const key in responseData)
+			{
+				if(responseData.hasOwnProperty(key))
+				{
+					postArray.push({...responseData[key],id:key})
+				}
+			}
+			return postsArray;
+			})
+		)
+}
 
 
 

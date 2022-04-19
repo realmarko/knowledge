@@ -1,0 +1,90 @@
+EL NEGOCIO ESTA EN LA COMPRA
+
+
+Mostrar los desarrollos nuevos en la zona
+Hay alta demanda de propiedades en la zona
+Mostrar colonias con alta plusvalia
+Mostrar zonas en preventa
+una propiedad se
+puede rentar en aproximadamente 5 a 8% anual de su valor de mercado.
+la aplicacion dira que tipo de desarrollo se puede hacer en tu terreno
+ivestigar que es INBA y SEDUVI(restricciones de conservacion y sitios patrimoniales)
+
+schools
+crime rates 
+air quelity
+traffic
+access to pubublic transit
+
+
+
+links to analyse
+	https://tcsglobal.udemy.com/course/real-estate-investment-analysis/learn/lecture/9505114#overview	
+
+
+search property
+	search features of the property
+	search for recent sales
+	search for rentals
+	add a feature to the property(sale by agent, owner, ejecuciones hipotecarias
+	subasta)
+	home type
+		apartments
+		condo
+		townhomes
+		manufactured
+		lots/land
+		
+	baths
+	beds
+	square feet(metros cuadrados construidos
+	)
+	lot size(tamano del terreno) 
+	years built
+	dias en la app
+	keywords
+	
+	create the detail page
+	ultima vez que se vendio la propiedad precio,  ano
+	
+	de acuerdo a lo que miramos 
+		atractivo exterior
+		que se puede y debe mejorar
+		cuanto saldra la mejora
+		
+	cuanto seria de impuestos
+	
+	credit analysis 
+	///////////////////////////////////////////////////////////////////////////////////////
+Pending Items
+	Send an error message when a required field is invalid
+	we can use ngmodel bc we are using ngform 
+	<input #title = "ngModel">
+	<mat-error *ngIf = "title.invalid">{{}}</mat-error>
+	
+	Create the method to update the property value
+	
+	verify all the subscription are remove in ngondestroy
+	
+	///////////////////////////////////////////////////////////////////////////////////////
+	cuando se compra una casa considerar los puntos del curso
+	considerar cuanto se invertira en remodelacion
+	cual sera el precio de venta 
+	cuanto se le dara al venderdor
+	cuanto sera de la mano de obra
+	cuando se venta cuanto se le dara a la notaria 
+	cuando se venda cuanto tendre que pagar de impuestos (se puede evitar el impuesto de venta cada 3 anos) solo sirve para casas no para terrenos
+	
+	
+	
+	
+	
+	
+	Hacer un estudio de mercado a la semana(el excel del curso)
+	
+	validar el email cuando el usuario se esta dando de alta
+	
+	
+	
+	
+	

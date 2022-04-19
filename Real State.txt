@@ -13,3 +13,44 @@ azure devops
 		Create unit test
 		
 	When we receive an empty alert we should check the implements HttpInterceptor {
+	
+	
+	
+///////////////////////////////////////////////////////////////////////////////////////
+show schools in the map
+	show better schools
+filtro para mostrar propiedades remodeladas
+///////////////////////////////////////////////////////////////////////////////////////
+Analisys when you buy a property
+	No overpaid
+	Rehab or renovations
+	utilities	
+	Repair and maintenance
+	
+	Rents
+	Profits from sale
+	Other income
+	
+	check the house doesn't have infestations
+	
+///////////////////////////////////////////////////////////////////////////////////////
+server en azure
+mysql
+server name patowork
+user marco
+pass carajo$2008
+resource group test
+mysql --host=patowork.mysql.database.azure.com --user=marco@patowork -p
+
+az mysql patowork update --resource-group test --name patowork --ssl-enforcement Enabled
+	
+	
+openssl s_client -connect realstatestorageaccount.blob.core.windows.net:443 \
+                 -servername realstatestorageaccount.blob.core.windows.net
+face verizon*0706
+
+
+Toast
+	https://www.npmjs.com/package/ngx-toastr
+
+	mysqldump -Fc -v -h patowork.mysql.database.azure.com -u marco@patowork -p -B test>test_backup.sql

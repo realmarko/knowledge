@@ -1,0 +1,87 @@
+RxJs
+	create an observable from event
+	Rx.Observable.fromEvent(button, 'click')
+	.subscribe()
+	(event) => console.log(event)
+	
+****************************************************************
+//dollar sign means is a rxjs observable
+const interval$ = interval(1000);
+interval$.subscribe(val=> console.log(val));
+
+const click$ = fromEvent(docuemnt,'click');
+click$.subscribe(
+	evt => console.log('evt'),
+	err => console.log('err'),
+	() => comsole.log("completed")
+	);
+===================================
+map operator
+
+ngOnINit(){
+	const http$ = createHttpObservable('/api/courses');
+	const courses$ = http$.pipe(
+	map(res => Object.value(res{"payload"}))
+	
+	);
+	
+	courses$.subscribe(
+		courses => console.log(courses),
+		noop,
+		() => console.log('completed')
+	)
+}
+//////////////////////////////////////////////////////////////////////
+to filter the courses
+beginnerCourses: Course[];
+advancedCourses: Course{};
+ngOnInit(){
+	const http$ = createHttpObservable('/api/courses');
+	const courses$ = http$.pipe(
+	map(res => Object.value(res{"payload"}))
+	
+	);
+	
+	courses$.subscribe(
+		courses => {
+			this.beginnerCourses = courses.filter(
+			course => course.category == 'BEGINNER');
+			this.advancedCourses = courses.filter(
+			course => course.category == 'ADVANCED');
+		}
+		,
+		noop,
+		() => console.log('completed')
+	)
+}
+
+//////////////////////////////////////////////////////////////////////
+passing observables to the template 
+beginnerCourses$: Observable<Course[]>;
+advancedCourses$: Observable<Course[]>;
+ngOnInit(){
+	const http$ : Observable<Course[]> = 
+	createHttpObservable('/api/courses');
+	
+	const courses$ = http$.pipe(
+	map(res => Object.value(res{"payload"}))
+	
+	);
+	this.beginnerCourses$ = courses$
+	.pipe(
+		map(courses => courses.filter(course => course.category =='BEGINNER'));
+	);
+
+	this.advancedCourses$ = courses$
+	.pipe(
+		map(courses => courses.filter(course => course.category =='ADVANCED'));
+	);
+	
+}
+
+and in the template
+the asnc pipe subscribe and asign the values 
+and unsunbscribe the observable once the component is destroyed
+
+<courses-car-list [courses] = "begginerCourses | async ">
+

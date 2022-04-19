@@ -321,4 +321,46 @@ Passing data with POST Requests
 			}
 	in routes/shop.js
 		router.post('/cart', shopController.postCart);
+/**********************************************************************/
+UDEMY nodejs
+nodejs use V8(compiles javascript)
+v8 is written in c++
+to use filesystem
+	const fs = require('fs')
+	fs.writeFileSync('hello.txt','hello from nodejs')
+	
+	nodejs is a javascript runtime
+	
+	alternatives for nodejs
+		php
+		python
+		ruby 
+		asp.net
 		
+	spread and rest operators
+	if I want to add an item in an array but not affecting the original array I will 
+	use spread operator
+	const copiedArray = [...hobbies];
+	to return a copy of the array
+	const copiedArray = hobbies.slice();
+	
+	rest operator create an array from args
+	cost toArray = (...args) => {
+		return args;
+	}
+	
+	Destructuring
+	we pass and object but we only use the parameter that we need 
+	example
+	const prinName = ({name}) =>{
+		console.log(name);
+	}
+	printName(person);
+	
+	example
+	const {name,age} = person;
+	
+		
+	
+
+	

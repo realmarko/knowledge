@@ -1,0 +1,29 @@
+Sitecore
+Installation and configuration
+	two main dll
+		SitecoreMvc.dll
+		SitecoreKernell.dll
+	in appconfig/include we have sitecore.mvc.config
+	
+	we 
+
+Create Layout
+	we should use the webconfig from sitecore and we will put it this file inside the folder vies in MVC
+	
+Project Setup
+	We create a new MVC empty project
+	then remove the web.config
+	Add the sitecore dll
+		SitecoreMvc.dll
+		SitecoreKernell.dll
+		
+		
+	Create a publish profile(normal mvc .net publish)
+	remove from mvc project the file global.asax and put in the website folder the global.asax from sitecore
+	
+	
+View renderings(dynamic and static binding)
+Controller renderings
+==============================================================================
+
+search information for sitecorerocks

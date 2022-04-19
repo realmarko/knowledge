@@ -1,0 +1,418 @@
+Source code control is the heart of Continuous Integration.
+Source code must be managed using a Version Control System (VCS).
+
+The different types are:
+
+Local
+Centralized
+Distributed
+
+Source Code Control - Types
+Local Version Control System:
+
+Codebase is maintained locally
+Centralized Version Control System (CVCS):
+
+Code resides on a central base
+Developers:
+create work branches
+perform changes on the work branch
+publish changes to the central base
+SVN is an example of CVCS
+Distributed Version Control System (DVCS):
+
+Developers:
+	clone the central base into their local machines
+	create work branch from the local base
+	perform the changes in the work branch
+	merge the changes in the work branch to local base
+	synchronize the local base with the central base
+	Git is an example of DVCS
+
+All the currently existing version control tools support branches or codeline.
+
+Branch: An independent line of work that stems out from a central codebase.
+
+Types:
+
+The Main branch is known as trunk, mainline or master
+The Release branch is used for bug fixes post user release
+The Work Branch is used by developers for development changes
+Every branch should have an owner.
+
+The owner must define the branch policy (when a code should be checked in).
+
+Mainline Branch
+The Mainline branch must be stable always so that the code is in ready to deploy state.
+
+Ready to deploy implies that the code has successfully passed tests like integration, regression, and so on.
+
+Code in mainline is deployed to the user or production environments.
+
+Release Branch
+Change done on the release branch must flow back to the mainline.
+
+The Release branch should never receive a change from the mainline.
+
+It must be closed after a release from the mainline.
+Work Branch
+Work or development branch is where the developer compiles the code, integrates and runs tests.
+
+Stable changes in work branches are published to the mainline.
+
+What if your team is implementing multiple changes in parallel on the work branch?
+How to Handle Parallel Changes?
+Publishing to the mainline is easy when only one change is implemented at a time.
+
+Consider a scenario when 2 developers are working on the same work branch:
+
+Developers A and B are working on different changes simultaneously.
+Developer A has partially completed the changes and merges it with the work branch.
+Developer B completes the changes fully and merges it with the work branch.
+Then, developer B publishes the changes to the mainline.
+Accidentally, B ends up publishing the partially done changes of A to the mainline.
+Publishing an incomplete code to the mainline is a violation of the mainline branch policy.
+If an issue arises later, it will be hard to say whose change introduced it.
+What can be done now?
+Team collaboration plays a crucial role in such scenarios.
+
+Either developer B must wait until both changes have been completed and then publish to the mainline.
+Or prioritize the changes by publishing the top priority change first to the mainline. Then, merge the other change with local version control.
+Avoid multiple parallel changes in the same work branch.
+
+Merging Work Branch Conflicts
+How to handle conflicts during code merge?
+Developer A is using a library variable in the code changes.
+Developer B completely removes references to the library and publishes it to the mainline.
+Now, developer A needs to discover the conflicting change before proceeding further.
+To detect conflicts at an early stage:
+Merge down the code from the work branch to your development region as often as possible
+Check-in changes to the work branch frequently
+What if other teams are working on separate work branches that end up publishing to the mainline?
+
+Merging Mainline Conflicts
+Consider the scenario with two teams:
+Each team has their own work branch.
+Each team will publish their changes to the mainline independently.
+There is a possibility of a new change on the mainline, which may conflict with the other team's code.
+Pick up the library example discussed previously (replacing developers with teams):
+Team A removes the use of the library and publishes the change to the mainline.
+Team B continues to use the library.
+How to handle the merge issue in this case?
+
+Merging Mainline Conflicts Contd.
+Merge down changes from the mainline to the work branch, ideally, every day.
+The team that discovers the conflict is responsible for sorting out the conflict.
+Publish changes from the work branch to the mainline regularly.
+The team that checks in the changes first is the winner.
+
+Release Branch
+A high priority bug got detected post user-release. What has to be done now?
+Create a release branch from the mainline based on the time it was released.
+Fix the bug on the release branch.
+Merge the changes from the release branch with the mainline.
+
+Version Control - Summary
+Now that you have learnt briefly about version control, how does CI fit in here?
+Merging or committing changes frequently is a top practice, that lays as a backbone of CI.
+Version control helps a developer to plan and execute changes seamlessly.
+
+Uses of Branching
+Branching helps in parallel development. Work can be done on two or more work streams simultaneously, without affecting one another.
+Physical: Branches created for files, subsystems, and components.
+Functional: Branches created for features, logical changes, bugfixes, and enhancements.
+Environmental: Branches created for build and runtime platforms such as compilers, libraries, hardware, operating systems, and so on.
+Organizational: Branches created for activities/tasks, subprojects, roles, and groups.
+Procedural: Branches created to support policies, processes, and states.
+
+Branching Techniques
+The next few cards will help you understand the various branching techniques that teams will adapt based on their need.
+Branch by Feature
+Branch by Release
+Branch by Team
+Branch by Abstraction
+All the 3 types of branches ( mainline , work and release ) discussed in the version control section must be used at appropriate places in each of these techniques.
+
+Branch by Feature
+Created to work simultaneously on features or user stories.
+Mainline is kept in a releasable state.
+A feature is developed on a separate branch.
+It must be merged into the mainline after it is tested.
+
+Branch by Feature - Practices
+Merge mainline onto every branch daily.
+Branches must be short-lived (few days).
+The number of active branches at any time must depend on the number of features that are developed.
+New branch should not be created until the previous branch is merged with mainline.
+Refactorings (changing code without changing the behavior) must be merged immediately to minimize conflicts.
+
+Branch by Release
+Code is developed on the mainline.
+Branch is created when a feature is complete and ready for release.
+Release testing and validation are done on this branch.
+Only bug fixes are done on this branch and merged back with the mainline.
+No new branches must be created off the release branch.
+Branches for later releases must always be created off the mainline.
+
+Branch by Team
+Used in a large team that works on functionally independent areas.
+The mainline must be in a releasable state.
+Branch is created for every team.
+Merged with the mainline only when the branch is stable.
+Merge done to the mainline from any given branch must be published to every other branch.
+
+Branch by Team - Practices
+Create small teams with each team working on its own branch.
+Publish changes from the mainline to every branch daily.
+Run unit and acceptance tests for every check-in done to the branch.
+Run all tests (including integration tests) on the mainline every time a branch is merged with it.
+On discovering a bug after merging with the mainline:
+Perform changes in the team branch and stabilize before merge (or)
+Create a new branch for bug fixes.
+
+Branch by Abstraction
+Trunk (mainline) based development.
+Mainline is always stable and ready for deployment.
+Used for making large-scale changes incrementally.
+
+How it Works?
+Create an abstraction layer around the code to be changed.
+Change the application to use the abstraction layer.
+The application interacts with the code through the layer.
+Create the new code.
+Reroute application interaction to the new code through the layer.
+Once changes are complete and stable, remove the layer.
+
+Stream-Based Version Control
+	Developers develop code in their own workspaces.
+	Changes are promoted to streams once they are ready.
+	Branch is replaced by streams.
+	A change applied to a stream will be automatically inherited by the downstream streams.
+	Merge problems addressed by this automatic inheritance.
+
+Stream-Based Version Control Contd.
+	Stream-based version control is helpful in the following scenarios:
+	Applying a bugfix to several versions of the application.
+	Adding a new version of a third-party library to the codebase.
+	How it is done:
+	Promote the changes in your stream to the common ancestor of all the streams that need the change.
+	IBM Clearcase and AccuRev are popular stream-based version control systems.
+
+//***************************************
+What is a Build?
+Activities performed to generate, test, inspect and deploy software.
+
+Central Repository
+All the assets required to build like library, DLLs, configuration files are centralized into the central repository.
+To maintain the central repository effectively:
+Use a consistent directory structure in the central repository, which enables you to retrieve only the required files.
+Create folders for design, requirement, implementation, testing, and so on.
+Fetch the required files from the implementation folder for integration build.
+
+Build Scripts
+As soon as a change is moved into version control, it is a recommended CI practice to build immediately.
+
+Create build scripts (using tools like Maven, Ant)
+Execute build scripts from an IDE or command line or CI tool
+Build scripts should not be dependent on the IDE, which means it must be executable from the CI tool if used
+Use CI tools to automate the trigger and execute the build scripts on detecting a change.
+
+Build Types
+Build is of 3 types, namely:
+Private Build
+Integration Build
+Release Build
+
+Private Build
+Run by the developer before committing the code changes to the local version control or work branch.
+The sequence of activities performed by a developer are listed as follows:
+Check out the code from work branch.
+Perform the required code changes.
+Get the latest system changes (like database changes) from central repository.
+Run build jobs that includes execution of unit test cases.
+Commit changes to the work branch on a successful build.
+
+Integration Build
+Integrates changes committed on the work branch with the mainline.
+Ideal to run integration build on a dedicated machine.
+Code compilation, unit test, component test, system and performance test along with inspections are executed as part of this build.
+
+Release Build
+	Deploys code to the production or end-user.
+	Includes extensive load and performance tests along with user acceptance tests.
+	Triggered by code changes on the mainline or release branch.
+
+Build Mechanism
+On-Demand: Build initiated manually.
+Scheduled: Build triggered based on time.
+Poll for Changes: Build runs after a change is detected by a CI tool.
+Event-Driven: Build triggered by version control tool based on a change.
+
+Build for any Environment
+In order to enable software deployment to different environments, say, for testing purposes, the code must be deployed to various environments.
+Build scripts should remain the same.
+Configuration files (like .properties or .include ) helps in differentiating the environments.
+
+Run Fast Builds
+	Rapid feedback is a key factor of CI.
+	If the build runs for a longer duration, it may delay the reporting and fixing of errors. So stage the builds (split builds logically).
+	Create separate build scripts to:
+	Fetch changes from version control and compile.
+	Run unit tests.
+	Run automated processes like integrating the database changes, component tests or system tests, and code inspection.
+	Do incremental builds (compile only the components changed) when compilation takes a longer duration. But, use it judiciously.
+
+Integrate Database Changes
+Any time a database is changed, such as:
+New objects are created
+Existing objects are altered
+Objects are dropped or removed
+build the components that are using the database.
+As a recommended practice:
+Incorporate database integration as part of the build
+Use a local sandbox to test database changes
+Share the artifacts, like scripts to create, modify, delete, schema, and so on, using a central repository.
+********************
+Test types
+
+You might have come across this quote: A code that cannot be tested is flawed.
+As an important CI practice, you need to execute :
+Unit test (using tools like JUnit, NUnit, PHPUnit, as appropriate).
+
+Test Types
+Integration or Component test: To verify how certain changes interact with the rest of the system (using tools like JUnit, NUnit, DBUnit).
+System test: To completely test a software (using tools like JWebunit).
+Functional test: To test the software functionality from a user perspective (tools like Selenium are used).
+Automate the tests using the tools provided.
+
+Testing Strategy
+Categorize your tests (unit, system, component).
+Create test scripts and include them as part of the build.
+Ensure proper test code coverage.
+Schedule the build based on the test category. Different intervals need to be planned for slow-running tests.
+Prioritize and run faster tests.
+
+Inspection Activities
+Code review plays a crucial role in maintaining the overall quality of a codebase. This must be part of the build.
+Leverage automated inspectors like JavaNCSS or CCMetrics to identify the piece of the code that is highly complex.
+The complexity of the code is determined by Cyclomatic Complexity Number (CCN).
+It is the measure of:
+Number of linearly independent paths (or)
+Number of ways present to traverse a piece of code.
+It determines the minimum number of test inputs required to check all the ways of executing a program (done using a control flow graph).
+
+Inspection Activities Contd.
+Report coding standards violation (using PMD, FxCop, and so on).
+Identify the amount of duplicate code (using tools like Simian, CPD).
+Assess code coverage, identify the percentage of code executed on running a test (using tools like NCover, Cobertura, Clover).
+Determine if a package is highly dependent on other packages, measured using Afferent and Efferent coupling .
+
+Coupling is a measure of dependencies.
+
+Afferent Coupling
+	Who depends on you
+	Measure of how many other packages use a specific package.
+	Incoming dependencies
+
+Efferent Coupling
+	Who do you depend on
+	Measure of how many different packages are used by a specific package
+	Outgoing dependencies
+
+Build Metrics
+Build metrics plays a crucial role in helping reduce the build duration.
+The following are some important build metrics:
+Compilation time: Time taken to compile the software, compares with the past compile times.
+Number of Source Lines of Code (SLOC): System’s size or size of what has to be compiled.
+Number and types of inspections: Number of different inspections performed.
+
+Build Metrics Contd.
+Build Repair Rate: Time taken to repair a build failure.
+Test execution time: Time taken to perform testing at each level like unit, component, and system.
+Inspection time: Time taken to perform the inspections.
+Deployment time: Time taken to deploy the software.
+Database rebuild time: Time taken to rebuild the database.
+
+Analyze Metrics
+Capture and analyze the metrics to determine what improvement must be done to reduce the build duration.
+The following are such improvement outcomes:
+Improve test performance
+Streamline integration builds
+Improve inspection performance
+Distribute integration builds
+
+
+Broken Build
+If any activity that is performed as part of the build fails, then build is considered broken .
+Do not commit changes of a broken build to the work branch or mainline.
+Fix broken builds immediately.
+Do not check out changes related to a broken build.
+
+Risks Addressed by CI
+Following CI effectively and efficiently helps reduce the following risks :
+Lack of deployable software
+Late discovery of defects
+Low quality software
+Lack of visibility on project health
+
+**************************************************
+Best Practices
+	To adapt CI in your project, the following are the important practices to be followed diligently :
+	Using a version control system
+	Committing code frequently to the work branch and mainline
+	Automating developer tests
+	Running private builds
+	Ensuring all the tests and inspections run successfully
+	Refraining from committing a broken build
+	Fixing broken build on priority
+	Avoiding checking out a code related to broken build
+
+
+Criteria to Evaluate CI Tools
+	A craftsman who wishes to practice his craft well must sharpen his tools - Chinese Proverb
+	Selecting a CI tool is highly dependent on the environment, size, and functionality of the project.
+	Evaluate the required tool, based on its:
+	Functionality (Essential and Extendable)
+	Compatibility with your environment (supports current build configuration and existing version control, compiles the code language)
+	Reliability
+	Longevity (choose a tool with a healthy user base and established development group)
+	Usability (easier to configure and use)
+
+Build Tool: Essential Functionality
+	Code compilation
+	Component packaging
+	Program execution
+	File manipulation
+
+Build Tool: Extended Functionality
+	Development test execution
+	Integration with Version control tool
+	Document generation
+	Deployment functionality
+	Code quality analysis
+	Extensibility to integrate plugins
+	Multi-platform build support
+
+Build Scheduler: Essential Functionality
+	Build Execution
+	Version control integration
+	Build tool integration
+	Feedback
+	Build labeling
+
+Build Scheduler: Extended Functionality
+	Inter-project dependencies
+	User Interface
+	Artifact publication
+
+
+Continuous Integration Tools
+	Version Control - GitHub, Subversion
+	Java Build - Ant, Maven
+	.Net Build - NAnt, MSBuild
+	Java build scheduler - Jenkins, CruiseControl
+	Static code analysis - SonarQube, Checkstyle, PMD
+	Code Coverage - JCov, Clover, Serenity, Cobertura
+	Unit Testing - NUnit, JUnit
+	Functional Testing - Cucumber, Selenium
+	Artifact Repository - Nexus, Artifactory

@@ -1,0 +1,40 @@
+NgRX
+Basics
+actions, reducers, 	selectors
+redux developer tools
+REST API  calls with effects
+Connect Angular Router to NgRX
+
+
+NgRX
+is an application state management library for Angular wich uses the principles of Redux and RxJS
+to install 
+	nom install -s -E @ngrx/store @ngrx/store-devtools @ngrx/effects @ngrx/router-store
+create the file app-state.ts inside src/app
+and create the file car.actions.ts inside the component (Actiona are for edit, add, delete)
+then create the reducers car.reducer.ts 
+	reducers produce a new state the method receive  an state and action 
+	in app.module.ts
+		add import {StoreModule} from '@ngrx/store';
+		and we need to import the reducers
+		and in the imports 
+			imposrt:[
+				StoreModule.forRoot({
+					cars:carReducer, 
+					editCarId:editCraIdReducer
+				})
+			]
+//in the component
+	
+import {AppState} from '../../app-state';
+import {Car} from '../../models/car';
+import {appendCar,replaceCar,deleteCar,editCar,cancel} from '../../car.actions'
+
+
+=====================================================================================
+Adding effects
+	add car.effects.ts
+	and the call the effects file in the module
+		import { EffectsModule } from '@ngrx/effects' and add it in the imports
+		EffectsModule.forRoot([CarEffects])
+
