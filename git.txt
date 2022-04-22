@@ -1,0 +1,54 @@
+Git
+cuando tenemos cambios y debemos descargar de master o de otra rama pero al tratar de descargar con git pull nos da error
+podemos utilizar stash para hacer a un lado nuestro trabajo y poder decargar
+ejemplo
+	$ git pull
+	 ...
+	file foobar not up to date, cannot merge.
+	$ git stash
+	$ git pull
+	$ git stash pop
+	
+	
+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+To set up the user name and user email this helps to git knows who is doing the commits
+git config global user.name "Marco"
+git config global user.email "realmarko@gmail.com"
+
+we can create a folder and after that use 
+git init
+to create a new empty file 
+	touch index.html
+to track that file
+	git add .
+
+to commit that change 
+	git commit index.html -m 'Create and empty index.html'
+if we change the file again
+		git commit =a =m "Adding a heading to index.html" //-a means all the files
+the file .gitignore
+	contains information rearding the files we dont want to track 
+	example:*.bak, 
+	
+git doesn;t track empty folders so to track an empty folder we use .git-keep
+	mkdir CSS
+	touch CSS/.git-keep
+	git add CSS
+	
+if I want to change something of my last commit and no create a new commit with a new message
+	git comit --amend -- no edit
+	
+to reset the last commit
+	git reset  --hard HEAD^
+
+to revert the last change 
+	git revert --no-edit HEAD
+	
+to go to an exact commit 
+	git checkout 27d5f88 . //to see the number we use git log ==oneline
+	and thenwe use git commit -am 'Reverting back to this point'
+	
+
+
+	
+	

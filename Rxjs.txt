@@ -84,4 +84,30 @@ the asnc pipe subscribe and asign the values
 and unsunbscribe the observable once the component is destroyed
 
 <courses-car-list [courses] = "begginerCourses | async ">
+//////////////////////////////////////////////////////////////////////
+sharereplay operator
+	We need to know that every subscription is a new request to the database
+to do this we need to add the sharereplay operator
+		beginnerCourses$: Observable<Course[]>;
+		advancedCourses$: Observable<Course[]>;
+	ngOnInit(){
+	const http$ : Observable<Course[]> = 
+	createHttpObservable('/api/courses');
+	
+	const courses$ = http$.pipe(
+				map(res => Object.value(res{"payload"})),
+				shareReplay()//-------------------------------------------here is the shareReplay
+	
+	);
+	this.beginnerCourses$ = courses$
+	.pipe(
+		map(courses => courses.filter(course => course.category =='BEGINNER'));
+	);
 
+	this.advancedCourses$ = courses$
+	.pipe(
+		map(courses => courses.filter(course => course.category =='ADVANCED'));
+	);
+	
+}
+	
