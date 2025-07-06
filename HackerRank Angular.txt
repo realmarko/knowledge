@@ -1,0 +1,49 @@
+kanban angular
+<input [(ngModel)] = "newTask">
+<button type ="submit">Create task</button>
+<button (click) = "backMove(task)" [disabled] = "task.stage === 0"><-</button>
+<button (click) = "forwardMove(task)" [disabled] = "task.stage >=3">-></button>
+
+
+createTask(){
+	if(!this.newTask)
+	{
+		return;
+	}
+	this.tasks.push({
+		name:this.newTask, stage:0
+	});
+	this.newTask = '';
+	this.configureTasksForRendering();
+}
+delete(task)
+{
+	this.tasks = this.tasks.filter(item=>{
+		if(item.name!==task.name)
+			return item;
+	});
+	this.configureTasksForRendering();
+}
+backMove(task)
+{
+	this.tasks = this.tasks.map(item =>{
+		if(item.name === task.name)
+		{
+			item.stage = item.stage -1;
+		};
+		return item;
+	});
+	this.configureTasksForRendering();
+}
+
+forwardMove(task)
+{
+	this.tasks = this.tasks.map(item =>{
+		if(item.name === task.name)
+		{
+			item.stage = item.stage + 1;
+		};
+		return item;
+	});
+	this.configureTasksForRendering();
+}

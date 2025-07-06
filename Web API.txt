@@ -239,3 +239,28 @@ Caching
 	Public: The response could be cached by intermediate device between the clinet and the serverlike a proxy-server 
 	Private: Browser-only, no intermediate caching, typicatlly for per-user secure data
 	No cache
+
+
+/************************************************************************************************************************/
+public class TransctionMiddleware
+{
+	public TransactionMiddleware(RequestDelegate next)
+	{
+		_next= net;
+	}
+
+	public async Task InvokeAsync(HttpContext context)
+	{
+		context.Response.Headers.Append("X-Transaction-Id,Guid.NewGuid().Transaction-Id;
+		await _next(context);
+	}
+	
+	public static class TransactionMiddlewareExtensions
+	{
+		public static IApplicationBuilder UseSubscribePlease(
+		this IApplicationBuilder builder
+		{
+			return builder.UseMiddleware<TransactionMiddleware>();
+		}
+	}
+}

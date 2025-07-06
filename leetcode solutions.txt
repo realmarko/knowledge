@@ -1,0 +1,55 @@
+leetcode algorithms
+
+stack in C#
+ Declaration : Stack<char> myStack = new Stack<char>();
+ Adding items: myStack.Push(c);
+ reading last item from stack: char current = myStack.Peek();
+ removing item: myStack.Pop();
+ 
+stack in Javascript
+	Declaration : let myStack = [];
+	Adding items: myStack.Push(c);
+	reading last item from stack: let lastItem = myStack[myStack.length-1];
+	removing item: myStack.Pop();
+
+
+
+Valid Parentheses
+public class Solution {
+    public bool IsValid(string s) {
+        Stack<char> myStack = new Stack<char>();
+        foreach(char c in s)
+        {
+            if(c == '(' || c == '{' || c == '[')
+            {
+                myStack.Push(c);
+            }
+            else
+            {
+                if(myStack.Count == 0)
+                {
+                    return false;
+                }
+                else{
+                    char current = myStack.Peek();
+                    if(
+                        (current == '(' && c == ')')||
+                        (current == '{' && c == '}')||
+                        (current == '[' && c == ']')
+                    )
+                    {
+                        myStack.Pop();
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            }
+        }
+        if(myStack.Count == 0)
+        {
+            return true;
+        }
+        return false;
+    }
+}
