@@ -1,0 +1,49 @@
+Build an ecommerce app withy .net core and angular
+
+
+API Basics
+create 3 projects
+	API //receive http request and respond to them 
+	Infrastructure //comunnicate the db and send queries to get data 
+	core // contain business entities. 
+
+	create the web api project
+		dotnet new webapi -o API
+	
+dotnet dev-certs https // check if we have certificate present
+//trust the certificate on the current platform
+//to see if we have a certificate
+	dotnet dev-certs https -t
+	
+
+//to restart automatically the server 
+dotnet watch run 
+dotnet new classlib -o Core
+dotnet new classlib -o Infraestructure
+// to add it to the project 
+	dotnet sln add Core
+
+Core contains entities folder
+infraestructure contains data folder
+ to exclude items 
+go to settings type exclue and add **/obj
+
+using git
+git init
+//to ignore files
+.gitignore inside put obj,bin, appsettings.json,*.db
+git commit -m "first commit"
+//create the repository
+git remote add origin https://..
+git push origin master
+
+
+	Repository pattern goals
+		decouple business code from data access
+		separation of concerns
+		minimise duplicate query logic
+		testability
+	
+to create the repository pattern
+	create folder core 
+		inside this filder create interfaces and entities folder

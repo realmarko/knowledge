@@ -1,0 +1,24 @@
+Deploying .Net Microservices with K8s, AKS and Azure DevOps
+
+Registry stores many static images
+Container Image - instance running an app process(service web)
+
+//to see the images
+docker images
+
+//to remove an image
+docker rmi 0a11
+
+
+//to run the application
+docker run -d -p 8080:80 --name myapp shoppingClient
+
+we can create repository in hub docker hub
+//to send the code to docker hub repository
+docker login
+//image        //name of repository in hub docker
+docker tag 9c7 mehme/shoppingapp
+//we can see the image in 
+docker images
+//to push the code
+docker push mehme/shopping:latest

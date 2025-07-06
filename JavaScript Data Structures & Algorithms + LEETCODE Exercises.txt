@@ -1,0 +1,34 @@
+JavaScript Data Structures & Algorithms + LEETCODE Exercises
+good
+	//Constant
+	O(1) //the funcion only has a one operation
+
+	//proportional
+	O(n) is a diagonal line 1 for cicle
+
+normal
+	//divide and conquer
+	O(log n) we can divide and conquer, if we are looking for a value we split to a half, and repeat the process until find the number
+
+	O(nlog n) some Sorting Algorithms
+
+Horrible code
+	O(2n) an example of this is a for and immediatly another for or more
+
+	//loop within a loop
+	O(n2) nested for loops in the graph the line goes to up quickly
+
+
+
+
+
+Arrays
+array.push(17)//adds a new item at the end
+array.pop()// removes the last item
+array.shift() //removes the firt item in the array and the indexes are fixed
+myarray.splice(1,0,'Hi')//add Hi to index 1 and don't remove anything, reordering the indexes
+
+
+mergesort is one of the best sorting algorithms
+selection sort is worst
+

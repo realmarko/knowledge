@@ -1,0 +1,77 @@
+consume api with angular
+create the project 
+	ng new Project
+	//add the path in app-routing.module.ts
+	//add the httpclient module in app.module.ts
+	//create the service
+	ng g s service/servicesApi
+
+//in the service api code
+@Injectable({
+	providedIn:'root'
+})
+
+export class EmployeeService{
+	baseApiUrl :string = environment.baseApiUrl;
+
+	constructor(private http:HttpClient)
+	{}
+	getAllEmployees:Observable<Employee[]>{
+		return this.http.get<Employee[]>(this.baseApiUrl + '/api/employees')
+	}
+}
+
+then in the component
+
+export class EmployeeListComponent implements OnInit{
+	employees:Employee[] = [];
+	constructor(private employeeService: EmployeeService){}
+	ngOnInit():void{
+		this.employeeService.getAllEmployees()
+		.subscribe({
+			next:(employees) =>{
+				this.employees = employees;
+				}
+			error: (response)=>{console.log(employees);}
+		})
+	}
+}
+
+//to allow cors
+app.UseCors(policy=> policy.AllowAnyHeader().AllowAnyMethod.AllowAnyOrigin());
+
+
+//example of a form
+<form #form = "ngForm" (ngSubmit)="addEmployee">
+<label for="name"></label>
+<input type="text" id = "name" name="name" [(ngModel)] = "addEmployeeRequest.name">
+<button type="submit" >Save</button>
+</form>
+in the service ts file
+addEmployee(employeeRequest:employeee):Observable<employee>{
+	return this.http.post<Employee>(this.baseApiUrl + '/api/employees',addEmployeeRequest)
+}
+
+//in the component to add the employee
+export class AddEmployeeComponent implement OnInit(
+addEmployeeRequest : Employee = {
+	id:'',
+	name:'',
+	email:'',
+	phone:'',
+	salary:'',
+	departament:''
+}
+constructor(employeeService:EmployeeService, private router:Router){}
+ngOnInit():void{}
+addEmployee(){
+	this.addEmployeeRequest.id = ''
+	this.employeeService.AddEmployee(this.addEmployeeRequest)
+	.subscribe({
+		next:(employee)=>{
+			this.router.navigate('employees')
+		}
+
+	})
+}
+)

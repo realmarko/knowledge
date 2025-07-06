@@ -1,0 +1,85 @@
+//create a new console project
+dotnet new console -n Movies
+
+cd Movies
+dontnet add package microsoft.EntityFrameworkCore --version 3.0.0-preview
+dontnet add package microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-preview
+dontnet add package microsoft.EntityFrameworkCore.Design --version 3.0.0-preview
+dotnet build
+
+class MoviesDbContext : DbCOntext
+{
+	protected MoviesDbContext(){
+	}
+
+	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+	{
+		optionsBuilder.UseSqlServer(@"Data soirce = server; Intial Catalog = ")
+	}
+}
+dotnet-ef migrations add Initial
+dotnet-ef database
+dotnet-ef database update
+
+
+//to add 
+var db = new MoviesDbConext();
+db.Movies.Add(newMovie);
+db.SaveChanges();
+
+//dataanotations help to validation
+
+
+class Movie{
+
+	public int Id{get;set;}
+	[Required]
+	[Maxlength(500)]
+	public string Name {get; set;}
+	[Required]
+	[Range(1900,2024)]
+	public int Year{get;set;}
+}
+
+dotnet-ef migrations add Anotaciones
+dotnet-ef database update
+
+
+//to use DI in database context
+public class CoursesDbContext:DbCOntext
+{
+	public CourseDbContext(DbContextOptions options):base(options){}
+	public DbSet<Course> Courses{get;set;}
+}
+and in startup.cs
+public CondifureServices(IServiceCollection services)
+{
+	services.AddScoped<ICoursesprovider, SqlServiceProvider>();
+	services.AddControllers();
+	services.AddDbContext<CoursesDbContext>(options=>
+	{
+		options.UseSqlServer(@"Data Source...");
+	});
+}
+//to create a migration
+dotnet-ef migration add Initial
+//to see te migrations
+dotnet-ef migrations list
+dotnet-ef dbcontext info
+//to execute the migration
+dotnet-ef database update
+
+
+example of relationships
+class Band{
+	public Id {get;set;}
+	public string Name{get;set;}
+	public List<Album> Albums{get; set;}
+}
+public class Album{
+	public int Id {get;set;}
+	public string Title{get;set;}
+	public int Year{get;set;}
+	public MusicStyle Style{get;set;}
+	public int BandId{get;set;}
+}

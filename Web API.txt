@@ -239,3 +239,173 @@ Caching
 	Public: The response could be cached by intermediate device between the clinet and the serverlike a proxy-server 
 	Private: Browser-only, no intermediate caching, typicatlly for per-user secure data
 	No cache
+
+/************************************************************************************************************************/
+example of get
+[HttpGet("{id:int}", Name = "GetVilla")]
+[ProducesResponseType(200, typeof(VillaDTO))]
+[ProducesResponseType(404)]
+[ProducesResponseType(400)]
+public ActionResult<VillaDTO> GetVilla(int id)
+{
+	if(id===0)
+	{
+		return BadRequest();
+	}
+	var villa = VillaStore.villaList.FirstOrDefault(u=>u.Id == id);
+	if(villa == null)
+	{
+		return NotFound();
+	}
+	return Ok(villa);
+}
+
+
+[HttpPost]
+public ActionResult CreateVilla([FromBody villaDTO]){
+	if(!ModelState.IsInvalid)
+	{
+		return BadRequest(ModelState);
+	}
+	if(villaDTO == null)
+	{
+		return BadRequest(villaDTO)
+	}
+	if(villaDTO.id > 0)
+	{
+		return StatusCode(StatusCodes.Status500InternalServerError);
+	}
+	villaDTO.id = VillaStore.villaList.OrderByDescending(u=>u.Id)FirstOrDefault().Id + 1;
+	VillaStore.villasList.Add(villaDTO);
+	return Ok(VillaDTO);
+	//instead of return ok we can redirect
+	return CreatedAtRoute("GetVilla", new {id = villaDTO.Id},villaDTO);
+
+}
+//and we need to add in the top of the method
+//[ProducesResponseType(StatusCodes.Status201Created)]
+
+
+//to make a custom validation
+if(VillaStore.villaList.FirstOrdDefault(u=>u.Name.ToLower() == villaDTO.Name.ToLower()))
+{
+	ModelState.AddModelError("CustomError","Villa already Exists!");
+	return BadRequest(ModelState);
+}
+
+
+//The first parameter in the CreatedAtAction method call represents an action name. 
+//The nameof keyword is used to avoid hard-coding the action name. 
+//CreatedAtAction uses the action name to generate a location HTTP response header with a URL to the newly created pizza
+
+[HttpPost]
+public IActionResult Create(Pizza pizza)
+{            
+    PizzaService.Add(pizza);
+    return CreatedAtAction(nameof(Get), new { id = pizza.Id }, pizza);
+}
+
+[HttpPut("{id}")]
+public IActionResult Update(int id, Pizza pizza)
+{
+    if (id != pizza.Id)
+        return BadRequest();
+           
+    var existingPizza = PizzaService.Get(id);
+    if(existingPizza is null)
+        return NotFound();
+   
+    PizzaService.Update(pizza);           
+   
+    return NoContent();
+}
+
+[HttpDelete("{id}")]
+public IActionResult Delete(int id)
+{
+    var pizza = PizzaService.Get(id);
+   
+    if (pizza is null)
+        return NotFound();
+       
+    PizzaService.Delete(id);
+   
+    return NoContent();
+}
+
+[ProducesResponseType(StatusCodes.Status204NoContent)]
+[ProducesResponseType(StatusCodes.Status404NotFound)]
+[ProducesResponseType(StatusCodes.Status400BadRequest)]
+[HttpDelete("{id:int}")]
+public IActionResult DeleteVilla(int id){
+	if(id == 0 )
+	{
+		return BadRequest();
+	}
+	var villa = VillaStore.villaList.FirstOrDefault(u=>u.Id == id);
+	if(villa == null)
+	{
+		return NotFound();
+	}
+	VillaStore.villaList.Remove(villa);
+	return NoContent();
+}
+
+[HttpPut("{id:int}", Name = "UpdateVilla")]
+public IActionResult updateVilla(int id, [FromBody]VillaDTO villaDTO)
+{
+	if(villaDTO == null || id != villaDTO.Id)
+	{
+		return BadRequest();
+	}
+	var villa = VillaStore.VillaList.FindFirstOrDefault(v=> v.Id == id)
+	villa.Name = VillaDTO.Name;
+	villa.Sqft = VillaDTO.Sqft;
+	villa.OCupancy = villaDTO.Occupancy;
+
+	return NoContent();
+	
+}
+
+
+//to use Path
+install the nuget package 
+Microsoft.AspNetCore.JsonPatch
+Microsoft.AspNetCore.Mvc.NwetonsoftJson
+
+the request body to patch
+[{
+	path:"/name",
+	"op": "replace",
+	"value": "string"
+}]
+
+[HttpPatch("{id:int}", Name = "UpdatePartialVilla")]
+[ProducesResponseTypes(StatusCodes.Status204NoContent)]
+[ProducesResposesTypes(StatusCodes.Stattus400BadRequest)]
+public IActionresult UpdatePartialVilla(id,JsonPatchDocuent<VillaDTO> patchDTO)
+{
+	if(patchDTO == null || id == 0)
+	{
+		return BadRequest();
+	}
+	var villa = VillaStore.villaList.FindFirstOrdefault(v=>v.Id == patchDTO.id)
+	if(villa == null)
+	{
+		return NotFount();
+	}
+	patchDTO.ApplyTo(villa,ModelState);
+	if(!ModelState.IsValid)
+	{
+		return BadRequest();
+	}
+	return NoContent();
+	
+}
+******************************************
+Logger
+install Serilog,serilog.sink.file,serilog.sinks.console
+in program.cs
+Log.Logger = new LoggerConfiguration().MinimumLevel.Debug()
+.WriteTo.File("log/villaLogs.txt",rollingInteval:RollingInterval.Day).CreateLogger();
+builder.Host.UseSerilog();

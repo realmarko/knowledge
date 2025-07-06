@@ -1,0 +1,34 @@
+react native
+create a new app 
+npx expo init ColorCatalog
+npm start
+
+
+//to fetch information
+export default function App()
+{
+	const [pet,setPet] = useState();
+	cons loadPet = async() => {
+		const res = await fetch("http>//..");
+		const data = await res.json();
+		setPet(data);
+	}
+	useEffect(()=> {
+		loadPet();
+	},[])
+	
+	if(!pet) return null;
+	return (<SafeAreaView >
+		<ScrollView>
+			<Text>{pet.name} - {pet.category}</Text>
+		</ScrollView>
+	</SafeArea>)
+}
+
+//to publish
+expo publish
+//to build
+expo build android
+
+
+

@@ -1,0 +1,101 @@
+pubic class QueryParameters
+{
+	const int _maxSize = 100;
+	private int _size = 50;
+	public int Page{get; set;} = 1;
+	public int Size{
+		get {return _size}
+		set{
+			_size = Math.Min(_maxSize,value);
+		}
+	}
+
+}
+public class ProductQueryParameters : QueryParameters
+{
+	
+}
+
+//in the controller
+public class ProductsController:ControllerBase
+{
+	private readonly ShopContext _context;
+	public ProductsController(ShopContext context){
+	}
+	
+	[HttpHet]
+	public async Task<ActionResult GetAllProducts>([FromQuery]QueryParameters params)
+	{
+		products = products
+		.Skip(params.Size * (params.Page - 1))
+		.Take(params.Size)
+		return Ok(await products.ToArrayAsync());
+	}
+
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
+	{
+		base.OnModelCreating(modelBuilder);
+	}
+}
+
+add-migration SeedCouponTables
+//to app;ly all pending migrations to database
+in program.cs
+
+ApplyMigration();
+app.run();
+
+void ApplyMigration(){
+	using(var scope = app.Services.CreateScope()){
+		var _db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+		if(_db.Database.GetPendingMigrations().Count() > 0)
+		{
+			_db.Database.Migrate();
+		}
+	}
+}
+//Controller
+public class CouponAPIController:ControllerBase
+{
+	private AppDbContext _db;
+	public CouponAPI(AppDbContext db){
+		_db = db;
+	}
+	
+	[HttpGet]
+	public object Get()
+	{
+		try{
+			IEnumerable<Coupon> objList = _db.Coupons.List();
+			return objList;
+		}
+		catch(Exception ex){
+		}
+	}
+	[HttpGet]
+	[Route("{id:int}")]
+	public object Get(int id)
+	{
+		try{
+			Coupon objList = _db.Coupons.First(u=>u.CouponId == id);
+			return objList;
+		}
+		catch(Exception ex)
+		{}
+	}
+	[HttpPost]
+	public ResponseDto Post([FromBody] CouponDto couponDto)
+	{
+		try{
+			Coupon coupon = _mapper.Map<Coupon>(couponDto);
+			_db.coupon.Add(obj);
+			_db.SaveChanges();
+			_response.Result = _mapper.Map<CouponDto>(obj);
+		}
+		catch(Exception ex)
+		{
+			_response.IsSuccess = false;
+			_response.Message = ex.Message;	
+		}
+	}
+}

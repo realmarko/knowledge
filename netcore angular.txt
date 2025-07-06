@@ -1,0 +1,44 @@
+net core with angular
+create project
+node --version
+npm install -g @angular/cli@12
+ng new client --strict false //inside the DatingApp
+install next extensions
+angular language
+angular snippets
+bracket pair colorizer2
+
+making httprequest
+add in imports HttpClienctModule
+in the component 
+
+export class AppComponent implements OnInit{
+	constructor(private http: HttpClient){}
+	ngOnInit(){
+		this.getUsers();
+	}
+
+	getUsers(){
+		this.http.get('https://localhost:5001/api/users').subscribe(response => {
+		this.users = response;
+
+		},
+		error=>
+		{
+			console.log(error);
+		})
+	}
+}
+
+//if we have cors errors
+modify configureservices
+public void ConfigureServices(IServiceCollection services)
+{
+	services.AddCors();
+}
+
+public void Configure(IApplication app, IWebHostEnvironment env)
+{
+	app.UseCors(x=>x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+}
+

@@ -1,0 +1,89 @@
+React is a Javascript librry for building user interfaces
+
+	Destructuring: Easily extract array elements or objects properties and store them in variables
+to create a real copy of the object
+	const person = {name:'Max'}
+	const secondPerson = {...person}
+	person.name = 'Namu'
+	console.log(secondPerson)//this prints Max bc we create a copy without reference
+Component
+	combination of html, javascript and css
+React use a Declarative approach
+
+install nodejs
+Creating a react project
+	cpx create-react-app my-app
+	cd my-app
+	npm start
+	open the project and npm install
+
+jsx
+html inside javascript
+create components folder
+	create the js file
+	function ExpenseItem(){
+		return <h2> Expense item!</h2>	
+	}
+	export default ExpenseItem;
+	
+	in function app add
+	import ExpenseItem from './components/ExpenseItem';
+	//and add 
+	<ExpenseItem></ExpenseItem>
+	
+Adding styling
+	create the file in the components folder
+	ExpenseItem.css
+	and import the css file inside the js file
+	import './ExpenseItem.css';
+	use the className attribute
+
+Passing data using Props
+	example:
+	<ExpenseItem title={expenses[0].title}>	</ExpenseItem>
+	in the js file
+	function ExpenseItem(props)
+	{
+		
+	}
+Questions
+Question 1:
+Which kind of code do you write when using React.js?
+	Declarative javascript code
+Question 2:
+What is "JSX"?
+	It's a special, non-standar syntax wich is enabled in React projects
+Question 3:
+Why is React all about "Components"?
+	Every UI in the end up is made up multiple building blocks (= components), hence it makes sense to think about user interfaces as "combination of 	compoenents"
+Question 4:
+What does "declarative" mean?
+	You define the desired outcome (e.g. a target UI) and let the library (React) figure out the steps.
+Question 5:
+What is a "React Component"?
+	It's a Javascript function wich typically retuns HTML (JSX) code that should be displayed.
+Question 6:
+How many custom React components must a React app have?
+	That's totally up to you
+Question 7:
+Which statement is correct?
+	With React, you build a component tree one root component that's mounted into a DOM node.
+Question 8:
+What does "component tree" mean?
+	It means taht you have a root node wich then has more components nested beaneth it.
+Question 9:
+How do you pass data between components?
+	Via "custom HTML attributes" (better know as "props")
+Question 10:
+How can you output dynamic data in React components (i.e. in the returned JSX code)?
+	you can use single curly braces (opening & closing) with any JS expression between them.
+ 
+State and working with events
+to add an event
+<button onClick="{() => { console.log("Clicked!")}}">
+we need import useState
+	import React, {useState} from 'react'';
+	inside the main function call useState();
+
+	
+	

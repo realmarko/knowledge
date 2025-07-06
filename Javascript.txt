@@ -245,5 +245,208 @@ spread operators
 		arr1 = [...arr1,...arr2]
 		
 	
+most frequenly asked programs in javascript interview
+1. Program to find longest word in a given sentence ?
+2. How to check whether a string is palindrome or not ?
+3. Write a program to remove duplicates from an array ?
+4. Program to find Reverse of a string without using built-in method ?
+5. Find the max count of consecutive 1’s in an array ?
+6. Find the factorial of given number ?
+7. Given 2 arrays that are sorted [0,3,4,31] and [4,6,30]. Merge them and sort [0,3,4,4,6,30,31] ?
+8. Create a function which will accepts two arrays arr1 and arr2. The function should return true if every value in arr1 has its corresponding value squared in array2. The frequency of values must be same.
+9. Given two strings. Find if one string can be formed by rearranging the letters of other string.
+10. Write logic to get unique objects from below array ?
+I/P: [{name: "sai"},{name:"Nang"},{name: "sai"},{name:"Nang"},{name: "111111"}];
+O/P: [{name: "sai"},{name:"Nang"}{name: "111111"}
+11. Write a JavaScript program to find the maximum number in an array.
+12. Write a JavaScript function that takes an array of numbers and returns a new array with only the even numbers.
+13. Write a JavaScript function to check if a given number is prime.
+14. Write a JavaScript program to find the largest element in a nested array.
+[[3, 4, 58], [709, 8, 9, [10, 11]], [111, 2]]
+15. Write a JavaScript function that returns the Fibonacci sequence up to a given number of terms.
+16. Given a string, write a javascript function to count the occurrences of each character in the string.
+17. Write a javascript function that sorts an array of numbers in ascending order.
+18. Write a javascript function that sorts an array of numbers in descending order.
+19. Write a javascript function that reverses the order of words in a sentence without using the built-in reverse() method.
+20. Implement a javascript function that flattens a nested array into a single-dimensional array.
+21. Write a function which converts string input into an object
+("a.b.c", "someValue");
+{a: {b: {c: "someValue"}}}
 
+
+𝟏. 𝐂𝐥𝐨𝐬𝐮𝐫𝐞𝐬 𝐚𝐧𝐝 𝐒𝐜𝐨𝐩𝐞𝐬
+— Create a Counter Function
+— Create a Function with Memoization
+— Sum of Closure
+
+𝟐. 𝐓𝐡𝐞 𝐭𝐡𝐢𝐬 𝐊𝐞𝐲𝐰𝐨𝐫𝐝
+— Implement a Custom bind Function
+— this in Arrow Functions
+— this in Event Handlers
+
+𝟑. 𝐀𝐬𝐲𝐧𝐜𝐡𝐫𝐨𝐧𝐨𝐮𝐬 𝐏𝐫𝐨𝐠𝐫𝐚𝐦𝐦𝐢𝐧𝐠
+— Convert a Callback Function to a Promise
+— Chaining Promises
+— Handling Multiple Asynchronous Operations with Promise.all
+
+𝟒. 𝐅𝐮𝐧𝐜𝐭𝐢𝐨𝐧 𝐄𝐱𝐞𝐜𝐮𝐭𝐢𝐨𝐧 𝐂𝐨𝐧𝐭𝐞𝐱𝐭
+— Implement a Function Debounce
+— Implement a Function Throttle
+— setTimeout with Immediate Invocation (Avoiding Closure Pitfalls)
+
+𝟓. 𝐎𝐛𝐣𝐞𝐜𝐭 𝐚𝐧𝐝 𝐏𝐫𝐨𝐭𝐨𝐭𝐲𝐩𝐞𝐬
+— Implement Deep Clone of an Object
+— Create a Custom Object.create() Method
+— Implement Inheritance Using Prototypes
+
+𝟔. 𝐄𝐯𝐞𝐧𝐭 𝐇𝐚𝐧𝐝𝐥𝐢𝐧𝐠
+— Event Delegation
+— Prevent Default Action and Stop Propagation in Event Handling
+— Implement a Custom Event Emitter
+
+𝟕. 𝐄𝐫𝐫𝐨𝐫 𝐇𝐚𝐧𝐝𝐥𝐢𝐧𝐠
+— Custom Error Handling with try/catch
+— Create a Promise with Timeout
+— Implement an Async Error Boundary
+
+𝟖. 𝐏𝐞𝐫𝐟𝐨𝐫𝐦𝐚𝐧𝐜𝐞 𝐎𝐩𝐭𝐢𝐦𝐢𝐳𝐚𝐭𝐢𝐨𝐧
+— Implement Lazy Loading of Images
+— Optimize Expensive Calculations Using useMemo or Memoize
+— Handle Debounced Input in React
+
+Frontend Coding Interview : JavaScript Challenges Companies Frequently Ask.
+
+1. Deep Clone Objects and Arrays
+Implement a function that creates a deep copy of nested objects and arrays, handling various data types.
+
+2. Debounce Function
+Create a debounce function that limits the rate at which a function can fire, waiting for a pause in invocations.
+
+3. Throttle Function
+Implement a throttle function that ensures a function is called at most once in a specified time period.
+
+4. Array Flattening
+Create a function that flattens a nested array to a specified depth.
+
+5.Nested Object Flattening
+Implement a function that flattens a nested object structure using dot notation.
+
+6. Promise .all Implementation
+Create a function that mimics the behavior of Promise all, handling multiple promises in parallel.
+
+7. Pub-Sub Pattern
+Implement a publish-subscribe pattern for event-driven architectures.
+
+
+In 2 minutes, understand why these JS concepts are important.
+
+𝟭. 𝗘𝘅𝗲𝗰𝘂𝘁𝗶𝗼𝗻 𝗖𝗼𝗻𝘁𝗲𝘅𝘁 & 𝗖𝗮𝗹𝗹 𝗦𝘁𝗮𝗰𝗸
+ - Understanding how JavaScript manages function calls helps debug and optimize your code execution.
+
+𝟮. 𝗛𝗼𝗶𝘀𝘁𝗶𝗻𝗴
+ - Helps avoid bugs by knowing when variables and functions are available during runtime.
+
+𝟯. 𝗜𝗜𝗙𝗘 (𝗜𝗺𝗺𝗲𝗱𝗶𝗮𝘁𝗲𝗹𝘆 𝗜𝗻𝘃𝗼𝗸𝗲𝗱 𝗙𝘂𝗻𝗰𝘁𝗶𝗼𝗻 𝗘𝘅𝗽𝗿𝗲𝘀𝘀𝗶𝗼𝗻)
+ - Useful for creating isolated scopes and preventing global variable conflicts.
+
+𝟰. 𝗘𝘃𝗲𝗻𝘁 𝗟𝗼𝗼𝗽 & 𝗠𝗶𝗰𝗿𝗼𝘁𝗮𝘀𝗸𝘀 𝗤𝘂𝗲𝘂𝗲
+ - Crucial for understanding how asynchronous operations are handled in JavaScript.
+
+𝟱. 𝗗𝗲𝗯𝗼𝘂𝗻𝗰𝗶𝗻𝗴 & 𝗧𝗵𝗿𝗼𝘁𝘁𝗹𝗶𝗻𝗴
+ - Improves performance by controlling the frequency of event function calls, especially for user inputs.
+
+𝟲. 𝗣𝗿𝗼𝘁𝗼𝘁𝘆𝗽𝗮𝗹 𝗜𝗻𝗵𝗲𝗿𝗶𝘁𝗮𝗻𝗰𝗲
+ - Key to understanding how objects share properties and methods, making JavaScript more powerful and flexible.
+
+𝟳. 𝗗𝗲𝘀𝘁𝗿𝘂𝗰𝘁𝘂𝗿𝗶𝗻𝗴 𝘄𝗶𝘁𝗵 𝗗𝗲𝗳𝗮𝘂𝗹𝘁 𝗩𝗮𝗹𝘂𝗲𝘀
+ - Simplifies extracting data from objects and arrays, making your code cleaner and easier to read.
+
+𝟴. 𝗧𝘆𝗽𝗲𝗱 𝗔𝗿𝗿𝗮𝘆𝘀
+ - Essential for handling binary data efficiently, such as working with large files or images in JavaScript.
+
+𝟵. 𝗠𝗲𝗺𝗼𝗶𝘇𝗮𝘁𝗶𝗼𝗻
+ - Optimizes performance by saving the results of expensive function calls to prevent redundant calculations.
+
+𝟭𝟬. 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗼𝗿𝘀 & 𝗜𝘁𝗲𝗿𝗮𝘁𝗼𝗿𝘀
+ - Helps manage complex or large datasets by pausing and resuming functions, improving performance
+
+𝟭𝟭. 𝗖𝘂𝗿𝗿𝘆𝗶𝗻𝗴 & 𝗣𝗮𝗿𝘁𝗶𝗮𝗹 𝗔𝗽𝗽𝗹𝗶𝗰𝗮𝘁𝗶𝗼𝗻
+ - Improves code reusability by breaking down functions into smaller, reusable units.
+ 
+𝟭𝟮. 𝗠𝗲𝗺𝗼𝗿𝘆 𝗠𝗮𝗻𝗮𝗴𝗲𝗺𝗲𝗻𝘁 & 𝗚𝗮𝗿𝗯𝗮𝗴𝗲 𝗖𝗼𝗹𝗹𝗲𝗰𝘁𝗶𝗼𝗻
+ - Important for optimizing app performance and avoiding memory leaks by understanding how unused objects are cleaned up.
+
+𝟭𝟯. 𝗠𝗼𝗱𝘂𝗹𝗲 𝗣𝗮𝘁𝘁𝗲𝗿𝗻𝘀
+ - Helps organize and maintain code in separate, reusable modules, making it easier to manage large codebases.
+
+𝟭𝟰. 𝗦𝗵𝗮𝗱𝗼𝘄 𝗗𝗢𝗠
+ - Encapsulates the structure and behavior of components, promoting reusable and isolated components.
+
+𝟭𝟱. 𝗙𝘂𝗻𝗰𝘁𝗶𝗼𝗻𝗮𝗹 𝗣𝗿𝗼𝗴𝗿𝗮𝗺𝗺𝗶𝗻𝗴 𝗶𝗻 𝗝𝗮𝘃𝗮𝗦𝗰𝗿𝗶𝗽𝘁
+ - Promotes cleaner, more maintainable code by using pure functions, immutability, and first-class functions.
+
+𝟭𝟲. 𝗣𝗿𝗼𝘅𝘆
+ - Allows you to intercept and modify object behavior, offering dynamic control over object properties.
+
+Commonly asked JavaScript interview questions.
+
+𝗖𝗼𝗿𝗲 𝗝𝗮𝘃𝗮𝗦𝗰𝗿𝗶𝗽𝘁
+ 1. What is the difference between var, let, and const in JavaScript?
+ 2. What are closures in JavaScript, and how do they work?
+ 3. What is the this keyword in JavaScript, and how does it behave in different contexts?
+ 4. What is a JavaScript promise, and how does it handle asynchronous code?
+ 5. What is the event loop, and how does JavaScript handle asynchronous operations?
+ 6. What is hoisting in JavaScript, and how does it work?
+ 7. What are JavaScript data types, and how do you check the type of a variable?
+ 8. What is the difference between null and undefined in JavaScript?
+ 9. What is a callback function, and how is it used?
+ 10. How do you manage errors in JavaScript?
+
+𝗔𝘀𝘆𝗻𝗰 𝗝𝗮𝘃𝗮𝗦𝗰𝗿𝗶𝗽𝘁
+ 11. What is the difference between setTimeout() and setInterval()?
+ 12. How do JavaScript promises work, and what is the then() method?
+ 13. What is async/await, and how does it simplify asynchronous code in JavaScript?
+ 14. What are the advantages of using async functions over callbacks?
+ 15. How do you handle multiple promises simultaneously?
+
+𝗙𝗮𝗻𝗰𝘆 𝗙𝗲𝗮𝘁𝘂𝗿𝗲𝘀 𝗶𝗻 𝗝𝗮𝘃𝗮𝗦𝗰𝗿𝗶𝗽𝘁
+ 16. What are higher-order functions in JavaScript, and can you provide an example?
+ 17. What is destructuring in JavaScript, and how is it useful?
+ 18. What are template literals in JavaScript, and how do they work?
+ 19. How does the spread operator work in JavaScript?
+ 20. What is the rest parameter in JavaScript, and how does it differ from the arguments object?
+
+𝗢𝗯𝗷𝗲𝗰𝘁𝘀 𝗮𝗻𝗱 𝗔𝗿𝗿𝗮𝘆𝘀
+ 21. What is the difference between an object and an array in JavaScript?
+ 22. How do you clone an object or array in JavaScript?
+ 23. What are object methods like Object.keys(), Object.values(), and Object.entries()?
+ 24. How does the map() method work in JavaScript, and when would you use it?
+ 25. What is the difference between map() and forEach() in JavaScript?
+
+𝗦𝗽𝗲𝗰𝗶𝗮𝗹 𝗧𝗵𝗲𝗼𝗿𝘆
+ 26. What is event delegation in JavaScript, and why is it useful?
+ 27. What are JavaScript modules, and how do you import/export them?
+ 28. What is the prototype chain in JavaScript, and how does inheritance work?
+ 29. What is bind(), call(), and apply() in JavaScript, and when do you use them?
+ 30. How does JavaScript handle equality comparisons with == and ===?
+
+𝗖𝗼𝗻𝗰𝗲𝗽𝘁𝘀 𝗶𝗻 𝗙𝗿𝗼𝗻𝘁𝗲𝗻𝗱 𝗗𝗲𝘃𝗲𝗹𝗼𝗽𝗺𝗲𝗻𝘁
+ 31. What is the Document Object Model (DOM), and how does JavaScript interact with it?
+ 32. How do you prevent default actions and stop event propagation in JavaScript?
+ 33. What is the difference between synchronous and asynchronous code in JavaScript?
+ 34. What is the difference between an event object and a custom event in JavaScript?
+ 35. How do you optimize performance in JavaScript applications?
+************************************************REACT
+In a React frontend interview most common question asked from interviewer is to design a React application with following requirements.
+
+🟩 Requirements:
+1️⃣ Create a page which load data from an API and display the data in cards.
+2️⃣ Create a search input to search the data from the list and filter the page accordingly.
+3️⃣ Create a `Add to Cart` feature to add items in to the cart and a `delete` button feature to remove the item from the cart.
+4️⃣ Calculate the `Total amount` in the Cart and display, sometime they ask for to add a drop down with discounts and ask to apply it on the `total amount`.
+
+There are few points which you need to consider while solving these problems:
+⭐ Understand the requirement thoroughly.
+⭐ Use a good editor online Or keep ready with a basic react application in your local system and modify it (I mostly prefer this because online editors have glitches). Best online editor is StackBlitz React.
+⭐ Follow the principles of structuring you react app just like how you create an app from scratch, which interviewers look deeply.
 

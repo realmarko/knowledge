@@ -1,0 +1,557 @@
+npx create-react-app@5 create-next-app //@5 means use version 5
+destructuring, spread operator, template literals, ternaries
+promises
+async await
+map, filter, reduce, sort
+
+
+Desctructuring objects and arrays
+const{ title, author } = book;//here we are getting the title and the author from the book object
+
+//to use destructuring with arrays we will use []
+const [primaryGenre, secondaryGenre] = genres;
+
+
+spread operator
+const [primaryGenre,secondaryGenre, ...otherGenres] = genres;//othergenres have the content of genres and always go in the end
+
+creating a new array adding a new value
+const newGenres = ["epic fantasy",...genres];
+
+
+example adding new property to one object
+const updatedBook = { ...book, 
+//Adding a new property
+	moviePublicationDate: "2001-12-19",
+	//Overwriting an existing property
+	pages: 1210}//we can add or update an existing value inside the object
+
+
+Template literals
+use back thick
+	const summary = '${title} is a book';
+
+short circuiting
+	return immediatly value
+	console.log(true && "Some string")//return Some string, in this case returns the string but if this were false then the resut would be false
+	//falsy values are 0 '' null undefined
+	console.log("jonas" && "Some string") Some string
+	console.log(0 && "Some string") // 0
+
+	console.log(true || "Some string")//true
+	console.log(false || "Some string")//Some string
+
+	const spanishTranslation = book.translations.spanish || "NOT TRANSLATED"
+	const countWrong = book.reviews.librarything.reviewsCount || ::no data; // returns no data
+	
+
+null coallecing operator
+	const count = book.reviews.librarything.reviewsCount ?? "no data" //return 0 when is null or undifined
+
+optional chaining
+	book.reviews.librarything?.reviewsCount; //return undefined instead of return an error
+	then we can use coallesing
+
+Array map method
+	[1,2,3,4,5].map(x=>x*2); returns all the item multiplied by 2
+`	books.map((book) => book.title)//return an array string of titles
+	book.map((book) => ({title:book.title,author: book.author}))//using parenthesis we are returnin an array objects
+Array filter method
+	books
+	.filter((book) => book.pages > 500)
+	.filter((book) => book.hasMovieadaptation);
+
+	books
+	.filter((books) => books.genres.includes("adventure"))
+	.map((book) => book.title);
+
+Array reduce
+	//get the total of pages of the books
+	const pagesAllBooks = books.reduce((acc, book) => acc + books.pages,0);//acc will start in 0 and will have the total of pages
+	
+const sorted = arr.sort((a, b) => a - b)//a-b asc, b-a asc //this change the original array
+
+//to return a new array we need to use slice
+const sorted = arr.slice().sort((a,b)=>a-b);
+
+if we can sort by pages
+cont sortedByPages = books.slice().sort((a, b)=> b.pages-a.pages);
+
+WORKING WITH IMMUTABLE ARRAYS
+//adding a new book
+const newBook = {
+	id: 6,
+	title: 'Harry Potter',
+	author: "J k rowling"
+};
+const booksAfterAdd = [...book, newBook];
+
+Async Javascript techniques
+	we have fetch nodejs>18
+	fetch return a promise and with a promise we can use then
+
+	fetch("http....")
+	.then((res) => res.json())//res.josn returns another promise
+	.then((data) => console.log(data));
+
+Async Await //this returns a promise
+	async function getTodos(){
+		const res = await fetch("https....")
+		const data = res.json()
+		console.log(data);
+	}
+********************************************************************
+Core concepts: components, props, JSX
+creating and reusing components
+Rendering Lists
+Conditional rendering
+Start writing code on your own
+
+//components
+example of components
+	videoplayer
+	menu
+	filters
+	list inside this list we can create a component
+
+in react we write components using function
+functions start with uppercase
+and should return an html
+
+JSX
+	declarative syntax to describe what components look like and how they work
+	Components must return a block of jSX
+	component has data, logic and appearance
+
+PROPS
+we can see props like a channel to communicate components
+
+Ternary operators has 3 parts
+	?:
+ 
+destructuring props
+we have this 
+function (props){
+	props.pizzaObj.name
+}
+we can receive 
+function({pizaaObj}){
+	pizzaObj.name
+}
+	
+react fragment
+instead of have <div></div> we are having <></>
+
+in case we need to use a class with conditional we can use...
+	<li className = {'pizza ${pizzaObj.soldOut ? "sold-out" : ""}'}></li>
+
+//to create a react app with version 5
+npx create-react-app@5 steps
+
+install the extension color highlight
+install google extension => React Developer Tools
+
+****************************************
+state vs props
+	State
+		internal data, owned by component
+		component memory
+		can be updated by the component itself
+		Updating state causes component to re-render
+		Used to make components interfactive
+	Props
+		Extrenal data, owned by parent component
+		Similar to functions parameters
+		Read-only
+		Receiving new props causes component to re-render
+		Usually when the paren'ts state has been updated
+		Used by paren to configure child component ("settings")
+State management
+	Deciding when to create pieces of state, what types of state are necessary, where to place each pice of state, and how dataflows through the app
+
+if I nned to work with arrays in State
+const [items,setItems] = useState([]);
+
+function handleAddItems(item){
+	setItems((items) => [...items, item])
+}
+
+//to remove item of the array
+function handleDeleteItem(id){
+	setItems((items) => items.filter(item)=> item.id!== id)
+}
+function handleSubmit(e){
+	e.preventDefault();
+	const newItem = {description, quantity, packed:false, id: Date.now()};
+	handleAddItems(newItem);
+}
+//function to change a bool value from an object
+function handleToggleItem(id){
+	setItems((items)=> items.map((item)=>
+		item.id === id ? {...item, packed:!item.packed}:item
+		
+	))
+}
+Derivided state
+	state that is computed from an existing piece of state or from props
+	//is not a good practice use Derivided state
+	
+to concatenate two classes having a boolean value
+className={`item ${isOpen ? "open" : ""}`}
+*******************************************************************************
+children props
+	example we are calling this component, the content inside the component button is the childre
+<button ><span>emoji</span></button>
+
+funciton Butoon({children})
+{
+return (<button>
+	{children}
+	</button>)
+}
+
+*******************************************************************************
+to add a new item in an array that is in state
+function handleAddFriend(friend){
+	setFriends((friends) => [...friends,friend]);
+}
+*******************************************************************************
+3 kind of components
+stateless/ presentational components: no state, can receive props and symple present received data ; example logo, item or counter
+stateful components: have state; example search component, list
+structural components:result of compositions,huge an non reusable; example pages, layouts or screens
+
+
+Component composition 
+	is combining different components using the children prop
+	instead of having a component inside another component
+	we have children like this
+	function Modal({children})
+	{	
+		return (<div className="modal">
+			{children}
+		</modal>
+		 )
+	}
+
+
+ELement
+	we can use element instead of use children
+example 
+<Box>
+	<MovieList moviews = {movies}/>
+</Box>
+
+we can use 
+	<Box element={<MovieList movies={movies} />}/>
+
+***********************
+proptypes
+to use proptypes
+import PropTypes from "prop-types"
+Starting.propTypes = {
+	maxRating: PropTypes.number.isrequired,
+}
+***********************
+React Hook
+is a feature in the React Library that allows developers to use state and other React features in funcional components,
+which were previously only available in class components.
+there are several built-in Hooks provided by React, such as useState, useEfect, useContext and useRef
+
+
+useRef() Method allos you to persist values betweend renders
+
+to add bootstrap
+npm i bootstrap@5.3.2
+and add in main.jsx
+	import 'bootstrap';
+	import 'bootstrap/dist/css/bootstrap.css'
+
+React hook
+	useState()
+	is used to caontain data information about  the component
+
+
+
+
+*******************************************************************************
+deployment
+.env file// here we can create environment variables
+example:
+	VITE=123
+and to use it in app.jsx file
+	function App(){
+		return (
+			<div>Subscribe to RoadsideCoder Name = {import.meta.env.VITE}	
+		)
+	}
+
+//and we need to add .env in .gitignore file
+
+***************************************************************************************
+//get data
+const KEY = "f84fc31d"; 
+export default function App(){
+	const[movies, setMovies] = useState([]);	
+
+	fetch('http://...com/?apikey=${KEY}&s=interstellar')
+	.then((res) => res.json())
+	.then((data)=>setMovies(data.Search));//is bad idea set the state here, this will cause infinit requests
+
+}
+
+//so we need to use useeffect hook
+the same function using useeffect hook
+
+useEffect(function(){
+	fetch('http://...com/?apikey=${KEY}&s=interstellar')
+	.then((res) => res.json())
+	.then((data)=>setMovies(data.Search));
+},[])//the array here means that this will run only in mount (first time the app runs)
+
+******************************************
+example using async methods
+useEffect(function(){
+	async function fetchMovies(){
+	 const res = await fetch('http://');
+		const data = await res.json();
+		setMovies(data.Search);
+		console.log(data.Search)
+	}
+	fetchMovies();
+}, [])
+************************************************************************************
+to return data from an url
+useEffect(()=>{
+	fetch('https>//...')
+	.then((response) => response.json())
+	.then(setData);
+},[])
+if(data)
+{
+	return(<ul>
+		{data.map((user)=> 
+			<li key={user.id}>{user.login}</li>
+		)}	
+	</ul>)
+}
+************************************************************************************
+Handling an error
+const [error, setError] = useState("");
+
+useEffect(function(){
+	async function fetchmovies(){
+		try{
+			setIsLoading(true);
+			const res = await fetch('http://');
+			if(!res.ok)
+				throw new Error("Something went wrong with fetching movies");
+			const data = await res.json();
+			if(data.Response === "False") 
+				throw new Error("Movie not found");
+		}
+		catch(err){
+			console.error(err.message);
+		}
+	}
+})
+
+
+useEffect is like an event listener that is listening for one dependency to change. Whenever a dependency changes, it will execute the effect again
+************************************************************************************
+useEffect(fn,[x,y,z]);	Effect synchronizes with x,y and z		///	Runs on mount and re-renders triggered by updating x,y,z
+useEffect(fn,[]);	Effect synchronizes with no state/props 	///	Runs only on mount (inital render)
+useEffect(fn);		Effect synchronizes with everything		///	Runs on every render (usually bad practice)
+************************************************************************************
+useRef
+	ref persisted across renders same as state
+	the diff is with refs when we update this doesnt cause re render
+	ref is not immutable
+to use ref we have 3 steps
+	//	null is the initial value
+	const inputEl = useRef(null);
+
+	useEffect(function{
+		inputEl.current.focus();
+	},[])
+
+	return(
+	<input ref = "inputEl"/>
+	)
+
+************************************************************************************
+reducer
+import {useState, useReducer} from "react";
+
+function reducer(state,action)
+{
+	if(action.type == "inc") return state + 1;
+	if(action.type == "desc") return state  - 1;
+	if(action.type == "setCount") return action.paylod;
+}
+function DateCounter(){
+	const [count,dispatch] = useReducer(reducer,0);
+	const dec = function(){
+		dispatch({type:"desc"})
+	}
+	const inc = function(){
+		dispatch({type:"inc"})
+	}
+	const defineCount = function(e){
+		dispatch({type:"setCount", payload:Number(e.target.value)});	
+	}
+}
+************************************************************************************
+//to update only a property from an object
+const updateUsername = (newUSername) =>{
+	setUser((currentUser) => ({
+		...currentUser,
+		username: newUsername
+	}))
+};
+************************************************************************************
+************************************************************************************
+************************************************************************************
+************************************************************************************
+************************************************************************************
+************************************************************************************
+************************************************************************************
+************************************************************************************
+************************************************************************************
+************************************************************************************
+
+npx create-react-app@5 create-next-app //@5 means use version 5
+destructuring, spread operator, template literals, ternaries
+promises
+async await
+map, filter, reduce, sort
+
+
+Desctructuring objects and arrays
+const{ title, author } = book;//here we are getting the title and the author from the book object
+
+//to use destructuring with arrays we will use []
+const [primaryGenre, secondaryGenre] = genres;
+
+
+spread operator
+const [primaryGenre,secondaryGenre, ...otherGenres] = genres;//othergenres have the content of genres and always go in the end
+
+creating a new array adding a new value
+const newGenres = ["epic fantasy",...genres];
+
+
+example adding new property to one object
+const updatedBook = { ...book, 
+//Adding a new property
+	moviePublicationDate: "2001-12-19",
+	//Overwriting an existing property
+	pages: 1210}//we can add or update an existing value inside the object
+
+
+Template literals
+use back thick
+	const summary = '${title} is a book';
+
+short circuiting
+	return immediatly value
+	console.log(true && "Some string")//return Some string, in this case returns the string but if this were false then the resut would be false
+	//falsy values are 0 '' null undefined
+	console.log("jonas" && "Some string") Some string
+	console.log(0 && "Some string") // 0
+
+	console.log(true || "Some string")//true
+	console.log(false || "Some string")//Some string
+
+	const spanishTranslation = book.translations.spanish || "NOT TRANSLATED"
+	const countWrong = book.reviews.librarything.reviewsCount || ::no data; // returns no data
+	
+
+null coallecing operator
+	const count = book.reviews.librarything.reviewsCount ?? "no data" //return 0 when is null or undifined
+
+optional chaining
+	book.reviews.librarything?.reviewsCount; //return undefined instead of return an error
+	then we can use coallesing
+
+Array map method
+	[1,2,3,4,5].map(x=>x*2); returns all the item multiplied by 2
+`	books.map((book) => book.title)//return an array string of titles
+	book.map((book) => ({title:book.title,author: book.author}))//using parenthesis we are returnin an array objects
+Array filter method
+	books
+	.filter((book) => book.pages > 500)
+	.filter((book) => book.hasMovieadaptation);
+
+	books
+	.filter((books) => books.genres.includes("adventure"))
+	.map((book) => book.title);
+
+Array reduce
+	//get the total of pages of the books
+	const pagesAllBooks = books.reduce((acc, book) => acc + books.pages,0);//acc will start in 0 and will have the total of pages
+	
+const sorted = arr.sort((a, b) => a - b)//a-b asc, b-a asc //this change the original array
+
+//to return a new array we need to use slice
+const sorted = arr.slice().sort((a,b)=>a-b);
+
+if we can sort by pages
+cont sortedByPages = books.slice().sort((a, b)=> b.pages-a.pages);
+
+WORKING WITH IMMUTABLE ARRAYS
+//adding a new book
+const newBook = {
+	id: 6,
+	title: 'Harry Potter',
+	author: "J k rowling"
+};
+const booksAfterAdd = [...book, newBook];
+
+Async Javascript techniques
+	we have fetch nodejs>18
+	fetch return a promise and with a promise we can use then
+
+	fetch("http....")
+	.then((res) => res.json())//res.josn returns another promise
+	.then((data) => console.log(data));
+
+Async Await //this returns a promise
+	async function getTodos(){
+		const res = await fetch("https....")
+		const data = res.json()
+		console.log(data);
+	}
+********************************************************************
+Core concepts: components, props, JSX
+creating and reusing components
+Rendering Lists
+Conditional rendering
+Start writing code on your own
+
+//components
+example of components
+	videoplayer
+	menu
+	filters
+	list inside this list we can create a component
+
+in react we write components using function
+functions start with uppercase
+and should return an html
+
+JSX
+	declarative syntax to describe what components look like and how they work
+	Components must return a block of jSX
+	component has data, logic and appearance
+
+PROPS
+we can see props like a channel to communicate components
+
+	
+
+	
+
+
+
+

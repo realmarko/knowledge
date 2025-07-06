@@ -1,0 +1,167 @@
+Net core
+	api receive http requests and respond to them
+	infraestructure: communicate with the DB and send quesries and get data
+	core: contains the business entities. do not depend on anything else
+
+creating web api project
+	mkdir skinet
+	cd skinet
+	dotnet new sln 
+	dotnet new webapi -n API
+	dotnet sln add API
+	code .
+
+in launchsettings.json we have the profile https
+cd API
+dotnet run
+verify https certificate
+	dotnet dev-certs https
+we can clean 
+	dotnet dev-certs https --clean
+	dotnet dev-certs https --trust
+
+got to file> settings> preferences and type exlude and add "**/bin" and "**/obj"
+
+if dotnet run is not working try with dotnet watch
+install nuget gallery using ctrl shift p
+install the extension microsoft.entityframeworkcore.sqlite, microsoft.entityframeworkcore.design
+create dbcontext class inside data folder
+
+//add in appsettings.Development.json 
+"ConnectionStrings":{    "DefaultConnection":"Data source =skinet.db"  }
+//add in program.cs
+builder.Services.AddDbContext<StoreContext>(opt =>     opt.UseSqlite(builder.Configuration.GetConnectionString("DafaultConnection")));
+//install to use migrations
+dotnet tool install --global dotnet-ef
+//add migration inside api folder
+dotnet ef migrations add initialCreate -o data/Migrations
+dotnet ef database update
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+install nodejs 18.10
+npm install -g @angular/cli
+
+ng new client
+scss
+cd client 
+ng serve
+
+search a certificate in google - mkcert
+cd client
+mkdir ssl
+cd ssl
+mkcert -install
+//to install chocolatey check the web page all this in powershell
+choco install mkcert
+mkcert localhost//check you are installing in the ssl folder you created using Powershell
+//go to angular.json in serv section
+"options":{
+	"sslCert":"ssl/localhost.pem",
+	"sslKey":"ssl/localhost-key.pem",
+	"ssl":true
+}
+
+//adding bootstrap
+ngx-bootstrap
+
+we can install using angular CLI way
+ng add ngx-bootstrap
+the references are added to package.json
+and add the imports to styles.scss// remove from there
+and add those references to angular.json to the section styles
+and add import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+to app.module.ts in the imports section
+
+npm install font-awesome
+add the reference in angular.json
+
+qPz&6o715
+gG74o_a13
+
+ng g c nav-bar
+
+add httclientmodule
+add HttpClientModule in the imports section in AppModule
+
+
+Files and folder structure in Angular
+App module
+	Core module: Singletons, Navbar
+	Shared module: Shared comopnents
+	Feature Module: App features
+
+	ng g m core
+	ng g m shared
+	ng g m shop
+
+move navbar component to core module
+	add navbarcomponent to declaration section inside core.module.ts
+	add navbarcomponent to exports section inside core.module.ts
+	add the new modules to the section imports in app.module.ts
+put models folder in shared module folder
+
+ng g c shop/shop --flat --skip-tests 
+ng g s shop/shop --skip tests
+ng g m shop/shop/routing --flat
+
+
+add in appmodule
+in the section provider the service
+
+ng g c shop/product-item --skip-tests
+
+4371.65
+****************************************
+client routing
+ng g m home
+ng g c home/home
+ng g c shop/product-details
+ng g c shop/product-details
+
+
+
+/////////////adding toat notifications
+ngx-toastr
+npm isntall ngx-toatr
+add the style in angular.json
+add the module 
+	import{ ToastrModule } from 'ngx-toastr';
+
+	imports:{
+		ToatrModule.forRoot(positionClass: 'toast-bottom-right',
+		preventDuplicates:true
+		)
+	}
+
+and then we use it like this
+this.toastr.success('Hello world!', 'Toastr fun!')
+
+//create header
+ng g c core/section-header
+--install breadcrumb
+npm install xng-breadcrumb

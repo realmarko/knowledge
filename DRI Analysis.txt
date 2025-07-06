@@ -1,0 +1,62 @@
+DRI Analysis
+
+Donor Recruitment Export (DRE)
+Outbound Call Centers (OCC)
+Donor recruiment Import (DRI)
+Hosted Payment Application (HPA)
+Partner in Hope Recruitment (PIHR)
+credit card (cc)
+check (ck)
+Partner In Hope Upgrade (PIHUPG)	
+Lapsed Reactivation (LAPSE)
+Standar Operating Procedure (SOP)
+Enterprise Application Services Team (EAST)
+
+Database staging
+	table 
+		import.FILE_LOAD_SUMMARY // save the information of the file (file_name)
+			file_name
+		import.USP_DATA_LOAD_DRI
+		import.FILE_RECORDS
+
+
+the script DRI_LOAD_MANUAL  
+	save the information in variable table @driTable from Import.file_records
+
+
+DRI package OLEDB INTDB.RULES.Connection
+	Get Parameters from RulesDB
+		EXEC dbo.USP_GET_PARAMETER_VALUES @processName =  ?
+foreach 
+	get vendorid and email address
+	get newid
+	check last modified
+	calculate checksum and size
+	insert into staging.import.VSD_FILE_LOAD_SUMMARY
+	check if file already processed	// check if exists in vsd_file_load_summary
+		update import.VSD_FILE_LOAD_SUMMARY (updated,file_status_id)
+		or 
+		truncate table [Staging].[IMPORT].[FILE_RECORDS]
+		Load data into file_records
+			read from flat file source //D:\InnSolutions\Vendor_Files\IU1\ADU_IU120170524030015_test0707_4.iu1
+			derived column
+			insert into File records (import.file_records)
+			update lockbox //Update Staging.import.file_records
+						set lockbox = SUBSTRING(detail_record, 44,4)
+						where SUBSTRING(detail_record, 1,1) not in('B','T')
+			get distinct lockbox // Select distinct lockbox from staging.import.file_records where lockbox is not null
+				foreach lockbox container
+					build filename
+					spool lockbox files
+					log split file
+					compress vsd file
+					delete file
+					update import.VSD_FILE_LOAD_SUMMARY (updated,file_status_id)
+
+loop throught the files in the folder
+	get file extension UI1
+	check valid vendor // Select  count(*) count From IMPORT.VENDOR_CODE Where vendor = ? and status = 'A'
+	get file id //SELECT NEWID() id
+	
+
+

@@ -1,0 +1,1 @@
+[OLE DB Destination [173]] Error: There was an error with OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ POSTDATE] on OLE DB Destination.Inputs[OLE DB Destination Input]. The column status returned was: "The value could not be converted because of a potential loss of data.".

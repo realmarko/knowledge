@@ -1,0 +1,14 @@
+React native
+npx react-native init newsNative
+
+//to run 
+npx react-native run-ios
+
+//to install extra libraries
+npm i react-native-paper react-vector-icons
+npx react-native link react-native-vector-icons
+
+
+readonly, asigned at runtime, example of this is when we asigned the value in the constructor
+const assigned at compilation time
+
