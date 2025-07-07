@@ -1,0 +1,80 @@
+python
+//create an array with 100 items
+doors = [False] * 101
+
+print(doors)
+
+for i in range(0,100)
+	doors[i] = not doors[i]
+
+for i in range(1, 11,2)
+	print(i)
+*********************************
+fizzbuzz
+for i in range(1,100):
+	if i%3 == 0 && i%5 ==0:
+		print("fizzbuzz")
+	elif i%3 == 0:
+		print("fizz")
+	elif i%5 == 0:
+		print("buzz")
+	else:
+		print(i)
+*********************************
+Building a basic tree 
+class Node:
+	def __init__(self, data):
+		self.data = data
+		self.left = None
+		self.right = None
+class Tree:
+	def __init__(self,root):
+		self.root = root
+		self.name = name
+
+node = Node(10)
+node.left = Node(5)
+node.right = Node(15)
+
+
+//method to search an item
+def search(self, target)
+	if self.data == target:
+		print("Found it!")
+		return self
+	if self.left and self.data>target:
+		return self.left.search(target)
+	if self.right and self.right.data<target:
+		return self.rigth.search(target)
+	print("Value is not in tree")
+
+myTree = Tree(node)
+found = myTree.root.search(10000)
+
+//TRAVERSING A TREE
+PREORDER
+IN-ORDER
+POST-ORDER
+
+//GETTING THE MAXIMUN HEIGHT OF A TREE
+def height(self, h=0):
+	leftHeight = self.left.height(h+1) if self.left else h
+	rightHeight = self.right.height(h+1) if self.right else h
+	return max(leftHeight ,rightHeight)
+
+//ADD METHOD
+def add(self data):
+	if self.data == data
+		return
+	if data< self.data:
+		if self.left is None:
+			self.left = Node(data)
+		else:
+			self.left.add(data)
+	
+	if data> self.data:
+		if self.right is None:
+			self.right = Node(data)
+		else:
+			self.right.add(data)
+		

@@ -1,0 +1,116 @@
+crud netcore
+	create a new project
+	aspnet core web api
+
+	install microsoft.entityframeworkcore.sqlserver
+	install microsoft.entityframeworkcore.tools
+	install microsoft.entityframeworkcore
+
+	create folder models
+		create folder entities
+	create folder data
+		create ApplicationdataContext file
+		here we need to create the constructor with DbContextoprions
+		and create dbset public DbSet<Employee> Employees {get; set;}
+
+	in appsettings json
+	we need to add connection string
+	"ConnectionStrings":{
+		"DafaultConnection": "Server=localhost/MSSQLSERVER;Database=EmployeesDb;Trusted_Connection=true;TrustServerCertificate=true;"
+	}
+	inside program.cs
+	builder.Services.AddDbContext<ApplicationDbContext>(options =>
+	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+	add-migration "initial migration"
+	update-database
+	if we have and error go to the project and modify the line <InvariantGlobalization>false</InvariantGlobalization>
+
+	Controllers folder
+	//get
+`	[HttpGet]
+	public IActionResult getAllEmployees()
+	{
+		var allEmployees = dbContext.Employees.ToList();
+		return Ok(allEmployees);
+	}
+
+	inside models
+	create folder dto
+		AddEmployeeDto.cs
+	[HttpPost]
+	public IActionResult AddEmployee(AddEmployeeDto employee)
+	{
+		var emp = new Employee(){
+			Name = employee.Name;
+			Salary = employee.Salary;
+		}
+		dbContext.Employees.Add(emp);
+		dbContext.Employees.Save();
+		return Ok(emp);
+	}
+	
+
+IRepository pattern
+	
+	internal interface IRepository<T> where T: class
+	{
+		IEnumerable<T> GetAll();
+		T Get(Expression<Func<T,bool>> filter);
+		void Add(T entity);
+		void Update(T entity);
+		void Remove(T entity);
+		void RemoveRange(IEnumerable<T> entity);
+	}
+		
+public class Repository<T>:IRepository<T> where T: class
+{
+	private readonly applicationDbContext _db;
+	internal DbSet<T> dbSet;
+	public Repository(ApplicationDbContext db)
+	{
+		_db = db;
+		this.dbSet = _dbSet<T>();
+	}
+	
+	public void Add(t entity)
+	{
+		dbSet.Add(entity);
+	}
+	public T Get(Expression<Func<T, bool>> filter)
+	{
+		IQueryable<T> query = dbSet;
+		query = query.Where(filter);
+		return query.FirstOrDefault();	
+	}
+	public IEnumerable<T> GetAll()
+	{
+		IQueryable<T> query = dbset;
+		return query.ToList();
+	}
+	public void Remove(T entity)
+	{
+		
+		dbSet.Remove(entity);
+	}
+
+}
+
+public interface ICategoryRepository : IRepository<Category>
+{
+	void Update(Category obj);
+	void Save();
+}
+public class CategoryRepository: Repository<category>, ICategoryRepository
+{
+	private ApplicationDbContext _db;
+	public CategoryRepository(ApplicationDbContext db): base (db)
+	{
+		_db = db;
+	}
+} 
+
+		
+
+	
+	

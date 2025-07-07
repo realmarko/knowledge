@@ -1,0 +1,50 @@
+questions made in the interviews
+differecnce between let vs const in javascript
+	var is global
+	let is block scoped and can be reasigned
+	const it can not be reasigned and is scoped too
+map vs mapswitch
+async pipe
+spread operator 
+correct way copy an object
+template forms vs reactiveforms
+directives in angular
+decorators
+
+api ai
+oauth in api
+bots
+
+
+automatic migration
+manually migration
+
+que son micro y macro task en javascript?, el state en react es sincrono?, como funciona el event loop, para que sirve useMemo y useCallback, Typescript Decorators
+*******************************************************************
+Difference between 
+arrays, arraylist, list
+	array is fixed you can not remove or add
+	arrayList is flexible array wich contains a list of objects, if you store value types in it, they are boxed and unboxed that is inneficient
+	list leverages generics is a type safe version of ArrayList, there is no boxing and unboxing
+
+Event driven architecture
+	is a software design pattern where systems react to changes in state, called events.
+	producers and consumer don't directly communicate
+	have 3 key components:
+	event producers, event routes event consumer
+	Azure IoT Hub or Kafka
+	there are two topologies
+		broker topology	
+			there is no central orchestration
+			distributed transactions are risky because there is no native way to be restarted or replayed
+		Mediator topology
+			there is a event mediator that manages and controls the flow of events		
+			Maintains the state and manages error handling and restart capabilities
+	we need to have a separate error-handler processor, this tries to fix the error and sends back the event to original channel
+	
+	
+	
+	is used in financial systems, ecommerce, inline gaming
+	
+
+	

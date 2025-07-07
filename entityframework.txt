@@ -1,0 +1,32 @@
+entityframwork
+in powershell to see net verions
+	dotnet --list-sdks
+//to add the migration
+	add-migration initial
+//to update the database //this command will send to the database the changes
+
+	update-database
+
+//we can add information to database using on modelcreating method
+
+protected override void OnModelCreating(Modelbuilder modelBuilder)
+{
+	modelBuilder.Entity<Villa>().HasData(
+	new Villa{
+		Id = 1,
+		Name = "Royal"
+	})
+}
+//then
+add-migration seedTable
+//never delete migration
+update database
+
+AsnotTracking
+//is an extension method to optimize read endpoints
+
+
+//when we are patching an object if we get the values first before update  method
+//we need to add AsNotTracking
+example
+var villa = _db.Villas.AsNoTracking().FirstOrDefault(v=>v.id == id);

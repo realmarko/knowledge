@@ -1,0 +1,36 @@
+recursive functions
+//fibonacci
+fiboncci(n)
+{
+	if(n == 0 || n == 1)
+	{
+		return n;
+	}
+	return fibonacci(n-2) + fibonacci(n-1)
+}
+
+//sum of numbers example 2,5 = 2+3+4+5 = 14
+function sum (start,end)
+{
+	if(start > end)
+		return 0;
+	else
+		return start + sum(start +1,end)
+}
+
+
+//create  a new project
+	dotnet new webapi -n Wpm.Management.Api --use-controllers
+	//create the solution file
+	dotnet new sln Wpm
+	dotnet sln .\Wpm.Management.Api\
+	dotnet sln list
+	
+type ".\Wpm.sln"
+
+github actions
+
+azure container registry
+access keys
+azure container apps
+viewchild in angular

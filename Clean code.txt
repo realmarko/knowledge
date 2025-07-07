@@ -1,0 +1,22 @@
+clean code
+	Names
+		variables
+		functions
+		classess
+	structure and comments
+		code formatting
+		Good and Bad comments
+	Functions
+		Length
+		Parameters
+	Conditional and error Handling
+		Deep Nesting
+		Missing Error Handling
+	
+	Classes and Datasctructures
+		Missing Distinctions
+		Bloated Classes
+Solutions
+	Rules and concepts
+	Patterns and Principle
+	Test Driven development

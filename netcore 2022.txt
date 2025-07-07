@@ -1,0 +1,72 @@
+
+
+dotnet --info
+dotnet core = dotnet5
+
+to create a solution
+DatingApp dotnet new sln
+DatingApp dotnet new webapi -o API //create the template core web API
+DatingApp  dotnet sln add API
+
+c#for visual studio code
+c# extensions for vs code
+material icon theme
+file>auto save 
+exclude the files **/obj, **/bin
+	code>preferences>exclude
+ctrl+p shell command: install code command in path
+
+//to run the application
+dotnet run 
+//browser trust the certificated provided by dotnet sdk
+dotnet dev-certs https --trust
+
+
+Adding a dbcontext class
+create data folder
+create class DataContext
+ add that called to Startup.cs
+
+public void ConfigurationServices(IServiceCollection services)
+{
+	services.AddDbContext<DataContext>(options=>
+	{
+		options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
+	});
+	servcies.AddControllers();
+}
+
+add in appsettings.Development.json
+{
+	"ConnectionStrings":{
+		"DefaultConnection":"Data source = datingapp.db"
+	}
+}
+to access to the config
+in the constructor of Startup
+private readonly IConfiguration _config ;
+public Startup(IConfiguration config)
+{
+	_config = config;
+}
+
+install dotnet-ef
+dotnet tool install --global dotnet-ef --version 5.0.0
+open nuget gallery and install Microsoft.EntityFrameworkCore.Design
+dotnet ef migrations add initialCreate -o Data/Migrations
+
+create the database using vcode migration and entityframwork
+dotnet ef database update
+
+install the extension sqllite
+after installation type sqlite open database, this will create 3 files
+
+create controller
+
+
+
+
+
+
+
+

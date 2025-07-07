@@ -1,0 +1,76 @@
+Factory patter
+	1. create an abstract class 
+	2. create classes that extends from the abstract class
+	3. class that calls the creation of the classes
+	4. factory
+1.
+public abstract class EnemyShip(){
+	public String name;
+	private double amtDamage;
+	
+	public String getName(){return name;}
+	public void setName(){name = newName;}
+
+	public String getDame(){return amtDame;}
+	public void setDamage(){amtDame = newAmtDame;}
+
+	public void followHeroShip(){
+		System.out.println(getName() + "is followingthe hero")
+	}
+
+	public void followHeroShip(){
+		System.out.println(getName())
+	}
+
+	public void displayEnemyShip(){
+		System.out.rpintln(getName() + " is on the screen")'
+	}
+	
+	public void enemyShipShoots(){
+		System.out.println(getName() + "attcks and does " + getDamage())'
+	}
+}
+
+2.
+public class UFOEnemyShip extends EnemyShip{
+	public UFOEnemyShip(){
+		setName("UFO EnemyShip");
+		setDamage(20.0);
+	}
+}
+public class RocketEnemyShip extends EnemyShip{
+	public RocketEnemyShip(){
+		setName("Rocket EnemyShip");
+		setDamage(10.0);
+	}
+}
+3. public clss EnemyShiptesting{
+	public static void main(String[] args){
+		EnemyShip theEnemy = null;
+		EnemyShipFactory shipFactory = new EnemyShipFactory ();
+		theEnemy = shipFactory.makeEnemyShip(typeOfShip);
+		doStuffEnemy(ufoShip);	
+		}
+	public static void doStuffEnemy(EnemyShip anEnemyShip){
+		anEnemyShip.displayEnemyShip();
+		anEnemyShip.FollowHeroShip();
+		anEnemyShip.enemyShipShoots();
+		}
+	}
+4. EnemyshipFactory
+public class EnemyShipFactory{
+	public EnemyShip makeEnemyShip(String newShipType)
+	{
+		EnemyShip newShip = null;
+		if(newShiptType.Equals("U")){
+			return new UFOEnemyShip();
+		}
+		else
+		{
+			if(newahipType.equals("R")){
+				return new RocketEnemyShip();
+			}
+		}
+	}
+}
+	

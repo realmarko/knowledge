@@ -1,0 +1,155 @@
+Microservices
+	Services Types
+		start with domain-based services
+	Strangler Pattern
+		strategy to migrate monolyths to microservices
+	Sidecar pattern
+		Allows offloading of many operational security functions into separate functional components
+	
+Data domain decomposition makes services more scalable
+
+DomainDriven design
+	1. Start with the domain model
+	2. Evaluate actions that well need to perform
+	3. Consider storage of the data
+Bussiness process
+	Build you Bussiness Process Service
+		1. Identify the process to expose
+		2. Identify the data domains that you will need to consume
+		3. Define the APIs
+		4. Encapsulate your business process code into its own module.
+
+Atomic transactions..this is hard and not recommended
+	Atomic design Considerations
+		1. Do the services nedd to be atomic?
+		2. Domains must be in a shared database.
+		3. Get the transaction defined, including rollback conditions
+		4. Implement the service as a normal, with fast fail and rollback.
+
+Strangler pattern
+Sidecar Pattern
+	Deployed as a module associated with every applicable microservice in your system.
+
+********************************************************************
+course Learn Microservices architecture with .NET Core MVC(.NET 8), Entity Framework Core, .NET Identity with Azure Service Bus
+if we are using BaseService
+we need to inject it example
+	public class CouponService : ICouponService
+	{
+		private readonly IBaseService _baseService;
+		public CouponService(IBaseService baseService)
+		{
+			_baseService = baseService;
+		}
+	}
+//in SD.cs 
+	public class SD
+	{
+		public static string CouponAPIBase {get; set;}
+	}
+//in the appsettingsjson from front project
+"ServiceUrls":{
+	"CouponAPI": "https://..."
+}
+//we are going to populate the variable in Program.cs from front project
+//and we need to add the httpclient
+var builder = WebApplication.CreateBuilder(args);
+
+//add services to the container.
+builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
+builder.Services.AddHttpClient<ICouponService,CouponService>();
+SD.CouponAPIBase = builder.Configuration["ServiceUrlsLCouponAPI"];
+
+builder.Services.AddScoped<IBaseService,BaseService>();
+builder.Services.AddScoped<ICouponService, CouponService>();
+
+
+couponservice.cs
+public class CouponService : ICouponService
+{
+	private readonly IBaseService _baseService;
+	public CouponService(IBaseService baseService)
+	{
+		_baseService = baseService;
+	}
+	
+	public async Task<ResponseDto?> CreateCouponAsync(CouponDto couponDto)
+	{
+		return await _ baseService.SendAsync(new RequestDto()
+		{
+			ApiType = SD.ApiType.POST,
+			Data = couponDto,
+			Url = SD.CouponAPIBase + "/api/coupon"
+		})
+	} 
+	public async Task<ResponseDto?> GetAllCoupons()
+	{
+		return await _baseService.SendAsync(new RequestDto()
+		{
+			ApiType = SD.ApiType.GET,
+			Url = SD.CouponAPIBase + "/api/coupon"
+		})
+	}
+	public async Task<ResponseDto?> GetCouponByIDAsync(guid id)
+	{
+		return await _baseService.SendAsync(new RequestDto()
+		{
+			ApiType = SD.ApiType.GET,
+			Url = SD.CouponAPIBase + "/api/coupon/" + id
+		})
+	}
+	public async Task<ResponseDto?> UpdateCoupon(CouponDto couponDto)
+	{
+		return await _baseService.SendAsync(new RequestDto()
+		{
+			ApiType = SD.ApiType.PUT,
+			Data = couponDto,
+			Url = SD.CouponAPIBase + "/api/coupon/"
+		})
+	}
+}
+********************************************************
+Net core Microservices Auth API
+1 create a new project called AuthAPI
+add nuget packages
+change the port in appsettings.json
+add appdatabase context class
+
+
+public class AppDbContext:IdentityDbContext<IdentityUser>
+{
+	public AppDbContext(DbContextOptions<AppDbContext> options):base(options){
+	}
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
+	{
+		base.OnModelCreating(modelBuilder);
+	}
+}
+//add migration in program.cs
+
+builder.Services.AddDbContext<AppDbContext>(option =>
+{
+	option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+})
+
+
+
+app.UseAuthentication();
+app.Useauthorization();
+app.MapControllers();
+ApplyMigration();
+app.Run();
+
+void ApplyMigration(){
+	using(var scope = app.Services.CreateScope())
+	{
+		var _db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+		if(_db.Database.GetPendingMigrations().Count()>0)
+		{
+			_db.Database.Migrate();
+		}
+	}
+	
+}

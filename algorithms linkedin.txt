@@ -1,0 +1,303 @@
+Excersices
+	Find the bigger integer
+	
+
+******************************************************************************
+c# Algorithms
+using linq
+static Booleand IsUppercase(string s)
+{
+	return s.All(char.IsUpper);
+}
+
+
+inputString.ToLower().Trim().Replace(",","")
+to find a substring we can use .Contains("ll")
+
+or
+foreach(char c in stringInput)
+{
+	Console.WriteLine(c);
+}
+
+
+//funtion to reverse an string
+static String Reverse(String input)
+{
+	if(string.IsnUllOrEmpty(input))
+	{
+		return input
+	}
+	StringBuilder reversed = new StringBuilder(input.length);
+	for(int i = input.Lenght-1; i>=0; i--)
+	{
+		reversed.Append(input[i]);
+	}
+	return reversed.ToString();
+}
+static String Reverse2(String input)
+{
+	if(string.IsNullOrEmpty(input))
+	{
+		return input;
+	}
+	
+	char[] arr = input.ToCharArray();
+	Array.Reverse(arr);
+	return new String(arr);
+}
+
+//to remove the last character
+sb.ToString().Remove(sb.length-1,1);
+
+
+//code to reverse a sentence
+public static string ReverseEachWord(string sentence)
+{
+	string[] words = sentence.Split(' ');
+	string[] reversedWords = words.Reverse();
+	string reversedSentence = string.Join(" ",reversedWords);
+	return serversedSentence;
+}
+
+//to find an item in an array
+	int item = Array(arr, element => element ==3);
+	int[] items = Array.FindAll(arr, element=> element>=5)
+	
+	Array.ForEach(items, Console.WriteLine)
+
+Linear search: O(n) time
+Binary Search: O(log(n)) time 
+********************************************
+Agregate and filter arrays in C#
+swap array
+static void ReverseInPlace(int[] input){
+	int temp = input[i];
+input[i] = input[input.Length -i-1];
+input[input.Length-i-1] =temp;
+}
+****************************************************************************************
+move zaroes
+public class Solution {
+    public void MoveZeroes(int[] nums) {
+        int start = 0;
+        for(int i  = 0; i<nums.Length; i++)
+        {
+        
+            if(nums[i]!=0 )
+            {
+                int temp = nums[start];
+                nums[start] = nums[i];
+                nums[i]= temp;
+                start++;
+            }
+        }
+    }
+}
+****************************************************************************************
+Best Time to Buy and Sell Stock
+
+public class Solution {
+    public int MaxProfit(int[] prices) {
+        int ans = 0;
+        int min = prices[0];
+        for(int i = 1; i< prices.Length; i++)
+        {
+            int currentprofit = prices[i] - min;
+            if(currentprofit>ans)
+            {
+                ans = currentprofit;
+            }
+            if(prices[i]<min)
+            min = prices[i];
+        }
+        return ans;
+    }
+
+}
+
+****************************************************************************************
+nums.sort//order in javascript
+Array.Sort(arr)//c#
+****************************************************************************************
+Linked List Cycle
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     public ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public bool HasCycle(ListNode head) {
+        ListNode first = head, second = head;
+        if(head is null || head.next is null)
+        {
+            return false;
+        }
+        do{
+            first = first.next;
+            second = second.next.next;
+            if(first == second)
+            {
+                return true;
+            }
+        }
+        while(first != null && second != null && second.next != null);
+        return false;
+    }
+}
+****************************************************************************************
+static Boolean hasMatchingParenteses(string s){
+	Stack <char> stack = new Stack<char>();
+	for(int i=0; i<s.Length; i++)
+	{
+		char current = s[i];
+		
+		if(current == '(')
+		{
+			stack.Push(current);
+			continue;
+		}
+		if(current == ')')
+		{
+			if(stack.Count >0)
+			{
+				stack.Pop();
+			}
+			else
+			{
+				return false;
+			}
+
+		}
+	}
+	return stack.Count == 0;
+}
+
+//to review values in a dictionary
+if(dictionary.ContainsKey(arr[i]))
+dictionary[arr[i]]++;
+//to display the values
+foreach(KeyValuePair<int,int> x in dictionary){
+	Console.WriteLine(x.Key + " " + x.Value);
+}
+
+
+*****************************************************
+preOrderTraversal(Node root)
+{
+	if(root == null)
+	{
+		return;
+	}
+	Console.WriteLine(root.Data);
+	preOrderTraversal(root.Left);
+	preOrderTraversal(root.Right);	
+}
+
+*****************************************************
+to find the hight of a tree
+public static int FindHeight(TreeNode root)
+{
+	if (root == null)
+	{
+		return 0;
+	}
+	else
+	{
+		int LeftHeight = FindHeight(root.Left);
+		int rightHeight = FindHeight(root.Right);
+		return 1+Math.Max(LeftHeight,rightHeight);
+	}
+}
+**********************************************************
+public class AddWithoutPlus {
+    public static int add(int a, int b) {
+        while (b != 0) {
+            int carry = a & b; // Calculate the carry
+            a = a ^ b;          // Sum without carry
+            b = carry << 1;     // Move carry to the left
+        }
+        return a;
+    }
+**********************************************************
+Anagram Javascript
+var is Anagram = function (string1,string2)
+{
+	var sorted1 = string1.split('').sort().join('');
+	var sorted2 = string2.split('').sort().join('');
+	return sorted1 == sorted2
+}
+Anagram c# 
+public bool IsAnagram(string word1, string word2)
+{
+	char[] charWord1 = word1.ToCharArray();
+	char[] charWord2 = word2.ToCharArray();
+
+	Array.Sort(charWord1);
+	Array.Sort(charWord2);
+	
+	return charWord1.Equals(charWord2);
+}
+**********************************************************
+Maximun subarray
+public int MaxSubArray(int[] nums)
+{
+	int maxSoFar  = nums[i];
+	int currentSum = 0;
+
+	for(int i=0; i<nums.Length; i++)
+	{
+		if(currentSum<0)
+			currentSum = 0;
+		currentSum = currentSum + nums[i];
+		if(maxSoFar<currentSum)
+			maxSoFar = currentSum;
+	}
+	return maxSoFar;
+}
+**********************************************************
+Memoization
+	A technique for speeding up computaions by caching results of repeated calculations.
+Python Fibonacci with cache 
+def fib(n, cache = None):
+	if n == 0: return 1;
+	if n == 1: return 1;
+
+	if cache is None: 
+        cache = Object
+    if n in cache: 
+        return cache[n]
+  
+  result = fib(n-1,cache) + fib(n-2,cache)
+  cache[n] = result
+  return result
+
+fib(8,None)
+
+
+
+fibonacci is linear
+	Dyrect Acyclic Graph(DAG)
+	Graph = verces + edges
+
+Bottom-up dynamic programming represents recursive problems as a DirectAcyclic Graph.
+
+**********************************************************
+to get max value of an array in Javascript
+Math.max(...arry);
+c#
+array.Max();
+**********************************************************
+c#
+maximum-product-subarray
+class Solution{
+	public int maxProducts(int[] nums)
+	{}
+}
+

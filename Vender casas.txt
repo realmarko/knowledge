@@ -1,0 +1,20 @@
+VENDER CASAS
+	Checar la forma de pago
+	Condiciones del inmueble
+	Entorno donde se encuentra
+	
+	Saber el valor real de la propiedad
+	Investigar la documentacion que se debe tenr al corriente
+	Pagos de impuestos que se van a realizar
+	Como se va a recibir el pago
+	Mecanismos de publicidad (investigar como funciona las agencias inmobiliarias)
+	para la venta de una vivienda se requieren los siguientes documento
+		Título de propiedad o escritura notarial
+		Acta de matrimonio, en caso de haber adquirido el inmueble estando casado
+		Boletas de predial y agua pagadas
+		Recibos de luz o teléfono
+
+QUÉ HACE UN NOTARIO
+	El notario público que te vaya a proporcionar el servicio debe ser una persona 	colegiada, es decir, que pertenezca a algún colegio o instituto de valuadores, 	ingenieros, arquitectos o notarios, entre otros
+
+	

@@ -1,0 +1,72 @@
+HackerRank solution
+in program.cs
+	in ConfigureServices()
+	{
+		services.AddTrascient<IBookService,BookService>();
+	}
+
+in bookscontroller
+[HttpPost]
+public async Task<IActionResult> AddBook(int libraryId, [FromBody] bookForm)
+{
+	Library library = (await _libraryService.Get(new int[] { libraryId})).FirstOrDefault();
+	
+	if(library is null)
+		return NotFound();
+	
+	Book book = new Book(){
+		Id = bookForm.Id,
+		Category = bookForm.Category,
+		Name = bookForm.Name,
+		LibraryId = libraryId,
+		Library = library
+	};
+	//return Ok(await _bookService.Add(book));
+	return StatusCode(201,await _bookService.Add(book))
+}
+
+[HttpGet]
+public async Task<IActionResult> GetAll(int LibraryId){
+	Library library = (await _libraryService.Get(new []{libraryId})).FirstOrDefault();
+	if(libraryId is null)
+		return NotFound();
+	return Ok(await _bookService.GetAll(libraryId));	
+
+}
+
+
+//in bookservice
+public async Task<IEnumerable<Book>> GetAll(int libraryId){
+
+	IEnumerable<Book> books =  await _libraryContext.Books.Where(b=>b.LibraryId == libraryId).ToListAsync();
+	return books;
+}
+public async Task<Book> AddBook(Book book)
+{
+	_libraryContext.Books.Add(book);
+	await _libraryCOntext.SaveChangesAsync();
+	
+	return book;
+}
+
+//in libraries controller
+[HttpPut("{libraryId}")]
+public async Task<IActionResult> Update(int libraryId, Library library)
+{
+	var existingLibrary = (await _librariesService.Get(new[]{libraryId})).FirstOrDefault();
+	if(existingLibrary is null)
+	{
+		return NotFound();
+	}
+	await _librariesService.Update(library);
+	return NoContent();
+}
+
+//in libraries services
+public async Task<bool> Delete(Library library)
+{
+	var projectForChanges = await _libraryContext.Libraries.SingleAsync(x=>x.Id == libraryId);
+	
+	_libraryContext.Libraries.Remove(projectForChanges);
+	return await _libraryContext.SaveChangesAsync()>0;
+}
